@@ -62,19 +62,61 @@
 
 					<!-- ko { foreach: hours} -->
 					<td class="cell">
-						<span data-bind="visible: !$data.editingIn(),
-										text: $data.in,
-										click: function() { $data.editIn(); }"></span>
-						<input data-bind="visible: $data.editingIn,
-										  value: $data.in,
-										  hasFocus: $data.editingIn" />
-						<span> - </span>
-						<span data-bind="visible: !$data.editingOut(),
-										text: $data.out,
-										click: function() { $data.editOut(); }"></span>
-						<input data-bind="visible: $data.editingOut,
-										  value: $data.out,
-										  hasFocus: $data.editingOut" />
+						<!-- In time -->
+						<span data-bind="
+							visible: !$data.editingInHour(),
+							text: $data.in.hour,
+							click: function() { $data.editInHour(); }"></span>
+						<select data-bind="
+							visible: $data.editingInHour,
+							options: hours, value: $data.in.hour,
+							hasFocus: $data.editingInHour"></select>
+						<span>:</span>
+						<span data-bind="
+							visible: !$data.editingInMin(),
+							text: ('0' + $data.in.min()).slice(-2),
+							click: function() { $data.editInMin(); }"></span>
+						<select data-bind="
+							visible: $data.editingInMin,
+							options: minutes, value: $data.in.min,
+							hasFocus: $data.editingInMin"></select>
+						<span data-bind="
+							visible: !$data.editingInAM(),
+							text: $data.in.am,
+							click: function() { $data.editInAM(); }"></span>
+						<select data-bind="
+							visible: $data.editingInAM,
+							options: am, value: $data.in.am,
+							hasFocus: $data.editingInAM"></select>
+
+						<span class="spacer"> - </span>
+
+						<!-- Out time -->
+						<span data-bind="
+							visible: !$data.editingOutHour(),
+							text: $data.out.hour,
+							click: function() { $data.editOutHour(); }"></span>
+						<select data-bind="
+							visible: $data.editingOutHour,
+							options: hours, value: $data.out.hour,
+							hasFocus: $data.editingOutHour"></select>
+						<span>:</span>
+						<span data-bind="
+							visible: !$data.editingOutMin(),
+							text: ('0' + $data.out.min()).slice(-2),
+							click: function() { $data.editOutMin(); }"></span>
+						<select data-bind="
+							visible: $data.editingOutMin,
+							options: minutes, value: $data.out.min,
+							hasFocus: $data.editingOutMin"></select>
+						<span data-bind="
+							visible: !$data.editingOutAM(),
+							text: $data.out.am,
+							click: function() { $data.editOutAM(); }"></span>
+						<select data-bind="
+							visible: $data.editingOutAM,
+							options: am, value: $data.out.am,
+							hasFocus: $data.editingOutAM"></select>
 					</td>
 					<!-- /ko -->
 				</tr>

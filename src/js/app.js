@@ -1,12 +1,28 @@
 var periods = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+var hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+var minutes = [
+	00, 01, 02, 03, 04, 05, 06, 07, 08, 09, 10,
+	11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+	21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+	31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+	41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+	51, 52, 53, 54, 55, 56, 57, 58, 59 ];
+var am = ['am', 'pm'];
 var schedule = [
-	{'in': '8:00am', 'out': '4:00pm'},
-	{'in': '8:00am', 'out': '4:00pm'},
-	{'in': '8:00am', 'out': '4:00pm'},
-	{'in': '8:00am', 'out': '4:00pm'},
-	{'in': '8:00am', 'out': '4:00pm'},
-	{'in': '8:00am', 'out': '4:00pm'},
-	{'in': '8:00am', 'out': '4:00pm'},
+	{'in': {'hour': 8, 'min': 0, 'am': 'am'},
+	'out': {'hour': 4, 'min': 0, 'am': 'pm'}},
+	{'in': {'hour': 8, 'min': 0, 'am': 'am'},
+	'out': {'hour': 4, 'min': 0, 'am': 'pm'}},
+	{'in': {'hour': 8, 'min': 0, 'am': 'am'},
+	'out': {'hour': 4, 'min': 0, 'am': 'pm'}},
+	{'in': {'hour': 8, 'min': 0, 'am': 'am'},
+	'out': {'hour': 4, 'min': 0, 'am': 'pm'}},
+	{'in': {'hour': 8, 'min': 0, 'am': 'am'},
+	'out': {'hour': 4, 'min': 0, 'am': 'pm'}},
+	{'in': {'hour': 8, 'min': 0, 'am': 'am'},
+	'out': {'hour': 4, 'min': 0, 'am': 'pm'}},
+	{'in': {'hour': 8, 'min': 0, 'am': 'am'},
+	'out': {'hour': 4, 'min': 0, 'am': 'pm'}},
 ];
 
 var Worker = function(periods, schedule) {
@@ -30,15 +46,39 @@ var Worker = function(periods, schedule) {
 	self.hours = ko.observableArray();
 	for (let i = 0; i < periods.length; i++) {
 		self.hours()[i] = ko.observable({
-			'in' : ko.observable(schedule[i].in),
-			'out' : ko.observable(schedule[i].out),
-			'editingIn' : ko.observable(false),
-			'editingOut' : ko.observable(false),
-			'editIn' : function() {
-				this.editingIn(true);
+			'in' : {
+				'hour': ko.observable(schedule[i].in.hour),
+				'min': ko.observable(schedule[i].in.min),
+				'am': ko.observable(schedule[i].in.am),
 			},
-			'editOut' : function() {
-				this.editingOut(true);
+			'out' : {
+				'hour': ko.observable(schedule[i].out.hour),
+				'min': ko.observable(schedule[i].out.min),
+				'am': ko.observable(schedule[i].out.am)
+			},
+			'editingInHour' : ko.observable(false),
+			'editingInMin' : ko.observable(false),
+			'editingInAM' : ko.observable(false),
+			'editingOutHour' : ko.observable(false),
+			'editingOutMin' : ko.observable(false),
+			'editingOutAM' : ko.observable(false),
+			'editInHour' : function() {
+				this.editingInHour(true);
+			},
+			'editInMin' : function() {
+				this.editingInMin(true);
+			},
+			'editInAM' : function() {
+				this.editingInAM(true);
+			},
+			'editOutHour' : function() {
+				this.editingOutHour(true);
+			},
+			'editOutMin' : function() {
+				this.editingOutMin(true);
+			},
+			'editOutAM' : function() {
+				this.editingOutAM(true);
 			}
 		});
 	}

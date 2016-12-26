@@ -41,6 +41,12 @@ header {
 	min-width: 110px;
 }
 
-.cell input {
-	max-width: 40%;
+.cell span {
+	margin-left: -1px;
+	margin-right: -1px;
+}
+
+.spacer {
+	padding-left: 3px;
+	padding-right: 3px;
 }
