@@ -1,0 +1,37 @@
+/****************************************
+ * General and Typography
+ ****************************************/
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+h1,
+h2,
+h3 {
+	font-family: 'Lustria', serif;
+}
+
+header {
+	text-align: center;
+}
+
+/****************************************
+ * Table Styling
+ ****************************************/
+.heading {
+	font-family: 'Lustria', serif;
+	font-size: 14px;
+}
+
+.cell-title {
+	min-width: 120px;
+}
+
+.cell {
+	font-size: 11px;
+	min-width: 90px;
+}
+
+.cell input {
+	max-width: 40%;
+}

@@ -1,0 +1,90 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Staff Schedule and Task Organizer</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Lustria|Open+Sans"
+		rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+	<link rel="stylesheet" href="css/main.css" type="text/css" />
+</head>
+
+<body>
+
+	<header>
+		<h1>Schedulizer</h1>
+		<div class="cell">Click things to edit, click away to save</div>
+	</header>
+
+	<section id="schedules" class="container" data-bind="foreach: schedules">
+		<!-- Schedule Name -->
+		<h3 data-bind="visible: !$data.editingName(),
+					   text: $data.name,
+					   click: $data.editName"></h3>
+		<h3><input data-bind="visible: $data.editingName,
+							  value: $data.name,
+							  hasFocus: $data.editingName" /></h3>
+
+		<!-- Table -->
+		<table class="table table-striped table-bordered table-hover
+			table-responsive table-condensed">
+
+			<thead>
+				<tr class="heading">
+					<td class="cell-title">Name</td>
+					<td class="cell-title">Job</td>
+					<!-- ko {foreach: $data.periodNames} -->
+					<td data-bind="text: $data"></td>
+					<!-- /ko -->
+				</tr>
+			</thead>
+
+			<tbody data-bind="foreach: $root.workers">
+				<tr>
+					<!-- Worker Name -->
+					<td class="cell">
+						<div data-bind="visible: !editingName(), text: name,
+										click: editName"></div>
+						<input data-bind="visible: editingName, value: name,
+										  hasFocus: editingName" />
+					</td>
+
+					<!-- Worker Job -->
+					<td class="cell">
+						<div data-bind="visible: !editingJob(), text: job,
+										click: editJob"></div>
+						<input data-bind="visible: editingJob, value: job,
+										  hasFocus: editingJob" />
+					</td>
+
+					<!-- ko { foreach: hours} -->
+					<td class="cell">
+						<span data-bind="visible: !$data.editingIn(),
+										text: $data.in,
+										click: function() { $data.editIn(); }"></span>
+						<input data-bind="visible: $data.editingIn,
+										  value: $data.in,
+										  hasFocus: $data.editingIn" />
+						<span> - </span>
+						<span data-bind="visible: !$data.editingOut(),
+										text: $data.out,
+										click: function() { $data.editOut(); }"></span>
+						<input data-bind="visible: $data.editingOut,
+										  value: $data.out,
+										  hasFocus: $data.editingOut" />
+					</td>
+					<!-- /ko -->
+				</tr>
+			</tbody>
+		</table>
+	</section>
+
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script src="js/knockout-3.4.1.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/app.js"></script>
+</body>
+
+</html>
