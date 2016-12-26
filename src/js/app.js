@@ -123,6 +123,16 @@ var ViewModel = function() {
 	self.addSchedule = function() {
 		self.schedules.push(new Schedule(periods, schedule));
 	};
+
+	// Clears focus if enter is pressed
+	self.clearFocus = function(data, event) {
+		if (event && event.keyCode === 13) {
+			document.activeElement.blur();
+			return true;
+		}
+		else
+			return true;
+	};
 };
 
 ko.applyBindings(new ViewModel());
