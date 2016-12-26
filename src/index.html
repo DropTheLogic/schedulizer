@@ -41,7 +41,8 @@
 				</tr>
 			</thead>
 
-			<tbody data-bind="foreach: $root.workers">
+			<tbody>
+				<!-- ko {foreach: workers} -->
 				<tr>
 					<!-- Worker Name -->
 					<td class="cell">
@@ -77,9 +78,23 @@
 					</td>
 					<!-- /ko -->
 				</tr>
+				<!-- /ko -->
 			</tbody>
 		</table>
+
+		<!-- Button to add new worker to schedule -->
+		<button data-bind="click: addWorker" class="button-worker cell">
+			+ Add Worker
+		</button>
+
 	</section>
+
+	<div class="container">
+		<!-- Button to add new schedule -->
+		<button data-bind="click: $root.addSchedule" class="button-schedule">
+			+ Add New Schedule
+		</button>
+	</div>
 
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<script src="js/knockout-3.4.1.js"></script>

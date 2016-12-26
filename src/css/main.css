@@ -15,6 +15,15 @@ header {
 	text-align: center;
 }
 
+.button-worker {
+	margin-top: -10px;
+}
+
+.button-schedule {
+	font-size: 12px;
+	margin-top: 30px;
+}
+
 /****************************************
  * Table Styling
  ****************************************/
@@ -29,7 +38,7 @@ header {
 
 .cell {
 	font-size: 11px;
-	min-width: 90px;
+	min-width: 110px;
 }
 
 .cell input {

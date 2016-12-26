@@ -44,7 +44,7 @@ var Worker = function(periods, schedule) {
 	}
 };
 
-var Schedule = function(periods) {
+var Schedule = function(periods, schedule) {
 	var self = this;
 
 	// Schedule name
@@ -59,19 +59,30 @@ var Schedule = function(periods) {
 	for (let i = 0; i < periods.length; i++) {
 		self.periodNames()[i] = ko.observable(periods[i]);
 	}
+
+	// Define workers array and instantiate one worker
+	self.workers = ko.observableArray([]);
+	self.workers.push(new Worker(periods, schedule));
+
+	// Pushes new worker to workers array for this schedule
+	self.addWorker = function() {
+		self.workers.push(new Worker(periods, schedule));
+	};
 };
 
 var ViewModel = function() {
 	var self = this;
 
-	// Array of workers and schedules
+	// Array of schedules
 	self.schedules = ko.observableArray([]);
-	self.workers = ko.observableArray([]);
 
-	// Instantiate one schedule with one worker
-	self.schedules.push(new Schedule(periods));
-	self.workers.push(new Worker(periods, schedule));
-	console.log(self.workers()[0].hours.length);
+	// Instantiate one schedule
+	self.schedules.push(new Schedule(periods, schedule));
+
+	// Pushes new schedule to schedules array
+	self.addSchedule = function() {
+		self.schedules.push(new Schedule(periods, schedule));
+	};
 };
 
 ko.applyBindings(new ViewModel());
