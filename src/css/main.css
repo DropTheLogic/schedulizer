@@ -24,6 +24,10 @@ header {
 	margin-top: 30px;
 }
 
+.center-text {
+	text-align: center;
+}
+
 /****************************************
  * Table Styling
  ****************************************/

@@ -39,6 +39,7 @@
 					<!-- ko {foreach: $data.periodNames} -->
 					<td data-bind="text: $data"></td>
 					<!-- /ko -->
+					<td class="cell-title center-text">Total Hours</td>
 				</tr>
 			</thead>
 
@@ -122,6 +123,10 @@
 							hasFocus: $data.editingOutAM"></select>
 					</td>
 					<!-- /ko -->
+
+					<!-- Total Hours on Schedule for Worker -->
+					<td class="cell center-text" data-bind="text: totalTime">
+					</td>
 				</tr>
 				<!-- /ko -->
 			</tbody>

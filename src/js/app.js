@@ -82,6 +82,13 @@ var Worker = function(periods, schedule) {
 			}
 		});
 	}
+	self.totalTime = ko.computed(function() {
+		let tt = 0;
+		self.hours().forEach(function(day) {
+			tt += calculateShiftHours(day().in, day().out);
+		});
+		return tt;
+	}, this);
 };
 
 var Schedule = function(periods, schedule) {
@@ -108,6 +115,27 @@ var Schedule = function(periods, schedule) {
 	self.addWorker = function() {
 		self.workers.push(new Worker(periods, schedule));
 	};
+};
+
+/* Returns a decimal number representing time in hours
+ * @param {object} time1 - Contains integer hour, integer min, string am/pm
+ * @param {object} time2 - Contains integer hour, integer min, string am/pm
+ */
+var calculateShiftHours = function(time1, time2) {
+	let t1, t2;
+	// Adjust 12 to zero hour
+	t1 = (time1.hour() === 12) ? 0 : time1.hour();
+	t2 = (time2.hour() === 12) ? 0 : time2.hour();
+	// Add 12 hours if PM
+	t1 += (time1.am() != 'am') ? 12 : 0;
+	t2 += (time2.am() != 'am') ? 12 : 0;
+	// Add minutes as a decimal
+	t1 += time1.min() / 60;
+	t2 += time2.min() / 60;
+	// Subtract second time from first
+	let time = t2 - t1;
+	// If time value is negative, add 24, else, return time
+	return (time < 0) ? time + 24 : time;
 };
 
 var ViewModel = function() {
