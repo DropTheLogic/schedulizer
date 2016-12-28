@@ -42,12 +42,31 @@ header {
 
 .cell {
 	font-size: 11px;
-	min-width: 110px;
+	min-width: 130px;
 }
 
 .cell span {
 	margin-left: -1px;
 	margin-right: -1px;
+}
+
+.set-off {
+	float: right;
+	border: 1px solid #ccc;
+	width: 17px;
+	text-align: center;
+	color: #bbb;
+}
+
+.set-off:hover {
+	background-color: #fff;
+	color: #000;
+}
+
+.off:after {
+	font-family: 'Lustria', serif;
+	font-weight: 700;
+	content: '~ OFF ~';
 }
 
 .spacer {

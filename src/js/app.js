@@ -46,6 +46,10 @@ var Worker = function(periods, schedule) {
 	self.hours = ko.observableArray();
 	for (let i = 0; i < periods.length; i++) {
 		self.hours()[i] = ko.observable({
+			'off' : ko.observable(false),
+			'toggleOff' : function() {
+				(this.off()) ? this.off(false) : this.off(true);
+			},
 			'in' : {
 				'hour': ko.observable(schedule[i].in.hour),
 				'min': ko.observable(schedule[i].in.min),
@@ -85,7 +89,9 @@ var Worker = function(periods, schedule) {
 	self.totalTime = ko.computed(function() {
 		let tt = 0;
 		self.hours().forEach(function(day) {
-			tt += calculateShiftHours(day().in, day().out);
+			if (!day().off()) {
+				tt += calculateShiftHours(day().in, day().out);
+			}
 		});
 		return tt;
 	}, this);

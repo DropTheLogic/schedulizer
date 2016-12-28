@@ -66,6 +66,8 @@
 
 					<!-- ko { foreach: hours} -->
 					<td class="cell">
+					<span data-bind="visible: !$data.off()">
+
 						<!-- In time -->
 						<span data-bind="
 							visible: !$data.editingInHour(),
@@ -121,6 +123,15 @@
 							visible: $data.editingOutAM,
 							options: am, value: $data.out.am,
 							hasFocus: $data.editingOutAM"></select>
+					</span>
+
+					<!-- Display 'Off' Text -->
+					<span data-bind="visible: $data.off" class="off"></span>
+
+					<!-- Set-off Button -->
+					<span data-bind="click: $data.toggleOff"
+						class="set-off">✖</span>
+
 					</td>
 					<!-- /ko -->
 
