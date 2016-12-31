@@ -15,8 +15,11 @@ header {
 	text-align: center;
 }
 
-.button-worker {
-	margin-top: -10px;
+.add-worker {
+	text-align: center;
+	border-left: hidden !important;
+	border-right: hidden !important;
+	background-color: #fff;
 }
 
 .button-schedule {

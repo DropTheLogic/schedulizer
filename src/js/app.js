@@ -121,6 +121,22 @@ var Schedule = function(periods, schedule) {
 	self.addWorker = function() {
 		self.workers.push(new Worker(periods, schedule));
 	};
+
+	// Keep track of distinct jobs entered
+	self.jobs = ko.computed(function() {
+		var jobs = [];
+		self.workers().forEach(function(worker) {
+			var isUnique = true;
+			jobs.forEach(function(exisitingJob) {
+				if (worker.job() === exisitingJob)
+					isUnique = false;
+			});
+			if (isUnique) {
+				jobs.push(worker.job());
+			}
+		});
+		return jobs;
+	}, this);
 };
 
 /* Returns a decimal number representing time in hours

@@ -140,14 +140,32 @@
 					</td>
 				</tr>
 				<!-- /ko -->
+
+				<!-- Button to add new worker to schedule -->
+				<tr><td class="add-worker">
+					<button data-bind="click: addWorker" class="cell btn btn-xs btn-primary">
+						+ Add Worker
+					</button>
+				</td></tr>
+
 			</tbody>
+
+			<!-- Footer for totals -->
+			<tfoot>
+				<tr class="heading">
+					<td class="cell-title">Total in range:</td>
+					<td class="cell-title">Of Job Type:</td>
+				</tr>
+				<tr>
+					<td class="cell">
+
+					</td>
+					<td class="cell">
+						<select data-bind="options: $data.jobs"></select>
+					</td>
+				</tr>
+			</tfoot>
 		</table>
-
-		<!-- Button to add new worker to schedule -->
-		<button data-bind="click: addWorker" class="button-worker cell">
-			+ Add Worker
-		</button>
-
 	</section>
 
 	<div class="container">
