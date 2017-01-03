@@ -122,6 +122,11 @@ var Schedule = function(periods, schedule) {
 		self.workers.push(new Worker(periods, schedule));
 	};
 
+	// Deletes worker from workers array
+	self.deleteWorker = function(index) {
+		self.workers.splice(index, 1);
+	}
+
 	// Keep track of distinct jobs entered
 	self.jobs = ko.computed(function() {
 		var jobs = [];

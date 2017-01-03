@@ -138,11 +138,19 @@
 					<!-- Total Hours on Schedule for Worker -->
 					<td class="cell center-text" data-bind="text: totalTime">
 					</td>
+
+					<!-- Button to Delete Worker -->
+					<td class="worker-button-cell">
+						<button class="cell btn btn-xs btn-danger"
+							data-bind="click: $parent.deleteWorker">
+							✖ Delete Worker
+						</button>
+					</td>
 				</tr>
 				<!-- /ko -->
 
 				<!-- Button to add new worker to schedule -->
-				<tr><td class="add-worker">
+				<tr><td class="worker-button-cell">
 					<button data-bind="click: addWorker" class="cell btn btn-xs btn-primary">
 						+ Add Worker
 					</button>
