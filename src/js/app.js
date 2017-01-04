@@ -9,21 +9,46 @@ var minutes = [
 	51, 52, 53, 54, 55, 56, 57, 58, 59 ];
 var am = ['am', 'pm'];
 var schedule = [
-	{'in': {'hour': 8, 'min': 0, 'am': 'am'},
-	'out': {'hour': 4, 'min': 0, 'am': 'pm'}},
-	{'in': {'hour': 8, 'min': 0, 'am': 'am'},
-	'out': {'hour': 4, 'min': 0, 'am': 'pm'}},
-	{'in': {'hour': 8, 'min': 0, 'am': 'am'},
-	'out': {'hour': 4, 'min': 0, 'am': 'pm'}},
-	{'in': {'hour': 8, 'min': 0, 'am': 'am'},
-	'out': {'hour': 4, 'min': 0, 'am': 'pm'}},
-	{'in': {'hour': 8, 'min': 0, 'am': 'am'},
-	'out': {'hour': 4, 'min': 0, 'am': 'pm'}},
-	{'in': {'hour': 8, 'min': 0, 'am': 'am'},
-	'out': {'hour': 4, 'min': 0, 'am': 'pm'}},
-	{'in': {'hour': 8, 'min': 0, 'am': 'am'},
-	'out': {'hour': 4, 'min': 0, 'am': 'pm'}},
+	{'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
+	'out': {'hour': 4, 'min': 0, 'ampm': 'pm'}},
+	{'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
+	'out': {'hour': 4, 'min': 0, 'ampm': 'pm'}},
+	{'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
+	'out': {'hour': 4, 'min': 0, 'ampm': 'pm'}},
+	{'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
+	'out': {'hour': 4, 'min': 0, 'ampm': 'pm'}},
+	{'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
+	'out': {'hour': 4, 'min': 0, 'ampm': 'pm'}},
+	{'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
+	'out': {'hour': 4, 'min': 0, 'ampm': 'pm'}},
+	{'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
+	'out': {'hour': 4, 'min': 0, 'ampm': 'pm'}},
 ];
+
+/**
+ * Returns time object with observable attributes
+ * @constructor
+ * @param {object} day - Holds parameters for hour, minute, am
+ */
+var KoEditableTime = function(day) {
+	return {
+		'hour': ko.observable(day.hour),
+		'min': ko.observable(day.min),
+		'ampm': ko.observable(day.ampm),
+		'editingHour' : ko.observable(false),
+		'editingMin' : ko.observable(false),
+		'editingAM' : ko.observable(false),
+		'editHour' : function() {
+			this.editingHour(true);
+		},
+		'editMin' : function() {
+			this.editingMin(true);
+		},
+		'editAM' : function() {
+			this.editingAM(true);
+		}
+	}
+};
 
 var Worker = function(periods, schedule) {
 	var self = this;
@@ -50,40 +75,8 @@ var Worker = function(periods, schedule) {
 			'toggleOff' : function() {
 				(this.off()) ? this.off(false) : this.off(true);
 			},
-			'in' : {
-				'hour': ko.observable(schedule[i].in.hour),
-				'min': ko.observable(schedule[i].in.min),
-				'am': ko.observable(schedule[i].in.am),
-			},
-			'out' : {
-				'hour': ko.observable(schedule[i].out.hour),
-				'min': ko.observable(schedule[i].out.min),
-				'am': ko.observable(schedule[i].out.am)
-			},
-			'editingInHour' : ko.observable(false),
-			'editingInMin' : ko.observable(false),
-			'editingInAM' : ko.observable(false),
-			'editingOutHour' : ko.observable(false),
-			'editingOutMin' : ko.observable(false),
-			'editingOutAM' : ko.observable(false),
-			'editInHour' : function() {
-				this.editingInHour(true);
-			},
-			'editInMin' : function() {
-				this.editingInMin(true);
-			},
-			'editInAM' : function() {
-				this.editingInAM(true);
-			},
-			'editOutHour' : function() {
-				this.editingOutHour(true);
-			},
-			'editOutMin' : function() {
-				this.editingOutMin(true);
-			},
-			'editOutAM' : function() {
-				this.editingOutAM(true);
-			}
+			'in' : new KoEditableTime(schedule[i].in),
+			'out' : new KoEditableTime(schedule[i].out)
 		});
 	}
 	self.totalTime = ko.computed(function() {
@@ -154,8 +147,8 @@ var calculateShiftHours = function(time1, time2) {
 	t1 = (time1.hour() === 12) ? 0 : time1.hour();
 	t2 = (time2.hour() === 12) ? 0 : time2.hour();
 	// Add 12 hours if PM
-	t1 += (time1.am() != 'am') ? 12 : 0;
-	t2 += (time2.am() != 'am') ? 12 : 0;
+	t1 += (time1.ampm() != 'am') ? 12 : 0;
+	t2 += (time2.ampm() != 'am') ? 12 : 0;
 	// Add minutes as a decimal
 	t1 += time1.min() / 60;
 	t2 += time2.min() / 60;
