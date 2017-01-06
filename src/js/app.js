@@ -137,25 +137,32 @@ var Schedule = function(periods, schedule) {
 	}, this);
 };
 
-/* Returns a decimal number representing time in hours
+/**
+ * Returns a decimal number representing length of time in hours
  * @param {object} time1 - Contains integer hour, integer min, string am/pm
  * @param {object} time2 - Contains integer hour, integer min, string am/pm
  */
 var calculateShiftHours = function(time1, time2) {
-	let t1, t2;
-	// Adjust 12 to zero hour
-	t1 = (time1.hour() === 12) ? 0 : time1.hour();
-	t2 = (time2.hour() === 12) ? 0 : time2.hour();
-	// Add 12 hours if PM
-	t1 += (time1.ampm() != 'am') ? 12 : 0;
-	t2 += (time2.ampm() != 'am') ? 12 : 0;
-	// Add minutes as a decimal
-	t1 += time1.min() / 60;
-	t2 += time2.min() / 60;
+	let t1 = convertTimeToDecimal(time1);
+	let t2 = convertTimeToDecimal(time2);
 	// Subtract second time from first
 	let time = t2 - t1;
 	// If time value is negative, add 24, else, return time
 	return (time < 0) ? time + 24 : time;
+};
+
+/**
+ * Returns a decimal number representing time in hours
+ * @param {object} time - Contains integer hour, integer min, string am/pm
+ */
+var convertTimeToDecimal = function(time) {
+	// Adjust 12 to zero hour
+	let t = (time.hour() === 12) ? 0 : time.hour();
+	// Add 12 hours if PM
+	t += (time.ampm() != 'am') ? 12 : 0;
+	// Add minutes as a decimal
+	t += time.min() / 60;
+	return t;
 };
 
 var ViewModel = function() {
