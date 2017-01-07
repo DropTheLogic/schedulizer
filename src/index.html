@@ -166,14 +166,77 @@
 					<td class="cell-title">Total in range:</td>
 					<td class="cell-title">Of Job Type:</td>
 				</tr>
+				<!-- ko { foreach: queries } -->
 				<tr>
+					<!-- Query time selector -->
 					<td class="cell">
+						<!-- ko { with: $data.target.start } -->
+						<span data-bind="
+							visible: !$data.editingHour(), text: $data.hour,
+							click: function() { $data.editHour(); }"></span>
+						<select data-bind="
+							visible: $data.editingHour,
+							options: hours, value: $data.hour,
+							hasFocus: $data.editingHour"></select>
+						<span>:</span>
+						<span data-bind="
+							visible: !$data.editingMin(),
+							text: ('0' + $data.min()).slice(-2),
+							click: function() { $data.editMin(); }"></span>
+						<select data-bind="
+							visible: $data.editingMin,
+							options: minutes, value: $data.min,
+							hasFocus: $data.editingMin"></select>
+						<span data-bind="
+							visible: !$data.editingAM(), text: $data.ampm,
+							click: function() { $data.editAM(); }"></span>
+						<select data-bind="
+							visible: $data.editingAM,
+							options: am, value: $data.ampm,
+							hasFocus: $data.editingAM"></select>
+						<!-- /ko -->
 
+						<span class="spacer">to</span>
+
+						<!-- ko { with: $data.target.end } -->
+						<span data-bind="
+							visible: !$data.editingHour(), text: $data.hour,
+							click: function() { $data.editHour(); }"></span>
+						<select data-bind="
+							visible: $data.editingHour,
+							options: hours, value: $data.hour,
+							hasFocus: $data.editingHour"></select>
+						<span>:</span>
+						<span data-bind="
+							visible: !$data.editingMin(),
+							text: ('0' + $data.min()).slice(-2),
+							click: function() { $data.editMin(); }"></span>
+						<select data-bind="
+							visible: $data.editingMin,
+							options: minutes, value: $data.min,
+							hasFocus: $data.editingMin"></select>
+						<span data-bind="
+							visible: !$data.editingAM(), text: $data.ampm,
+							click: function() { $data.editAM(); }"></span>
+						<select data-bind="
+							visible: $data.editingAM,
+							options: am, value: $data.ampm,
+							hasFocus: $data.editingAM"></select>
+						<!-- /ko -->
 					</td>
+
+					<!-- Job selector, to match query against -->
 					<td class="cell">
-						<select data-bind="options: $data.jobs"></select>
+						<select data-bind="options: $parent.jobs,
+							value: $data.target.job"></select>
 					</td>
+
+					<!-- ko { foreach: $data.tallies } -->
+					<td class="cell center-text" data-bind="text: $data"></td>
+					<!-- /ko -->
+
 				</tr>
+				<!-- /ko -->
 			</tfoot>
 		</table>
 	</section>

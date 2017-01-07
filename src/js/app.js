@@ -135,6 +135,76 @@ var Schedule = function(periods, schedule) {
 		});
 		return jobs;
 	}, this);
+
+	// Define array to hold queries and instantiate one query
+	self.queries = ko.observableArray([]);
+	self.queries.push( new Query(self.workers) );
+};
+
+/**
+ * Returns Query object that takes an array of workers, and tallies matches
+ * between the worker's schedules and certain observable targets.
+ * @constructor
+ * @param {object} workers - observable array of worker objects
+ */
+var Query = function(workers) {
+	var self = this;
+
+	// Array of each day's query tallies
+	self.tallies = ko.observableArray([]);
+
+	// Targets for query to match
+	self.target = {
+		start: new KoEditableTime({hour: 8, min: 30, ampm: 'am'}),
+		end: new KoEditableTime({hour: 4, min: 30, ampm: 'pm'}),
+		job: ko.observable() };
+
+	// Calculate result of query
+	self.result = function(day) {
+		let targetJob = self.target.job;
+		return ko.computed(function() {
+			// How many workers can be matched on this day
+			let tally = 0;
+			// Cycle through each worker to tally up
+			workers().forEach(function(worker) {
+				// Find if worker is off today or is working
+				let isWorking = !worker.hours()[day]().off();
+				if (isWorking && worker.job() === targetJob() &&
+					isInRange(worker.hours()[day](), self.target)) {
+					tally++;
+				}
+			});
+			return tally;
+		}, this);
+	};
+
+	// Add a single tally to tallies array
+	self.addTallies = function(day) {
+		self.tallies.push(self.result(day));
+	};
+
+	// Add tally for each day
+	for (let i = 0; i < periods.length; i++) {
+		self.addTallies(i);
+	}
+};
+
+/**
+ * Returns a true if worker hours overlap with target times
+ * @param {object} workerHours - Contains integer hour, integer min, string am/pm
+ * @param {object} target - Contains integer hour, integer min, string am/pm
+ */
+var isInRange = function(workerHours, target) {
+	let targetStart = convertTimeToDecimal(target.start);
+	let targetEnd = convertTimeToDecimal(target.end);
+	let workerIn = convertTimeToDecimal(workerHours.in);
+	let workerOut = convertTimeToDecimal(workerHours.out);
+
+	if (workerIn > targetStart && workerIn < targetEnd ||
+		workerIn < targetStart && workerOut > targetStart) {
+		return true;
+	}
+	return false;
 };
 
 /**
