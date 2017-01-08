@@ -139,6 +139,16 @@ var Schedule = function(periods, schedule) {
 	// Define array to hold queries and instantiate one query
 	self.queries = ko.observableArray([]);
 	self.queries.push( new Query(self.workers) );
+
+	// Push new Query to queries array
+	self.addQuery = function() {
+		self.queries.push( new Query(self.workers) );
+	};
+
+	// Delete query from queries array
+	self.deleteQuery = function(index) {
+		self.queries.splice(index, 1)
+	}
 };
 
 /**

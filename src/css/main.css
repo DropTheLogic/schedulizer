@@ -15,11 +15,26 @@ header {
 	text-align: center;
 }
 
-.worker-button-cell {
+.button-cell {
 	text-align: center;
+	background-color: #fff;
+}
+
+.add-worker {
 	border-left: hidden !important;
 	border-right: hidden !important;
-	background-color: #fff;
+}
+
+.add-query {
+	border-left: hidden !important;
+	border-right: hidden !important;
+	border-bottom: hidden !important;
+}
+
+.delete {
+	border-top: hidden !important;
+	border-bottom: hidden !important;
+	border-right: hidden !important;
 }
 
 .button-schedule {
