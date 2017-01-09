@@ -8,21 +8,60 @@ var minutes = [
 	41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
 	51, 52, 53, 54, 55, 56, 57, 58, 59 ];
 var am = ['am', 'pm'];
-var schedule = [
-	{'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
-	'out': {'hour': 4, 'min': 0, 'ampm': 'pm'}},
-	{'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
-	'out': {'hour': 4, 'min': 0, 'ampm': 'pm'}},
-	{'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
-	'out': {'hour': 4, 'min': 0, 'ampm': 'pm'}},
-	{'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
-	'out': {'hour': 4, 'min': 0, 'ampm': 'pm'}},
-	{'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
-	'out': {'hour': 4, 'min': 0, 'ampm': 'pm'}},
-	{'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
-	'out': {'hour': 4, 'min': 0, 'ampm': 'pm'}},
-	{'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
-	'out': {'hour': 4, 'min': 0, 'ampm': 'pm'}},
+
+var workersData = [
+	{
+		name: 'John Doe',
+		job: 'Job name',
+		hours: [
+			{
+				'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
+				'out': {'hour': 4, 'min': 0, 'ampm': 'pm'},
+				'off': true },
+			{
+				'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
+				'out': {'hour': 4, 'min': 0, 'ampm': 'pm'},
+				'off': false },
+			{
+				'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
+				'out': {'hour': 4, 'min': 0, 'ampm': 'pm'},
+				'off': false },
+			{
+				'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
+				'out': {'hour': 4, 'min': 0, 'ampm': 'pm'},
+				'off': false },
+			{
+				'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
+				'out': {'hour': 4, 'min': 0, 'ampm': 'pm'},
+				'off': false },
+			{
+				'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
+				'out': {'hour': 4, 'min': 0, 'ampm': 'pm'},
+				'off': false },
+			{
+				'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
+				'out': {'hour': 4, 'min': 0, 'ampm': 'pm'},
+				'off': true }
+		]
+	}
+];
+
+var queriesData = [
+	{
+		target: {
+			start: {hour: 8, min: 30, ampm: 'am'},
+			end: {hour: 4, min: 30, ampm: 'pm'},
+			job: 'Some job'
+		}
+	}
+];
+
+var scheduleData = [
+	{
+		name: 'My Schedule',
+		workers: workersData,
+		queries: queriesData
+	}
 ];
 
 /**
@@ -50,18 +89,18 @@ var KoEditableTime = function(day) {
 	}
 };
 
-var Worker = function(periods, schedule) {
+var Worker = function(periods, data) {
 	var self = this;
 
 	// Worker Name
-	self.name = ko.observable('John Doe');
+	self.name = ko.observable(data.name);
 	self.editingName = ko.observable(false);
 	self.editName = function() {
 		self.editingName(true);
 	};
 
 	// Worker Job
-	self.job = ko.observable('Job name');
+	self.job = ko.observable(data.job);
 	self.editingJob = ko.observable(false);
 	self.editJob = function() {
 		self.editingJob(true);
@@ -71,12 +110,12 @@ var Worker = function(periods, schedule) {
 	self.hours = ko.observableArray();
 	for (let i = 0; i < periods.length; i++) {
 		self.hours()[i] = ko.observable({
-			'off' : ko.observable(false),
+			'off' : ko.observable(data.hours[i].off),
 			'toggleOff' : function() {
 				(this.off()) ? this.off(false) : this.off(true);
 			},
-			'in' : new KoEditableTime(schedule[i].in),
-			'out' : new KoEditableTime(schedule[i].out)
+			'in' : new KoEditableTime(data.hours[i].in),
+			'out' : new KoEditableTime(data.hours[i].out)
 		});
 	}
 	self.totalTime = ko.computed(function() {
@@ -90,11 +129,11 @@ var Worker = function(periods, schedule) {
 	}, this);
 };
 
-var Schedule = function(periods, schedule) {
+var Schedule = function(periods, data) {
 	var self = this;
 
 	// Schedule name
-	self.name = ko.observable('My Schedule');
+	self.name = ko.observable(data.name);
 	self.editingName = ko.observable(false);
 	self.editName = function(name) {
 		self.editingName(true);
@@ -106,13 +145,15 @@ var Schedule = function(periods, schedule) {
 		self.periodNames()[i] = ko.observable(periods[i]);
 	}
 
-	// Define workers array and instantiate one worker
+	// Define workers observable array and load workers from raw data
 	self.workers = ko.observableArray([]);
-	self.workers.push(new Worker(periods, schedule));
+	data.workers.forEach(function(workerData) {
+		self.workers.push(new Worker(periods, workerData));
+	});
 
 	// Pushes new worker to workers array for this schedule
 	self.addWorker = function() {
-		self.workers.push(new Worker(periods, schedule));
+		self.workers.push(new Worker(periods, workersData[0]));
 	};
 
 	// Deletes worker from workers array
@@ -136,13 +177,15 @@ var Schedule = function(periods, schedule) {
 		return jobs;
 	}, this);
 
-	// Define array to hold queries and instantiate one query
+	// Define array to hold queries and load queries from raw data
 	self.queries = ko.observableArray([]);
-	self.queries.push( new Query(self.workers) );
+	data.queries.forEach(function(queryData) {
+		self.queries.push( new Query(self.workers, queryData) );
+	});
 
 	// Push new Query to queries array
 	self.addQuery = function() {
-		self.queries.push( new Query(self.workers) );
+		self.queries.push( new Query(self.workers, data.queries[0]) );
 	};
 
 	// Delete query from queries array
@@ -157,7 +200,7 @@ var Schedule = function(periods, schedule) {
  * @constructor
  * @param {object} workers - observable array of worker objects
  */
-var Query = function(workers) {
+var Query = function(workers, targetData) {
 	var self = this;
 
 	// Array of each day's query tallies
@@ -165,9 +208,9 @@ var Query = function(workers) {
 
 	// Targets for query to match
 	self.target = {
-		start: new KoEditableTime({hour: 8, min: 30, ampm: 'am'}),
-		end: new KoEditableTime({hour: 4, min: 30, ampm: 'pm'}),
-		job: ko.observable() };
+		start: new KoEditableTime(targetData.target.start),
+		end: new KoEditableTime(targetData.target.end),
+		job: ko.observable(targetData.target.job) };
 
 	// Calculate result of query
 	self.result = function(day) {
@@ -252,11 +295,15 @@ var ViewModel = function() {
 	self.schedules = ko.observableArray([]);
 
 	// Instantiate one schedule
-	self.schedules.push(new Schedule(periods, schedule));
+	self.schedules.push(
+		ko.observable(new Schedule(periods, scheduleData[0]))
+	);
 
 	// Pushes new schedule to schedules array
 	self.addSchedule = function() {
-		self.schedules.push(new Schedule(periods, schedule));
+		self.schedules.push(
+			ko.observable(new Schedule(periods, scheduleData[0]))
+		);
 	};
 
 	// Clears focus if enter is pressed
