@@ -252,6 +252,27 @@
 					</button>
 				</td></tr>
 
+				<!-- Buttons for schedule management -->
+				<tr>
+					<!-- Save schedule button -->
+					<td class="button-cell schedule-manage">
+						<button class="cell btn btn-sm btn-success"
+							data-bind="click: function() {
+								$root.saveSchedule($data); }">
+							Save Schedule
+						</button>
+					</td>
+
+					<!-- Load schedule button -->
+					<td class="button-cell schedule-manage">
+						<button class="cell btn btn-sm btn-warning"
+							data-bind="click: function() {
+								$root.loadSchedule($data, $index);}" >
+							Load Schedule
+						</button>
+					</td>
+				</tr>
+
 			</tfoot>
 		</table>
 	</section>

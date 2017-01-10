@@ -37,6 +37,11 @@ header {
 	border-right: hidden !important;
 }
 
+.schedule-manage {
+	border: hidden !important;
+	padding-top: 25px !important;
+}
+
 .button-schedule {
 	font-size: 12px;
 	margin-top: 30px;

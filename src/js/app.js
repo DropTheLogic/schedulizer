@@ -315,6 +315,33 @@ var ViewModel = function() {
 		else
 			return true;
 	};
+
+	// Use localStorage to save current schedule
+	self.saveSchedule = function(data) {
+		let verified = confirm('Overwrite previous data file?');
+		if (verified) {
+			let scheduleJSON = ko.toJSON(data);
+			localStorage.savedScheduleJSON = scheduleJSON;
+		}
+	};
+
+	// Use localStorage to load saved schedule
+	self.loadSchedule = function(data, index) {
+		if (localStorage.savedSchedule) {
+			let parsedData = JSON.parse(localStorage.savedScheduleJSON);
+			let name = parsedData.name;
+			let verified = confirm(
+				'Overwrite current schedule with saved schedule "' + name + '"?'
+			);
+			if (verified) {
+				let i = index();
+				self.schedules()[i](new Schedule(periods, parsedData));
+			}
+		}
+		else {
+			alert('Warning: no save data found!');
+		}
+	};
 };
 
 ko.applyBindings(new ViewModel());
