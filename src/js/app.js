@@ -342,6 +342,25 @@ var ViewModel = function() {
 			alert('Warning: no save data found!');
 		}
 	};
+
+	// Add new Schedule at the current position of the schedules array
+	self.newSchedule = function(data, index) {
+		let i = index();
+		self.schedules.splice(i + 1, 0,
+			ko.observable(new Schedule(periods, scheduleData[0]))
+		);
+	};
+
+	// Remove current schedule from array and from page
+	self.removeSchedule = function(data, index) {
+		let name = data.name();
+		let verified = confirm('Really remove the schedule "' + name +
+			'" from the page?');
+		if (verified) {
+			let i = index();
+			self.schedules.splice(i, 1);
+		}
+	}
 };
 
 ko.applyBindings(new ViewModel());

@@ -254,6 +254,15 @@
 
 				<!-- Buttons for schedule management -->
 				<tr>
+					<!-- Add new schedule -->
+					<td class="button-cell schedule-manage">
+						<button class="cell btn btn-sm btn-primary"
+							data-bind="click: function() {
+								$root.newSchedule($data, $index); }">
+							+ New Schedule
+						</button>
+					</td>
+
 					<!-- Save schedule button -->
 					<td class="button-cell schedule-manage">
 						<button class="cell btn btn-sm btn-success"
@@ -269,6 +278,15 @@
 							data-bind="click: function() {
 								$root.loadSchedule($data, $index);}" >
 							Load Schedule
+						</button>
+					</td>
+
+					<!-- Remove schedule button -->
+					<td class="button-cell schedule-manage">
+						<button class="cell btn btn-sm btn-danger"
+							data-bind="click: function() {
+								$root.removeSchedule($data, $index);}" >
+							Remove Schedule
 						</button>
 					</td>
 				</tr>
