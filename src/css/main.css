@@ -15,6 +15,14 @@ header {
 	text-align: center;
 }
 
+#schedules h3 {
+	margin-top: 40px;
+}
+
+#schedules h3:first-of-type {
+	margin-top: 20px;
+}
+
 .button-cell {
 	text-align: center;
 	background-color: #fff;
