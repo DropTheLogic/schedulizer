@@ -148,12 +148,12 @@ var Schedule = function(periods, data) {
 	// Define workers observable array and load workers from raw data
 	self.workers = ko.observableArray([]);
 	data.workers.forEach(function(workerData) {
-		self.workers.push(new Worker(periods, workerData));
+		self.workers.push(ko.observable(new Worker(periods, workerData)));
 	});
 
 	// Pushes new worker to workers array for this schedule
 	self.addWorker = function() {
-		self.workers.push(new Worker(periods, workersData[0]));
+		self.workers.push(ko.observable(new Worker(periods, workersData[0])));
 	};
 
 	// Deletes worker from workers array
@@ -167,11 +167,11 @@ var Schedule = function(periods, data) {
 		self.workers().forEach(function(worker) {
 			var isUnique = true;
 			jobs.forEach(function(exisitingJob) {
-				if (worker.job() === exisitingJob)
+				if (worker().job() === exisitingJob)
 					isUnique = false;
 			});
 			if (isUnique) {
-				jobs.push(worker.job());
+				jobs.push(worker().job());
 			}
 		});
 		return jobs;
@@ -221,9 +221,9 @@ var Query = function(workers, targetData) {
 			// Cycle through each worker to tally up
 			workers().forEach(function(worker) {
 				// Find if worker is off today or is working
-				let isWorking = !worker.hours()[day]().off();
-				if (isWorking && worker.job() === targetJob() &&
-					isInRange(worker.hours()[day](), self.target)) {
+				let isWorking = !worker().hours()[day]().off();
+				if (isWorking && worker().job() === targetJob() &&
+					isInRange(worker().hours()[day](), self.target)) {
 					tally++;
 				}
 			});
