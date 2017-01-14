@@ -28,6 +28,11 @@ header {
 	background-color: #fff;
 }
 
+.button-worker {
+	width: 25px;
+	margin: 0px 2px;
+}
+
 .add-worker {
 	border-left: hidden !important;
 	border-right: hidden !important;
@@ -39,7 +44,8 @@ header {
 	border-bottom: hidden !important;
 }
 
-.delete {
+.manage-worker {
+	display: inline-flex;
 	border-top: hidden !important;
 	border-bottom: hidden !important;
 	border-right: hidden !important;

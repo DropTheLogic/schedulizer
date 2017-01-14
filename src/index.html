@@ -141,12 +141,43 @@
 					<td class="cell center-text" data-bind="text: totalTime">
 					</td>
 
-					<!-- Button to Delete Worker -->
-					<td class="button-cell delete">
-						<button class="cell btn btn-xs btn-danger"
-							data-bind="click: $parent.deleteWorker">
-							✖ Delete Worker
-						</button>
+					<!-- Buttons to manage Worker -->
+					<td class="button-cell manage-worker">
+
+						<!-- Move worker up -->
+						<button title="Move This Worker Up One"
+							class="btn btn-xs btn-info button-worker"
+							data-bind="click: function(){
+								$parent.moveWorker($rawData, $index, -1); }" >
+							↑↑</button>
+
+						<!-- Move worker down -->
+						<button title="Move This Worker Down One"
+							class="btn btn-xs btn-info button-worker"
+							data-bind="click: function(){
+								$parent.moveWorker($rawData, $index, 1); }" >
+							↓↓</button>
+
+						<!-- Insert new worker above -->
+						<button title="Add Worker Before"
+							class="btn btn-xs btn-primary button-worker"
+							data-bind="click: function() {
+								$parent.addWorker($index, 0); }">
+							+↑</button>
+
+						<!-- Insert new worker below -->
+						<button title="Add Worker After"
+							class="btn btn-xs btn-primary button-worker"
+							data-bind="click: function() {
+								$parent.addWorker($index, 1); }">
+							+↓</button>
+
+						<!-- Delete worker -->
+						<button title="Delete Worker"
+							class="btn btn-xs btn-danger button-worker"
+							data-bind="click: function() {
+								$parent.deleteWorker($index); }">
+							x</button>
 					</td>
 				</tr>
 				<!-- /ko -->

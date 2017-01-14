@@ -151,15 +151,56 @@ var Schedule = function(periods, data) {
 		self.workers.push(ko.observable(new Worker(periods, workerData)));
 	});
 
-	// Pushes new worker to workers array for this schedule
-	self.addWorker = function() {
-		self.workers.push(ko.observable(new Worker(periods, workersData[0])));
+	/**
+	 * Pushes new worker to workers array for this schedule
+	 * @param {object} index - observable index of current data (optional)
+	 * @param {integer} newIndex - index of desired insertion,
+	 *								  relative to index parameter (optional)
+	 */
+	self.addWorker = function(index, newIndex) {
+		// If insertion location provided, insert new worker there
+		if (typeof newIndex === 'number') {
+			let i = index();
+			self.workers.splice(i + newIndex, 0,
+				ko.observable(new Worker(periods, workersData[0]))
+			);
+		}
+		// If no insertion parameter passed, add a new worker at the end
+		else {
+			self.workers.push(
+				ko.observable(new Worker(periods, workersData[0]))
+			);
+		}
+	};
+
+	/**
+	 * Moves current worker to given relative index position
+	 * @param {object} data - current observable Worker object
+	 * @param {object} index - observable index of current data
+	 * @param {integer} newIndex - desired index, relative to current index
+	 */
+	self.moveWorker = function(data, index, newIndex) {
+		let i = index();
+		let j = i + newIndex;
+
+		// Make sure requested move is within bounds
+		if (j >= 0 && j < self.workers().length) {
+			// Store target index data in temp variable
+			let temp = self.workers()[j]();
+
+			// Assign current data to target index
+			self.workers()[j](data());
+
+			// Assign temp data to old index position
+			self.workers()[i](temp);
+		}
 	};
 
 	// Deletes worker from workers array
 	self.deleteWorker = function(index) {
-		self.workers.splice(index, 1);
-	}
+		let i = index();
+		self.workers.splice(i, 1);
+	};
 
 	// Keep track of distinct jobs entered
 	self.jobs = ko.computed(function() {
