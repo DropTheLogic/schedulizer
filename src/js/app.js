@@ -368,7 +368,7 @@ var ViewModel = function() {
 
 	// Use localStorage to load saved schedule
 	self.loadSchedule = function(data, index) {
-		if (localStorage.savedSchedule) {
+		if (localStorage.savedScheduleJSON) {
 			let parsedData = JSON.parse(localStorage.savedScheduleJSON);
 			let name = parsedData.name;
 			let verified = confirm(
