@@ -21,7 +21,7 @@
 	<section id="schedules" class="container" data-bind="foreach: schedules">
 		<!-- Schedule Name -->
 		<h3><span data-bind="visible: !$data.editingName(),
-					   text: $data.name,
+					   text: ($data.name() === '') ? '[Name]' : $data.name,
 					   click: $data.editName"></span>
 			<span><input data-bind="visible: $data.editingName,
 							  value: $data.name,
@@ -48,7 +48,8 @@
 				<tr>
 					<!-- Worker Name -->
 					<td class="cell">
-						<div data-bind="visible: !editingName(), text: name,
+						<div data-bind="visible: !editingName(),
+										text: (name() != '') ? name : '[Name]',
 										click: editName"></div>
 						<input data-bind="visible: editingName, value: name,
 										  event: {keydown: $root.clearFocus},
@@ -57,7 +58,8 @@
 
 					<!-- Worker Job -->
 					<td class="cell">
-						<div data-bind="visible: !editingJob(), text: job,
+						<div data-bind="visible: !editingJob(),
+										text: (job() != '') ? job : '[Job]',
 										click: editJob"></div>
 						<input data-bind="visible: editingJob, value: job,
 										  event: {keydown: $root.clearFocus},
