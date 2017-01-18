@@ -165,14 +165,14 @@
 						<button title="Add Worker Before"
 							class="btn btn-xs btn-primary button-worker"
 							data-bind="click: function() {
-								$parent.addWorker($index, 0); }">
+								$parent.addWorker($rawData, $index, 0); }">
 							+↑</button>
 
 						<!-- Insert new worker below -->
 						<button title="Add Worker After"
 							class="btn btn-xs btn-primary button-worker"
 							data-bind="click: function() {
-								$parent.addWorker($index, 1); }">
+								$parent.addWorker($rawData, $index, 1); }">
 							+↓</button>
 
 						<!-- Delete worker -->

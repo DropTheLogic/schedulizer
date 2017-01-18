@@ -153,16 +153,19 @@ var Schedule = function(periods, data) {
 
 	/**
 	 * Pushes new worker to workers array for this schedule
+	 * @param {object} data - observable Worker data (optional)
 	 * @param {object} index - observable index of current data (optional)
 	 * @param {integer} newIndex - index of desired insertion,
 	 *								  relative to index parameter (optional)
 	 */
-	self.addWorker = function(index, newIndex) {
+	self.addWorker = function(data, index, newIndex) {
 		// If insertion location provided, insert new worker there
 		if (typeof newIndex === 'number') {
 			let i = index();
+			// Flatten worker data to be parsed by Worker function
+			let workerData = ko.toJS(data);
 			self.workers.splice(i + newIndex, 0,
-				ko.observable(new Worker(periods, workersData[0]))
+				ko.observable(new Worker(periods, workerData))
 			);
 		}
 		// If no insertion parameter passed, add a new worker at the end
