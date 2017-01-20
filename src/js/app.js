@@ -405,6 +405,35 @@ var ViewModel = function() {
 			self.schedules.splice(i, 1);
 		}
 	}
+
+	// Save suite of schedules to local storage
+	self.saveSuite = function() {
+		let verified = confirm('Overwrite previous save data file?');
+		if (verified) {
+			let suiteJSON = ko.toJSON(self.schedules);
+			localStorage.savedSuiteJSON = suiteJSON;
+		}
+	};
+
+	// Load suite of schedules from local storage
+	self.loadSuite = function() {
+		if (localStorage.savedSuiteJSON) {
+			let parsedData = JSON.parse(localStorage.savedSuiteJSON);
+			let verified = confirm('Erase schedules and load from data?');
+
+			if (verified) {
+				// Re-initialize schedules array
+				self.schedules.splice(0, self.schedules().length);
+
+				// Load in schedules from parsed save data
+				parsedData.forEach(function(schedule) {
+					self.schedules.push(
+						ko.observable(new Schedule(periods, schedule))
+					);
+				});
+			}
+		}
+	}
 };
 
 ko.applyBindings(new ViewModel());

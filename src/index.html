@@ -18,6 +18,26 @@
 		<div class="cell">Click things to edit, click away to save</div>
 	</header>
 
+	<div class="container suite-manage">
+		<!-- Button to add new schedule -->
+		<button data-bind="visible: schedules().length < 1, click: $root.addSchedule"
+			class="btn btn-sm btn-primary">
+			+ Add New Schedule
+		</button>
+
+		<!-- Button to save suite of schedules -->
+		<button data-bind="click: $root.saveSuite"
+			class="btn btn-sm btn-success">
+			Save Suite
+		</button>
+
+		<!-- Button to load suite of schedules -->
+		<button data-bind="click: $root.loadSuite"
+			class="btn btn-sm btn-warning">
+			Load Suite
+		</button>
+	</div>
+
 	<section id="schedules" class="container" data-bind="foreach: schedules">
 		<!-- Schedule Name -->
 		<h3><span data-bind="visible: !$data.editingName(),
@@ -330,13 +350,6 @@
 		</table>
 		<hr data-bind="visible: ($root.schedules().length > 1); " />
 	</section>
-
-	<div class="container">
-		<!-- Button to add new schedule -->
-		<button data-bind="click: $root.addSchedule" class="button-schedule">
-			+ Add New Schedule
-		</button>
-	</div>
 
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<script src="js/knockout-3.4.1.js"></script>
