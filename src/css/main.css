@@ -61,6 +61,13 @@ header {
 	margin-top: 30px;
 }
 
+.hanging-tab {
+    position: relative;
+    top: -5px;
+    border-radius: 0 0 4px 4px;
+    box-shadow: inset 0px 1px 1px #444444;
+}
+
 .center-text {
 	text-align: center;
 }
