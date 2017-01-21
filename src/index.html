@@ -110,7 +110,7 @@
 							hasFocus: $data.editingMin"></select>
 						<span data-bind="
 							visible: !$data.editingAM(),
-							text: $data.ampm,
+							text: $data.ampm().slice(0, 1),
 							click: function() { $data.editAM(); }"></span>
 						<select data-bind="
 							visible: $data.editingAM,
@@ -140,7 +140,7 @@
 							hasFocus: $data.editingMin"></select>
 						<span data-bind="
 							visible: !$data.editingAM(),
-							text: $data.ampm,
+							text: $data.ampm().slice(0, 1),
 							click: function() { $data.editAM(); }"></span>
 						<select data-bind="
 							visible: $data.editingAM,
@@ -243,7 +243,8 @@
 							options: minutes, value: $data.min,
 							hasFocus: $data.editingMin"></select>
 						<span data-bind="
-							visible: !$data.editingAM(), text: $data.ampm,
+							visible: !$data.editingAM(),
+							text: $data.ampm().slice(0, 1),
 							click: function() { $data.editAM(); }"></span>
 						<select data-bind="
 							visible: $data.editingAM,
@@ -271,7 +272,8 @@
 							options: minutes, value: $data.min,
 							hasFocus: $data.editingMin"></select>
 						<span data-bind="
-							visible: !$data.editingAM(), text: $data.ampm,
+							visible: !$data.editingAM(),
+							text: $data.ampm().slice(0, 1),
 							click: function() { $data.editAM(); }"></span>
 						<select data-bind="
 							visible: $data.editingAM,

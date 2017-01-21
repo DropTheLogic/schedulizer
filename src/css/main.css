@@ -92,8 +92,8 @@ header {
 }
 
 .cell {
-	font-size: 11px;
-	min-width: 130px;
+	font-size: 10px;
+	min-width: 102px;
 }
 
 .cell span {
