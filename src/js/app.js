@@ -297,8 +297,8 @@ var isInRange = function(workerHours, target) {
 	let workerIn = convertTimeToDecimal(workerHours.in);
 	let workerOut = convertTimeToDecimal(workerHours.out);
 
-	if (workerIn > targetStart && workerIn < targetEnd ||
-		workerIn < targetStart && workerOut > targetStart) {
+	if (workerIn >= targetStart && workerIn <= targetEnd ||
+		workerIn <= targetStart && workerOut > targetStart) {
 		return true;
 	}
 	return false;
