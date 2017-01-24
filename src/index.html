@@ -308,48 +308,40 @@
 						+ Add Total Query
 					</button>
 				</td></tr>
-
-				<!-- Buttons for schedule management -->
-				<tr>
-					<!-- Add new schedule -->
-					<td class="button-cell schedule-manage">
-						<button class="cell btn btn-sm btn-primary"
-							data-bind="click: function() {
-								$root.newSchedule($data, $index); }">
-							+ New Schedule
-						</button>
-					</td>
-
-					<!-- Save schedule button -->
-					<td class="button-cell schedule-manage">
-						<button class="cell btn btn-sm btn-success"
-							data-bind="click: function() {
-								$root.saveSchedule($data); }">
-							Save Schedule
-						</button>
-					</td>
-
-					<!-- Load schedule button -->
-					<td class="button-cell schedule-manage">
-						<button class="cell btn btn-sm btn-warning"
-							data-bind="click: function() {
-								$root.loadSchedule($data, $index);}" >
-							Load Schedule
-						</button>
-					</td>
-
-					<!-- Remove schedule button -->
-					<td class="button-cell schedule-manage">
-						<button class="cell btn btn-sm btn-danger"
-							data-bind="click: function() {
-								$root.removeSchedule($data, $index);}" >
-							Remove Schedule
-						</button>
-					</td>
-				</tr>
-
 			</tfoot>
 		</table>
+
+		<!-- Buttons for schedule management -->
+		<div class="center-text">
+			<!-- Add new schedule -->
+			<button class="cell btn btn-sm btn-primary"
+					data-bind="click: function() {
+						$root.newSchedule($data, $index); }">
+				+ New Schedule
+			</button>
+
+			<!-- Save schedule button -->
+			<button class="cell btn btn-sm btn-success"
+					data-bind="click: function() {
+						$root.saveSchedule($data); }">
+				Save Schedule
+			</button>
+
+			<!-- Load schedule button -->
+			<button class="cell btn btn-sm btn-warning"
+					data-bind="click: function() {
+						$root.loadSchedule($data, $index);}" >
+				Load Schedule
+			</button>
+
+			<!-- Remove schedule button -->
+			<button class="cell btn btn-sm btn-danger"
+					data-bind="click: function() {
+						$root.removeSchedule($data, $index);}" >
+				Remove Schedule
+			</button>
+		</div>
+
 		<hr data-bind="visible: ($root.schedules().length > 1); " />
 	</section>
 
