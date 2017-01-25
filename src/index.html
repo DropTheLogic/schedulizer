@@ -60,6 +60,7 @@
 					<td data-bind="text: $data"></td>
 					<!-- /ko -->
 					<td class="cell-title center-text">Total Hours</td>
+					<td class="empty-cell"></td>
 				</tr>
 			</thead>
 
@@ -165,7 +166,7 @@
 					</td>
 
 					<!-- Buttons to manage Worker -->
-					<td class="button-cell manage-worker">
+					<td class="button-cell manage-worker btn-group">
 
 						<!-- Move worker up -->
 						<button title="Move This Worker Up One"
@@ -293,7 +294,7 @@
 					<!-- /ko -->
 
 					<!-- Button to delete query from queries array -->
-					<td class="button-cell delete">
+					<td class="button-cell query-manage">
 						<button data-bind="click: $parent.deleteQuery"
 							class="cell btn btn-xs btn-danger">✖ Delete Query
 						</button>
