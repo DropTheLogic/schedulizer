@@ -89,73 +89,28 @@
 
 					<!-- ko { foreach: hours} -->
 					<td class="cell">
-					<span data-bind="visible: !$data.off()">
+						<span data-bind="visible: !$data.off()">
 
-						<!-- ko { with: $data.in} -->
-						<span data-bind="
-							visible: !$data.editingHour(),
-							text: $data.hour,
-							click: function() { $data.editHour(); }"></span>
-						<select data-bind="
-							visible: $data.editingHour,
-							options: hours, value: $data.hour,
-							hasFocus: $data.editingHour"></select>
-						<span>:</span>
-						<span data-bind="
-							visible: !$data.editingMin(),
-							text: ('0' + $data.min()).slice(-2),
-							click: function() { $data.editMin(); }"></span>
-						<select data-bind="
-							visible: $data.editingMin,
-							options: minutes, value: $data.min,
-							hasFocus: $data.editingMin"></select>
-						<span data-bind="
-							visible: !$data.editingAM(),
-							text: $data.ampm().slice(0, 1),
-							click: function() { $data.editAM(); }"></span>
-						<select data-bind="
-							visible: $data.editingAM,
-							options: am, value: $data.ampm,
-							hasFocus: $data.editingAM"></select>
-						<!-- /ko -->
+							<!-- Time In -->
+							<span data-bind="template: {
+								name: 'time-edit', data: $data.in }">
+							</span>
 
-						<span class="spacer"> - </span>
+							<span class="spacer"> - </span>
 
-						<!-- ko { with: $data.out } -->
-						<span data-bind="
-							visible: !$data.editingHour(),
-							text: $data.hour,
-							click: function() { $data.editHour(); }"></span>
-						<select data-bind="
-							visible: $data.editingHour,
-							options: hours, value: $data.hour,
-							hasFocus: $data.editingHour"></select>
-						<span>:</span>
-						<span data-bind="
-							visible: !$data.editingMin(),
-							text: ('0' + $data.min()).slice(-2),
-							click: function() { $data.editMin(); }"></span>
-						<select data-bind="
-							visible: $data.editingMin,
-							options: minutes, value: $data.min,
-							hasFocus: $data.editingMin"></select>
-						<span data-bind="
-							visible: !$data.editingAM(),
-							text: $data.ampm().slice(0, 1),
-							click: function() { $data.editAM(); }"></span>
-						<select data-bind="
-							visible: $data.editingAM,
-							options: am, value: $data.ampm,
-							hasFocus: $data.editingAM"></select>
-						<!-- /ko -->
-					</span>
+							<!-- Time Out -->
+							<span data-bind="template: {
+								name: 'time-edit', data: $data.out }">
+							</span>
+						</span>
 
-					<!-- Display 'Off' Text -->
-					<span data-bind="visible: $data.off" class="off"></span>
+						<!-- Display 'Off' Text -->
+						<span data-bind="visible: $data.off" class="off">
+						</span>
 
-					<!-- Set-off Button -->
-					<span data-bind="click: $data.toggleOff"
-						class="set-off">✖</span>
+						<!-- Set-off Button -->
+						<span data-bind="click: $data.toggleOff"
+							class="set-off">✖</span>
 
 					</td>
 					<!-- /ko -->
@@ -226,61 +181,15 @@
 				<tr>
 					<!-- Query time selector -->
 					<td class="cell">
-						<!-- ko { with: $data.target.start } -->
-						<span data-bind="
-							visible: !$data.editingHour(), text: $data.hour,
-							click: function() { $data.editHour(); }"></span>
-						<select data-bind="
-							visible: $data.editingHour,
-							options: hours, value: $data.hour,
-							hasFocus: $data.editingHour"></select>
-						<span>:</span>
-						<span data-bind="
-							visible: !$data.editingMin(),
-							text: ('0' + $data.min()).slice(-2),
-							click: function() { $data.editMin(); }"></span>
-						<select data-bind="
-							visible: $data.editingMin,
-							options: minutes, value: $data.min,
-							hasFocus: $data.editingMin"></select>
-						<span data-bind="
-							visible: !$data.editingAM(),
-							text: $data.ampm().slice(0, 1),
-							click: function() { $data.editAM(); }"></span>
-						<select data-bind="
-							visible: $data.editingAM,
-							options: am, value: $data.ampm,
-							hasFocus: $data.editingAM"></select>
-						<!-- /ko -->
+						<span data-bind="template:
+							{ name: 'time-edit', data: $data.target.start }">
+						</span>
 
 						<span class="spacer">to</span>
 
-						<!-- ko { with: $data.target.end } -->
-						<span data-bind="
-							visible: !$data.editingHour(), text: $data.hour,
-							click: function() { $data.editHour(); }"></span>
-						<select data-bind="
-							visible: $data.editingHour,
-							options: hours, value: $data.hour,
-							hasFocus: $data.editingHour"></select>
-						<span>:</span>
-						<span data-bind="
-							visible: !$data.editingMin(),
-							text: ('0' + $data.min()).slice(-2),
-							click: function() { $data.editMin(); }"></span>
-						<select data-bind="
-							visible: $data.editingMin,
-							options: minutes, value: $data.min,
-							hasFocus: $data.editingMin"></select>
-						<span data-bind="
-							visible: !$data.editingAM(),
-							text: $data.ampm().slice(0, 1),
-							click: function() { $data.editAM(); }"></span>
-						<select data-bind="
-							visible: $data.editingAM,
-							options: am, value: $data.ampm,
-							hasFocus: $data.editingAM"></select>
-						<!-- /ko -->
+						<span data-bind="template:
+							{ name: 'time-edit', data: $data.target.end }">
+						</span>
 					</td>
 
 					<!-- Job selector, to match query against -->
@@ -345,6 +254,34 @@
 
 		<hr data-bind="visible: ($root.schedules().length > 1); " />
 	</section>
+
+	<!-- Editable Time Template -->
+	<script type="text/html" id="time-edit">
+		<span data-bind="
+			visible: !$data.editingHour(), text: $data.hour,
+			click: function() { $data.editHour(); }"></span>
+		<select data-bind="
+			visible: $data.editingHour,
+			options: hours, value: $data.hour,
+			hasFocus: $data.editingHour"></select>
+		<span>:</span>
+		<span data-bind="
+			visible: !$data.editingMin(),
+			text: ('0' + $data.min()).slice(-2),
+			click: function() { $data.editMin(); }"></span>
+		<select data-bind="
+			visible: $data.editingMin,
+			options: minutes, value: $data.min,
+			hasFocus: $data.editingMin"></select>
+		<span data-bind="
+			visible: !$data.editingAM(),
+			text: $data.ampm().slice(0, 1),
+			click: function() { $data.editAM(); }"></span>
+		<select data-bind="
+			visible: $data.editingAM,
+			options: am, value: $data.ampm,
+			hasFocus: $data.editingAM"></select>
+	</script>
 
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<script src="js/knockout-3.4.1.js"></script>
