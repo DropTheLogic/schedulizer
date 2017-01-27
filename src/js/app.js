@@ -335,6 +335,13 @@ var convertTimeToDecimal = function(time) {
 var ViewModel = function() {
 	var self = this;
 
+	// Suite Name
+	self.name = ko.observable('Schedulizer');
+	self.editingName = ko.observable(false);
+	self.editName = function(name) {
+		self.editingName(true);
+	};
+
 	// Array of schedules
 	self.schedules = ko.observableArray([]);
 
@@ -412,6 +419,7 @@ var ViewModel = function() {
 		if (verified) {
 			let suiteJSON = ko.toJSON(self.schedules);
 			localStorage.savedSuiteJSON = suiteJSON;
+			localStorage.savedName = self.name();
 		}
 	};
 
@@ -422,6 +430,9 @@ var ViewModel = function() {
 			let verified = confirm('Erase schedules and load from data?');
 
 			if (verified) {
+				// Display suite name
+				self.name(localStorage.savedName);
+
 				// Re-initialize schedules array
 				self.schedules.splice(0, self.schedules().length);
 

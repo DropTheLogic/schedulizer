@@ -14,7 +14,15 @@
 <body>
 
 	<header>
-		<h1>Schedulizer</h1>
+		<h1><span data-bind="
+				visible: !editingName(),
+				text: (name() === '') ? '[Name]' : name,
+				click: editName"></span>
+			<span><input data-bind="visible: editingName,
+					value: name,
+					event: {keydown: clearFocus},
+					hasFocus: editingName" /></span>
+		</h1>
 		<div class="cell">Click things to edit, click away to save</div>
 	</header>
 
