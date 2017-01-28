@@ -345,11 +345,6 @@ var ViewModel = function() {
 	// Array of schedules
 	self.schedules = ko.observableArray([]);
 
-	// Instantiate one schedule
-	self.schedules.push(
-		ko.observable(new Schedule(periods, scheduleData[0]))
-	);
-
 	// Pushes new schedule to schedules array
 	self.addSchedule = function() {
 		self.schedules.push(
@@ -424,10 +419,14 @@ var ViewModel = function() {
 	};
 
 	// Load suite of schedules from local storage
-	self.loadSuite = function() {
+	self.loadSuite = function(data) {
 		if (localStorage.savedSuiteJSON) {
 			let parsedData = JSON.parse(localStorage.savedSuiteJSON);
-			let verified = confirm('Erase schedules and load from data?');
+
+			// If this function fires as a result of user button click,
+			// verify with user that they want to overwrite unsaved changes
+			let verified = (typeof data === 'object') ?
+				confirm('Erase schedules and load from data?') : true;
 
 			if (verified) {
 				// Display suite name
@@ -444,6 +443,17 @@ var ViewModel = function() {
 				});
 			}
 		}
+	}
+
+	// Auto-load suite, if found
+	if (localStorage.savedSuiteJSON) {
+		self.loadSuite();
+	}
+	else {
+		// If no suite data found, instantiate one example schedule
+		self.schedules.push(
+			ko.observable(new Schedule(periods, scheduleData[0]))
+		);
 	}
 };
 
