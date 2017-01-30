@@ -134,7 +134,9 @@ header {
 .off:after {
 	font-family: 'Lustria', serif;
 	font-weight: 700;
-	content: '~ OFF ~';
+	font-size: 14px;
+	content: 'OFF';
+	color: #d9534f;
 }
 
 .spacer {

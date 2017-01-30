@@ -96,7 +96,8 @@
 					</td>
 
 					<!-- ko { foreach: hours} -->
-					<td class="cell">
+					<td class="cell"
+						data-bind="css: { 'center-text' : $data.off() }">
 						<span data-bind="visible: !$data.off()">
 
 							<!-- Time In -->
