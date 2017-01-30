@@ -29,7 +29,8 @@ header {
 }
 
 .button-worker {
-	width: 25px;
+	width: 30px;
+	height: 30px;
 }
 
 .add-worker {
@@ -45,6 +46,7 @@ header {
 
 .manage-worker {
 	display: inline-flex;
+	min-width: 200px;
 	border-top: hidden !important;
 	border-bottom: hidden !important;
 	border-right: hidden !important;
@@ -106,6 +108,7 @@ header {
 .cell {
 	font-size: 10px;
 	min-width: 102px;
+	vertical-align: middle !important;
 }
 
 .cell span {
