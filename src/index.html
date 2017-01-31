@@ -203,8 +203,11 @@
 
 					<!-- Job selector, to match query against -->
 					<td class="cell">
-						<select data-bind="options: $parent.jobs,
-							value: $data.target.job"></select>
+						<!-- ko { foreach: $data.target.jobs } -->
+							<select data-bind="options: $parents[1].jobs,
+								value: $rawData"></select>
+						<!-- /ko -->
+						<span><button data-bind="click: addJob">+</button></span>
 					</td>
 
 					<!-- ko { foreach: $data.tallies } -->

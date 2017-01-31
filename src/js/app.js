@@ -51,7 +51,7 @@ var queriesData = [
 		target: {
 			start: {hour: 8, min: 30, ampm: 'am'},
 			end: {hour: 4, min: 30, ampm: 'pm'},
-			job: 'Some job'
+			jobs: ['Some job']
 		}
 	}
 ];
@@ -254,21 +254,38 @@ var Query = function(workers, targetData) {
 	self.target = {
 		start: new KoEditableTime(targetData.target.start),
 		end: new KoEditableTime(targetData.target.end),
-		job: ko.observable(targetData.target.job) };
+		jobs: ko.observableArray([])
+	};
+
+	// Load target jobs array for query
+	targetData.target.jobs.forEach(function(job) {
+		self.target.jobs.push(ko.observable(job));
+	});
+
+	// Add new job to job target array
+	self.addJob = function(value) {
+		self.target.jobs.push(ko.observable('job'));
+	};
 
 	// Calculate result of query
 	self.result = function(day) {
-		let targetJob = self.target.job;
+		let target = self.target;
 		return ko.computed(function() {
 			// How many workers can be matched on this day
 			let tally = 0;
 			// Cycle through each worker to tally up
 			workers().forEach(function(worker) {
 				// Find if worker is off today or is working
-				let isWorking = !worker().hours()[day]().off();
-				if (isWorking && worker().job() === targetJob() &&
-					isInRange(worker().hours()[day](), self.target)) {
-					tally++;
+				let workerHours = worker().hours()[day]();
+				let isWorking = !workerHours.off();
+				if (isWorking && isInRange(workerHours, target)) {
+					// Find if job matches
+					for (let i = 0; i < target.jobs().length; i++) {
+						if (worker().job() === target.jobs()[i]()) {
+							tally++;
+							break;
+						}
+					}
 				}
 			});
 			return tally;
