@@ -101,6 +101,16 @@ header {
 	font-size: 14px;
 }
 
+.sort-buttons {
+	display: inline-block;
+	position: relative;
+	top: -3px;
+}
+
+.sort-buttons button {
+	font-size: 8px;
+}
+
 .cell-title {
 	min-width: 120px;
 }
