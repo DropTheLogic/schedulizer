@@ -65,35 +65,19 @@
 					<td class="cell-title"><span>Name</span>
 						<!-- Sort by Name Buttons -->
 						<span class="sort-buttons">
-							<button data-bind="click: function() {
-								$data.workers.sort(function(a, b) {
-									return a().name() == b().name() ? 0 :
-										(a().name() < b().name() ? -1 : 1);
-									});
-								}" title="Sort by Name Ascending">↑</button>
-							<button data-bind="click: function() {
-								$data.workers.sort(function(a, b) {
-									return a().name() == b().name() ? 0 :
-										(a().name() < b().name() ? 1 : -1);
-									});
-								}" title="Sort by Name Descending">↓</button>
+							<button data-bind="click: sortBy('name', 1)"
+								title="Sort by Name Ascending">↑</button>
+							<button data-bind="click: sortBy('name', -1)"
+								title="Sort by Name Descending">↓</button>
 						</span>
 					</td>
 					<td class="cell-title">Job
 						<!-- Sort by Job buttons -->
 						<span class="sort-buttons">
-							<button data-bind="click: function() {
-								$data.workers.sort(function(a, b) {
-									return a().job() == b().job() ? 0 :
-										(a().job() < b().job() ? -1 : 1);
-									});
-								}" title="Sort by Job Ascending">↑</button>
-							<button data-bind="click: function() {
-								$data.workers.sort(function(a, b) {
-									return a().job() == b().job() ? 0 :
-										(a().job() < b().job() ? 1 : -1);
-									});
-								}" title="Sort by Job Descending">↓</button>
+							<button data-bind="click: sortBy('job', 1)"
+								title="Sort by Job Ascending">↑</button>
+							<button data-bind="click: sortBy('job', -1)"
+								title="Sort by Job Descending">↓</button>
 						</span>
 					</td>
 
@@ -104,18 +88,10 @@
 					<td class="cell-title center-text"><span>Total Hours</span>
 						<!-- Sort by Total Time buttons -->
 						<span class="sort-buttons">
-							<button data-bind="click: function() {
-								$data.workers.sort(function(a, b) {
-									return a().totalTime() == b().totalTime() ? 0 :
-										(a().totalTime() < b().totalTime() ? -1 : 1);
-									});
-								}" title="Sort by Hours Ascending">↑</button>
-							<button data-bind="click: function() {
-								$data.workers.sort(function(a, b) {
-									return a().totalTime() == b().totalTime() ? 0 :
-										(a().totalTime() < b().totalTime() ? 1 : -1);
-									});
-								}" title="Sort by Hours Descending">↓</button>
+							<button data-bind="click: sortBy('totalTime', 1)"
+								title="Sort by Hours Ascending">↑</button>
+							<button data-bind="click: sortBy('totalTime', -1)"
+								title="Sort by Hours Descending">↓</button>
 						</span>
 					</td>
 					<td class="empty-cell"></td>

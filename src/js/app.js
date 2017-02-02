@@ -236,6 +236,16 @@ var Schedule = function(periods, data) {
 	self.deleteQuery = function(index) {
 		self.queries.splice(index, 1)
 	}
+
+	// Sort workers array by given property, in given direction
+	self.sortBy = function(prop, direction) {
+		return function() {
+			self.workers.sort(function(a, b) {
+				return a()[prop]() == b()[prop]() ? 0 :
+					(a()[prop]() < b()[prop]() ? -direction : direction);
+			});
+		};
+	};
 };
 
 /**
