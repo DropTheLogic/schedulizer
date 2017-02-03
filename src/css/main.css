@@ -15,17 +15,22 @@ header {
 	text-align: center;
 }
 
-#schedules h3 {
-	margin-top: 40px;
+.container {
+	min-width: 90%;
 }
 
-#schedules h3:first-of-type {
+.schedule:first-of-type {
 	margin-top: 20px;
 }
 
-.button-cell {
-	text-align: center;
-	background-color: #fff;
+.schedule {
+	background-color: #fcfcfc;
+	border-radius: 4px;
+	box-shadow: 1px 1px 3px 0px #b5b5b5;
+	margin: 25px 0px 5px;
+	padding: 10px;
+	overflow-x: overlay;
+	overflow-y: hidden;
 }
 
 .button-worker {
@@ -53,8 +58,7 @@ header {
 }
 
 .schedule-manage {
-	border: hidden !important;
-	padding-top: 25px !important;
+	margin-bottom: 20px;
 }
 
 .query-manage {
@@ -64,12 +68,9 @@ header {
 }
 
 .suite-manage {
-	background-color: #f7f7f7;
-	border-radius: 2px;
 	text-align: center;
 	padding: 4px;
 	margin-top: 6px;
-	border: 1px solid #ddd;
 }
 
 .button-schedule {

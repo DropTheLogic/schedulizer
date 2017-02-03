@@ -47,6 +47,7 @@
 	</div>
 
 	<section id="schedules" class="container" data-bind="foreach: schedules">
+		<section class="schedule">
 		<!-- Schedule Name -->
 		<h3><span data-bind="visible: !$data.editingName(),
 					   text: ($data.name() === '') ? '[Name]' : $data.name,
@@ -156,7 +157,7 @@
 					</td>
 
 					<!-- Buttons to manage Worker -->
-					<td class="button-cell manage-worker btn-group">
+					<td class="center-text manage-worker btn-group">
 
 						<!-- Move worker up -->
 						<button title="Move This Worker Up One"
@@ -197,7 +198,7 @@
 				<!-- /ko -->
 
 				<!-- Button to add new worker to schedule -->
-				<tr><td class="button-cell add-worker">
+				<tr><td class="center-text add-worker">
 					<button data-bind="click: addWorker"
 						class="cell btn btn-xs btn-primary hanging-tab">
 						+ Add Worker
@@ -241,7 +242,7 @@
 					<!-- /ko -->
 
 					<!-- Button to delete query from queries array -->
-					<td class="button-cell query-manage">
+					<td class="center-text query-manage">
 						<button data-bind="click: $parent.deleteQuery"
 							class="cell btn btn-xs btn-danger">✖ Delete Query
 						</button>
@@ -250,7 +251,7 @@
 				<!-- /ko -->
 
 				<!-- Button to add new total query -->
-				<tr><td class="button-cell add-query">
+				<tr><td class="center-text add-query">
 					<button data-bind="click: addQuery"
 						class="cell btn btn-xs btn-info hanging-tab">
 						+ Add Total Query
@@ -260,7 +261,7 @@
 		</table>
 
 		<!-- Buttons for schedule management -->
-		<div class="center-text">
+		<div class="center-text schedule-manage">
 			<!-- Add new schedule -->
 			<button class="cell btn btn-sm btn-primary"
 					data-bind="click: function() {
@@ -289,8 +290,9 @@
 				Remove Schedule
 			</button>
 		</div>
+		<!-- End of this Schedule -->
+		</section>
 
-		<hr data-bind="visible: ($root.schedules().length > 1); " />
 	</section>
 
 	<!-- Editable Time Template -->
