@@ -209,7 +209,7 @@
 
 			<!-- Footer for totals -->
 			<tfoot>
-				<tr class="heading">
+				<tr class="heading" data-bind="visible: hasQueries">
 					<td class="cell-title">Total in range:</td>
 					<td class="cell-title">Of Job Type:</td>
 				</tr>
@@ -251,9 +251,11 @@
 				<!-- /ko -->
 
 				<!-- Button to add new total query -->
-				<tr><td class="center-text add-query">
-					<button data-bind="click: addQuery"
-						class="cell btn btn-xs btn-info hanging-tab">
+				<tr><td class="center-text add-query" data-bind="style: {
+					borderTop: !hasQueries() ? 'hidden' : '' }">
+					<button data-bind="click: addQuery,
+						css: { 'hanging-tab' : hasQueries }"
+						class="cell btn btn-xs btn-info">
 						+ Add Total Query
 					</button>
 				</td></tr>

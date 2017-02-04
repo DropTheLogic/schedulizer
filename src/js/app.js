@@ -232,6 +232,11 @@ var Schedule = function(periods, data) {
 		self.queries.push( new Query(self.workers, data.queries[0]) );
 	};
 
+	self.hasQueries = ko.computed(function() {
+		if (self.queries().length > 0) return true;
+		return false;
+	});
+
 	// Delete query from queries array
 	self.deleteQuery = function(index) {
 		self.queries.splice(index, 1)
