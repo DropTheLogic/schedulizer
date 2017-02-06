@@ -139,6 +139,15 @@ var Schedule = function(periods, data) {
 		self.editingName(true);
 	};
 
+	// Array of different table views
+	self.views = ['Schedule', 'Ranges'];
+
+	// Keep track of the schedule's different table views
+	self.selected = ko.observable(self.views[0]);
+	self.select = function(data) {
+		self.selected(data);
+	};
+
 	// Default schedule period length and heading titles
 	self.periodNames = ko.observableArray();
 	for (let i = 0; i < periods.length; i++) {

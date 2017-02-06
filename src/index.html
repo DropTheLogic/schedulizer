@@ -59,9 +59,18 @@
 							  hasFocus: $data.editingName" /></span></span>
 		</h3>
 
-		<!-- Table -->
+		<!-- Schedule tabs -->
+		<div id="table-tabs" data-bind="foreach: views">
+			<span class="heading table-tab" data-bind="click: $parent.select,
+				css: {'table-tab-selected' : $parent.selected() === $data},
+				text: $data">
+			</span>
+		</div>
+
+		<!-- Schedule Table -->
 		<table class="table table-striped table-bordered table-hover
-			table-responsive table-condensed">
+			table-responsive table-condensed"
+			data-bind="visible: selected() == 'Schedule'">
 
 			<thead>
 				<tr class="heading">
@@ -264,6 +273,7 @@
 				</td></tr>
 			</tfoot>
 		</table>
+		<!-- End of Schedule Table -->
 
 		<!-- Buttons for schedule management -->
 		<div class="center-text schedule-manage">
