@@ -46,6 +46,16 @@ var workersData = [
 	}
 ];
 
+var rangeData = [
+	{
+		name: 'Full Day',
+		target: {
+			start: {hour: 12, min: 0, ampm: 'am'},
+			end: {hour: 11, min: 59, ampm: 'pm'}
+		}
+	}
+];
+
 var queriesData = [
 	{
 		target: {
@@ -59,6 +69,7 @@ var queriesData = [
 var scheduleData = [
 	{
 		name: 'My Schedule',
+		ranges: rangeData,
 		workers: workersData,
 		queries: queriesData
 	}
@@ -129,6 +140,21 @@ var Worker = function(periods, data) {
 	}, this);
 };
 
+var Range = function(data) {
+	var self = this;
+
+	self.name = ko.observable(data.name);
+	self.editingName = ko.observable(false);
+	self.editName = function(name) {
+		self.editingName(true);
+	};
+
+	self.target = {
+		'start' : new KoEditableTime(data.target.start),
+		'end' : new KoEditableTime(data.target.end)
+	};
+};
+
 var Schedule = function(periods, data) {
 	var self = this;
 
@@ -146,6 +172,18 @@ var Schedule = function(periods, data) {
 	self.selected = ko.observable(self.views[0]);
 	self.select = function(data) {
 		self.selected(data);
+	};
+
+	// Array of named ranges of time
+	self.ranges = ko.observableArray([]);
+	// Load in ranges from data
+	data.ranges.forEach(function(range) {
+		self.ranges.push( new Range(range) );
+	});
+
+	// Push new range to ranges array
+	self.addRange = function() {
+		self.ranges.push(new Range(rangeData[0]) );
 	};
 
 	// Default schedule period length and heading titles

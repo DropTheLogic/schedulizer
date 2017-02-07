@@ -189,6 +189,10 @@ header {
 	color: #d9534f;
 }
 
+.range-cell {
+	width: 160px;
+}
+
 .spacer {
 	padding-left: 3px;
 	padding-right: 3px;

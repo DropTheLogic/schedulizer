@@ -275,6 +275,48 @@
 		</table>
 		<!-- End of Schedule Table -->
 
+		<!-- Schedule Ranges -->
+		<table class="table table-striped table-bordered table-hover"
+			data-bind="visible: selected() === 'Ranges'">
+
+			<tbody>
+				<!-- ko { foreach: ranges } -->
+				<tr>
+					<td class="cell range-cell">
+						<div data-bind="visible: !editingName(),
+										text: (name() != '') ? name : '[Name]',
+										click: editName"></div>
+						<input data-bind="visible: editingName, value: name,
+										  event: {keydown: $root.clearFocus},
+										  hasFocus: editingName" />
+					</td>
+					<td class="cell range-cell center-text">
+						<span data-bind="template:
+							{ name: 'time-edit', data: $data.target.start }">
+						</span>
+
+						<span class="spacer">to</span>
+
+						<span data-bind="template:
+							{ name: 'time-edit', data: $data.target.end }">
+						</span>
+					</td>
+					<td class="empty-cell"></td>
+				</tr>
+				<!-- /ko -->
+
+				<!-- Button to add new range -->
+				<tr><td class="center-text add-query">
+					<button data-bind="click: addRange,
+						css: { 'hanging-tab' : hasQueries }"
+						class="cell btn btn-xs btn-info">
+						+ Add Range
+					</button>
+				</td></tr>
+			</tbody>
+		</table>
+		<!-- End Ranges -->
+
 		<!-- Buttons for schedule management -->
 		<div class="center-text schedule-manage">
 			<!-- Add new schedule -->
