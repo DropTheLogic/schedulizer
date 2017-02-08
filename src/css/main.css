@@ -33,6 +33,10 @@ header {
 	overflow-y: hidden;
 }
 
+.schedule h3 {
+	margin: 10px 0px 15px;
+}
+
 .header-tab {
 	position: relative;
 	top: -20px;
@@ -45,6 +49,7 @@ header {
 .table-tab {
 	display: inline-block;
 	padding: 5px;
+	margin-right: -4px;
 	background: #f1f1f1;
 	border: 1px solid #ddd;
 	border-bottom: 1px solid #999;
@@ -59,7 +64,6 @@ header {
 
 .table-tab-selected {
 	padding: 10px;
-	box-shadow: inset 0px 0px 15px 0px #5bc0de;
 }
 
 .button-worker {
@@ -70,12 +74,14 @@ header {
 .add-worker {
 	border-left: hidden !important;
 	border-right: hidden !important;
+	background: #fcfcfc;
 }
 
 .add-query {
 	border-left: hidden !important;
 	border-right: hidden !important;
 	border-bottom: hidden !important;
+	background: #fcfcfc;
 }
 
 .manage-worker {
@@ -89,6 +95,11 @@ header {
 
 .schedule-manage {
 	margin-bottom: 20px;
+}
+
+.manage-button {
+	margin-right: -4px;
+	font-size: 8px;
 }
 
 .query-manage {
@@ -113,6 +124,10 @@ header {
     top: -5px;
     border-radius: 0 0 4px 4px;
     box-shadow: inset 0px 1px 1px #444444;
+}
+
+.hanging-tab:hover {
+	box-shadow: inset 0px 0px 15px 0px #5bc0de;
 }
 
 .right-tab {
@@ -166,6 +181,7 @@ header {
 .empty-cell {
 	border-top: hidden !important;
 	border-bottom: hidden !important;
+	background: #fcfcfc;
 }
 
 .set-off {

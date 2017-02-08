@@ -49,14 +49,14 @@
 	<section id="schedules" class="container" data-bind="foreach: schedules">
 		<section class="schedule">
 		<!-- Schedule Name -->
-		<h3><span class="header-tab">
+		<h3>
 			<span data-bind="visible: !$data.editingName(),
 					   text: ($data.name() === '') ? '[Name]' : $data.name,
 					   click: $data.editName"></span>
 			<span><input data-bind="visible: $data.editingName,
 							  value: $data.name,
 							  event: {keydown: $root.clearFocus},
-							  hasFocus: $data.editingName" /></span></span>
+							  hasFocus: $data.editingName" /></span>
 		</h3>
 
 		<!-- Schedule tabs -->
@@ -211,7 +211,7 @@
 				<!-- Button to add new worker to schedule -->
 				<tr><td class="center-text add-worker">
 					<button data-bind="click: addWorker"
-						class="cell btn btn-xs btn-primary hanging-tab">
+						class="cell btn btn-xs hanging-tab">
 						+ Add Worker
 					</button>
 				</td></tr>
@@ -267,7 +267,7 @@
 					borderTop: !hasQueries() ? 'hidden' : '' }">
 					<button data-bind="click: addQuery,
 						css: { 'hanging-tab' : hasQueries }"
-						class="cell btn btn-xs btn-info">
+						class="cell btn btn-xs">
 						+ Add Total Query
 					</button>
 				</td></tr>
@@ -276,7 +276,7 @@
 		<!-- End of Schedule Table -->
 
 		<!-- Schedule Ranges -->
-		<table class="table table-striped table-bordered table-hover"
+		<table class="table table-striped table-bordered table-hover table-condensed"
 			data-bind="visible: selected() === 'Ranges'">
 
 			<tbody>
@@ -309,7 +309,7 @@
 				<tr><td class="center-text add-query">
 					<button data-bind="click: addRange,
 						css: { 'hanging-tab' : hasQueries }"
-						class="cell btn btn-xs btn-info">
+						class="cell btn btn-xs">
 						+ Add Range
 					</button>
 				</td></tr>
@@ -320,28 +320,28 @@
 		<!-- Buttons for schedule management -->
 		<div class="center-text schedule-manage">
 			<!-- Add new schedule -->
-			<button class="cell btn btn-sm btn-primary"
+			<button class="btn btn-sm btn-primary manage-button"
 					data-bind="click: function() {
 						$root.newSchedule($data, $index); }">
 				+ New Schedule
 			</button>
 
 			<!-- Save schedule button -->
-			<button class="cell btn btn-sm btn-success"
+			<button class="btn btn-sm btn-success manage-button"
 					data-bind="click: function() {
 						$root.saveSchedule($data); }">
 				Save Schedule
 			</button>
 
 			<!-- Load schedule button -->
-			<button class="cell btn btn-sm btn-warning"
+			<button class="btn btn-sm btn-warning manage-button"
 					data-bind="click: function() {
 						$root.loadSchedule($data, $index);}" >
 				Load Schedule
 			</button>
 
 			<!-- Remove schedule button -->
-			<button class="cell btn btn-sm btn-danger"
+			<button class="btn btn-sm btn-danger manage-button"
 					data-bind="click: function() {
 						$root.removeSchedule($data, $index);}" >
 				Remove Schedule
