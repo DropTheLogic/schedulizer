@@ -31,7 +31,7 @@
 		<!-- Button to add new schedule -->
 		<button data-bind="visible: schedules().length < 1, click: $root.addSchedule"
 			class="btn btn-sm btn-primary">
-			<i class="fa fa-plus-circle"></i>Add New Schedule
+			<i class="fa fa-plus-circle"></i><span>New Schedule</span>
 		</button>
 
 		<!-- Button to save suite of schedules -->
@@ -59,8 +59,33 @@
 							  event: {keydown: $root.clearFocus},
 							  hasFocus: $data.editingName" /></span>
 
-		</h3>
+			<!-- Buttons for schedule management -->
+			<span class="schedule-manage">
+				<!-- Save schedule button -->
+				<button class="btn btn-md btn-default btn-green"
+						data-bind="click: function() {
+							$root.saveSchedule($data); }"
+						title="Save schedule">
+					<i class="fa fa-floppy-o" aria-hidden="true"></i>
+				</button>
 
+				<!-- Load schedule button -->
+				<button class="btn btn-md btn-default btn-yellow"
+						data-bind="click: function() {
+							$root.loadSchedule($data, $index);}"
+						title="Load saved schedule">
+					<i class="fa fa-download" aria-hidden="true"></i>
+				</button>
+
+				<!-- Remove schedule button -->
+				<button class="btn btn-md btn-default btn-red"
+						data-bind="click: function() {
+							$root.removeSchedule($data, $index);}"
+						title="Remove schedule">
+					<i class="fa fa-times-circle" aria-hidden="true"></i>
+				</button>
+			</span>
+		</h3>
 
 		<!-- Schedule tabs -->
 		<div id="table-tabs" data-bind="foreach: views">
@@ -334,42 +359,16 @@
 		</table>
 		<!-- End Ranges -->
 
-		<!-- Buttons for schedule management -->
-		<div class="center-text schedule-manage btn-group">
-			<!-- Add new schedule -->
-			<button class="btn btn-md btn-primary"
-					data-bind="click: function() {
-						$root.newSchedule($data, $index); }"
-					title="Add new schedule">
-				<i class="fa fa-plus-circle" aria-hidden="true"></i>
-			</button>
-
-			<!-- Save schedule button -->
-			<button class="btn btn-md btn-success"
-					data-bind="click: function() {
-						$root.saveSchedule($data); }"
-					title="Save schedule">
-				<i class="fa fa-floppy-o" aria-hidden="true"></i>
-			</button>
-
-			<!-- Load schedule button -->
-			<button class="btn btn-md btn-warning"
-					data-bind="click: function() {
-						$root.loadSchedule($data, $index);}"
-					title="Load saved schedule">
-				<i class="fa fa-download" aria-hidden="true"></i>
-			</button>
-
-			<!-- Remove schedule button -->
-			<button class="btn btn-md btn-danger"
-					data-bind="click: function() {
-						$root.removeSchedule($data, $index);}"
-					title="Remove schedule">
-				<i class="fa fa-times-circle" aria-hidden="true"></i>
-			</button>
-		</div>
 		<!-- End of this Schedule -->
 		</section>
+
+		<!-- Add new schedule -->
+		<button class="btn btn-lg add-schedule"
+				data-bind="click: function() {
+					$root.newSchedule($data, $index); }"
+				title="Add new schedule">
+			<i class="fa fa-plus-circle" aria-hidden="true"></i>
+		</button>
 
 	</section>
 

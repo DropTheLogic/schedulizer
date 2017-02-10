@@ -59,7 +59,8 @@ header {
 
 .table-tab:hover {
 	background: #f1f1f1;
-	box-shadow: inset 0px 0px 15px 0px #f0ad4e;
+	border: 1px solid #f0ad4e;
+	box-shadow: inset 0px 0px 3px 0px #f0ad4e;
 }
 
 .table-tab-selected {
@@ -95,6 +96,19 @@ header {
 
 .schedule-manage {
 	margin-bottom: 20px;
+	vertical-align: text-top;
+}
+
+.btn-green:hover {
+	background-color: #5cb85c;
+}
+
+.btn-yellow:hover {
+	background-color: #f0ad4e;
+}
+
+.btn-red:hover {
+	background-color: #d9534f;
 }
 
 .query-manage {
@@ -122,11 +136,13 @@ header {
     position: relative;
     top: -5px;
     border-radius: 0 0 4px 4px;
-    box-shadow: inset 0px 1px 1px #444444;
+    border-top: 1px solid #ddd;
+    background: #f1f1f1;
 }
 
 .hanging-tab:hover {
-	box-shadow: inset 0px 0px 15px 0px #5bc0de;
+	border: 1px solid #337ab7;
+    box-shadow: inset 0px 0px 3px 0px #337ab7;
 }
 
 .right-tab {
@@ -137,6 +153,18 @@ header {
 
 .center-text {
 	text-align: center;
+}
+
+.add-schedule {
+	font-size: 60px;
+	background: transparent;
+	color: #999;
+	margin: 5px 20px 0px;
+	border: 0;
+}
+
+.add-schedule:hover {
+	color: #337ab7;
 }
 
 /****************************************
