@@ -5,6 +5,7 @@
 
 	<title>Staff Schedule and Task Organizer</title>
 
+	<script src="https://use.fontawesome.com/ef8641f9f6.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Lustria|Open+Sans"
 		rel="stylesheet">
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
@@ -30,19 +31,19 @@
 		<!-- Button to add new schedule -->
 		<button data-bind="visible: schedules().length < 1, click: $root.addSchedule"
 			class="btn btn-sm btn-primary">
-			+ Add New Schedule
+			<i class="fa fa-plus-circle"></i>Add New Schedule
 		</button>
 
 		<!-- Button to save suite of schedules -->
 		<button data-bind="click: $root.saveSuite"
 			class="btn btn-sm btn-success">
-			Save Suite
+			<i class="fa fa-floppy-o"></i><span>Save Suite</span>
 		</button>
 
 		<!-- Button to load suite of schedules -->
 		<button data-bind="click: $root.loadSuite"
 			class="btn btn-sm btn-warning">
-			Load Suite
+			<i class="fa fa-download"></i><span>Load Suite</span>
 		</button>
 	</div>
 
@@ -57,7 +58,9 @@
 							  value: $data.name,
 							  event: {keydown: $root.clearFocus},
 							  hasFocus: $data.editingName" /></span>
+
 		</h3>
+
 
 		<!-- Schedule tabs -->
 		<div id="table-tabs" data-bind="foreach: views">
@@ -78,18 +81,26 @@
 						<!-- Sort by Name Buttons -->
 						<div class="sort-buttons">
 							<button data-bind="click: sortBy('name', 1)"
-								title="Sort by Name Ascending">↑</button>
+								title="Sort by Name Ascending">
+								<i class="fa fa-angle-up"></i>
+							</button>
 							<button data-bind="click: sortBy('name', -1)"
-								title="Sort by Name Descending">↓</button>
+								title="Sort by Name Descending">
+								<i class="fa fa-angle-down"></i>
+							</button>
 						</div>
 					</td>
 					<td class="cell-title">Job
 						<!-- Sort by Job buttons -->
 						<div class="sort-buttons">
 							<button data-bind="click: sortBy('job', 1)"
-								title="Sort by Job Ascending">↑</button>
+								title="Sort by Job Ascending">
+								<i class="fa fa-angle-up"></i>
+							</button>
 							<button data-bind="click: sortBy('job', -1)"
-								title="Sort by Job Descending">↓</button>
+								title="Sort by Job Descending">
+								<i class="fa fa-angle-down"></i>
+							</button>
 						</div>
 					</td>
 
@@ -101,9 +112,13 @@
 						<!-- Sort by Total Time buttons -->
 						<span class="sort-buttons">
 							<button data-bind="click: sortBy('totalTime', 1)"
-								title="Sort by Hours Ascending">↑</button>
+								title="Sort by Hours Ascending">
+								<i class="fa fa-angle-up"></i>
+							</button>
 							<button data-bind="click: sortBy('totalTime', -1)"
-								title="Sort by Hours Descending">↓</button>
+								title="Sort by Hours Descending">
+								<i class="fa fa-angle-down"></i>
+							</button>
 						</span>
 					</td>
 					<td class="empty-cell"></td>
@@ -203,7 +218,8 @@
 							class="btn btn-xs btn-danger button-worker"
 							data-bind="click: function() {
 								$parent.deleteWorker($index); }">
-							x</button>
+							<i class="fa fa-times-circle"></i>
+						</button>
 					</td>
 				</tr>
 				<!-- /ko -->
@@ -256,7 +272,8 @@
 					<td class="cell center-text query-manage">
 						<button data-bind="click: $parent.deleteQuery"
 							class="cell btn btn-xs btn-danger right-tab">
-							✖ Delete Query
+							<i class="fa fa-times-circle" aria-hidden="true"></i>
+							Delete Query
 						</button>
 					</td>
 				</tr>
@@ -318,33 +335,37 @@
 		<!-- End Ranges -->
 
 		<!-- Buttons for schedule management -->
-		<div class="center-text schedule-manage">
+		<div class="center-text schedule-manage btn-group">
 			<!-- Add new schedule -->
-			<button class="btn btn-sm btn-primary manage-button"
+			<button class="btn btn-md btn-primary"
 					data-bind="click: function() {
-						$root.newSchedule($data, $index); }">
-				+ New Schedule
+						$root.newSchedule($data, $index); }"
+					title="Add new schedule">
+				<i class="fa fa-plus-circle" aria-hidden="true"></i>
 			</button>
 
 			<!-- Save schedule button -->
-			<button class="btn btn-sm btn-success manage-button"
+			<button class="btn btn-md btn-success"
 					data-bind="click: function() {
-						$root.saveSchedule($data); }">
-				Save Schedule
+						$root.saveSchedule($data); }"
+					title="Save schedule">
+				<i class="fa fa-floppy-o" aria-hidden="true"></i>
 			</button>
 
 			<!-- Load schedule button -->
-			<button class="btn btn-sm btn-warning manage-button"
+			<button class="btn btn-md btn-warning"
 					data-bind="click: function() {
-						$root.loadSchedule($data, $index);}" >
-				Load Schedule
+						$root.loadSchedule($data, $index);}"
+					title="Load saved schedule">
+				<i class="fa fa-download" aria-hidden="true"></i>
 			</button>
 
 			<!-- Remove schedule button -->
-			<button class="btn btn-sm btn-danger manage-button"
+			<button class="btn btn-md btn-danger"
 					data-bind="click: function() {
-						$root.removeSchedule($data, $index);}" >
-				Remove Schedule
+						$root.removeSchedule($data, $index);}"
+					title="Remove schedule">
+				<i class="fa fa-times-circle" aria-hidden="true"></i>
 			</button>
 		</div>
 		<!-- End of this Schedule -->

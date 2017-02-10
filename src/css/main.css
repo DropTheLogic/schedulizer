@@ -97,11 +97,6 @@ header {
 	margin-bottom: 20px;
 }
 
-.manage-button {
-	margin-right: -4px;
-	font-size: 8px;
-}
-
 .query-manage {
 	border-top: hidden !important;
 	border-right: hidden !important;
@@ -112,6 +107,10 @@ header {
 	text-align: center;
 	padding: 4px;
 	margin-top: 6px;
+}
+
+.suite-manage span {
+	margin: 0px 4px;
 }
 
 .button-schedule {
