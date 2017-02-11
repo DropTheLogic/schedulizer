@@ -11,7 +11,8 @@ var am = ['am', 'pm'];
 
 var workersData = [
 	{
-		name: 'John Doe',
+		firstName: 'John',
+		lastName: 'Doe',
 		job: 'Job name',
 		hours: [
 			{
@@ -104,10 +105,15 @@ var Worker = function(periods, data) {
 	var self = this;
 
 	// Worker Name
-	self.name = ko.observable(data.name);
-	self.editingName = ko.observable(false);
-	self.editName = function() {
-		self.editingName(true);
+	self.firstName = ko.observable(data.firstName);
+	self.editingFirstName = ko.observable(false);
+	self.editFirstName = function() {
+		self.editingFirstName(true);
+	};
+	self.lastName = ko.observable(data.lastName);
+	self.editingLastName = ko.observable(false);
+	self.editLastName = function() {
+		self.editingLastName(true);
 	};
 
 	// Worker Job
