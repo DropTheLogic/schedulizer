@@ -15,9 +15,17 @@ header {
 	text-align: center;
 }
 
+.center-text {
+	text-align: center;
+}
+
 .container {
 	min-width: 90%;
 }
+
+/****************************************
+ * Schedule section styles
+ ****************************************/
 
 .schedule:first-of-type {
 	margin-top: 20px;
@@ -99,18 +107,6 @@ header {
 	vertical-align: text-top;
 }
 
-.btn-green:hover {
-	background-color: #5cb85c;
-}
-
-.btn-yellow:hover {
-	background-color: #f0ad4e;
-}
-
-.btn-red:hover {
-	background-color: #d9534f;
-}
-
 .query-manage {
 	border-top: hidden !important;
 	border-right: hidden !important;
@@ -125,6 +121,20 @@ header {
 
 .suite-manage span {
 	margin: 0px 4px;
+}
+
+/****************************************
+ * Schedule buttons
+ ****************************************/
+
+.sort-buttons {
+	display: block;
+	position: relative;
+	top: -3px;
+}
+
+.sort-buttons button {
+	font-size: 8px;
 }
 
 .button-schedule {
@@ -151,10 +161,6 @@ header {
     border-radius: 0 4px 4px 0;
 }
 
-.center-text {
-	text-align: center;
-}
-
 .add-schedule {
 	font-size: 60px;
 	background: transparent;
@@ -165,6 +171,18 @@ header {
 
 .add-schedule:hover {
 	color: #337ab7;
+}
+
+.btn-green:hover {
+	background-color: #5cb85c;
+}
+
+.btn-yellow:hover {
+	background-color: #f0ad4e;
+}
+
+.btn-red:hover {
+	background-color: #d9534f;
 }
 
 /****************************************
@@ -178,16 +196,6 @@ header {
 .heading {
 	font-family: 'Lustria', serif;
 	font-size: 14px;
-}
-
-.sort-buttons {
-	display: block;
-	position: relative;
-	top: -3px;
-}
-
-.sort-buttons button {
-	font-size: 8px;
 }
 
 .cell-title {
