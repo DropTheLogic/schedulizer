@@ -298,12 +298,20 @@ var Schedule = function(periods, data) {
 		self.queries.splice(index, 1)
 	}
 
-	// Sort workers array by given property, in given direction
+	/**
+	 * Sort workers array by given property, in given direction
+	 * @param {object} prop - Either an observable property or an object
+	 *   containing the desired observable property to sort by.
+	 * @param {integer} direction - Either 1 or -1, to sort in reverse.
+	 */
 	self.sortBy = function(prop, direction) {
 		return function() {
 			self.workers.sort(function(a, b) {
-				return a()[prop]() == b()[prop]() ? 0 :
-					(a()[prop]() < b()[prop]() ? -direction : direction);
+				// Set a and b to appropraite observable value to sort by
+				let ready = typeof a()[prop] == 'function';
+				a = (ready) ? a()[prop]() : a()[prop].string();
+				b = (ready) ? b()[prop]() : b()[prop].string();
+				return a == b ? 0 : (a < b ? -direction : direction);
 			});
 		};
 	};
