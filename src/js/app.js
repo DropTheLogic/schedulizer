@@ -11,9 +11,9 @@ var am = ['am', 'pm'];
 
 var workersData = [
 	{
-		firstName: 'John',
-		lastName: 'Doe',
-		job: 'Job name',
+		firstName: { string: 'John' },
+		lastName: { string: 'Doe'},
+		job: { string: 'Job name'},
 		hours: [
 			{
 				'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
@@ -101,27 +101,30 @@ var KoEditableTime = function(day) {
 	}
 };
 
+/**
+ * Returns editable text object with observable attributes
+ * @constructor
+ * @param {object} text - Has text String value
+ */
+var KoEditableText = function(text) {
+	return {
+		'string': ko.observable(text.string),
+		'editingString': ko.observable(false),
+		'editString': function() {
+			this.editingString(true);
+		}
+	}
+};
+
 var Worker = function(periods, data) {
 	var self = this;
 
 	// Worker Name
-	self.firstName = ko.observable(data.firstName);
-	self.editingFirstName = ko.observable(false);
-	self.editFirstName = function() {
-		self.editingFirstName(true);
-	};
-	self.lastName = ko.observable(data.lastName);
-	self.editingLastName = ko.observable(false);
-	self.editLastName = function() {
-		self.editingLastName(true);
-	};
+	self.firstName = new KoEditableText(data.firstName);
+	self.lastName = new KoEditableText(data.lastName);
 
 	// Worker Job
-	self.job = ko.observable(data.job);
-	self.editingJob = ko.observable(false);
-	self.editJob = function() {
-		self.editingJob(true);
-	};
+	self.job = new KoEditableText(data.job);
 
 	// Worker schedule
 	self.hours = ko.observableArray();
@@ -264,11 +267,11 @@ var Schedule = function(periods, data) {
 		self.workers().forEach(function(worker) {
 			var isUnique = true;
 			jobs.forEach(function(exisitingJob) {
-				if (worker().job() === exisitingJob)
+				if (worker().job.string() === exisitingJob)
 					isUnique = false;
 			});
 			if (isUnique) {
-				jobs.push(worker().job());
+				jobs.push(worker().job.string());
 			}
 		});
 		return jobs;
@@ -349,7 +352,7 @@ var Query = function(workers, targetData) {
 				if (isWorking && isInRange(workerHours, target)) {
 					// Find if job matches
 					for (let i = 0; i < target.jobs().length; i++) {
-						if (worker().job() === target.jobs()[i]()) {
+						if (worker().job.string() === target.jobs()[i]()) {
 							tally++;
 							break;
 						}

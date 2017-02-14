@@ -167,35 +167,36 @@
 				<!-- ko {foreach: workers} -->
 				<tr>
 					<!-- Worker First Name -->
-					<td class="cell">
-						<div data-bind="visible: !editingFirstName(),
-							text: (firstName() != '') ? firstName : '[Name]',
-							click: editFirstName"></div>
+					<td class="cell" data-bind="with: firstName">
+						<div data-bind="visible: !editingString(),
+							text: (string() != '') ? string : '[Enter Value]',
+							click: editString"></div>
 						<input data-bind="
-							visible: editingFirstName, value: firstName,
+							visible: editingString, value: string,
 							event: {keydown: $root.clearFocus},
-							hasFocus: editingFirstName" />
+							hasFocus: editingString" />
 					</td>
 
 					<!-- Worker Last Name -->
-					<td class="cell">
-						<div data-bind="visible: !editingLastName(),
-							text: (lastName() != '') ? lastName : '[Name]',
-							click: editLastName"></div>
+					<td class="cell" data-bind="with: lastName">
+						<div data-bind="visible: !editingString(),
+							text: (string() != '') ? string : '[Enter Value]',
+							click: editString"></div>
 						<input data-bind="
-							visible: editingLastName, value: lastName,
+							visible: editingString, value: string,
 							event: {keydown: $root.clearFocus},
-							hasFocus: editingLastName" />
+							hasFocus: editingString" />
 					</td>
 
 					<!-- Worker Job -->
-					<td class="cell">
-						<div data-bind="visible: !editingJob(),
-										text: (job() != '') ? job : '[Job]',
-										click: editJob"></div>
-						<input data-bind="visible: editingJob, value: job,
-										  event: {keydown: $root.clearFocus},
-										  hasFocus: editingJob" />
+					<td class="cell" data-bind="with: job">
+						<div data-bind="visible: !editingString(),
+							text: (string() != '') ? string : '[Enter Value]',
+							click: editString"></div>
+						<input data-bind="
+							visible: editingString, value: string,
+							event: {keydown: $root.clearFocus},
+							hasFocus: editingString" />
 					</td>
 
 					<!-- ko { foreach: hours} -->
