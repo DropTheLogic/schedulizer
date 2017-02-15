@@ -51,13 +51,7 @@
 		<section class="schedule">
 		<!-- Schedule Name -->
 		<h3>
-			<span data-bind="visible: !$data.editingName(),
-					   text: ($data.name() === '') ? '[Name]' : $data.name,
-					   click: $data.editName"></span>
-			<span><input data-bind="visible: $data.editingName,
-							  value: $data.name,
-							  event: {keydown: $root.clearFocus},
-							  hasFocus: $data.editingName" /></span>
+			<span data-bind="template: {name: 'text-edit', data: name}"></span>
 
 			<!-- Buttons for schedule management -->
 			<span class="schedule-manage">
@@ -167,37 +161,16 @@
 				<!-- ko {foreach: workers} -->
 				<tr>
 					<!-- Worker First Name -->
-					<td class="cell" data-bind="with: firstName">
-						<div data-bind="visible: !editingString(),
-							text: (string() != '') ? string : '[Enter Value]',
-							click: editString"></div>
-						<input data-bind="
-							visible: editingString, value: string,
-							event: {keydown: $root.clearFocus},
-							hasFocus: editingString" />
-					</td>
+					<td class="cell" data-bind="
+						template: {name: 'text-edit', data: firstName}"></td>
 
 					<!-- Worker Last Name -->
-					<td class="cell" data-bind="with: lastName">
-						<div data-bind="visible: !editingString(),
-							text: (string() != '') ? string : '[Enter Value]',
-							click: editString"></div>
-						<input data-bind="
-							visible: editingString, value: string,
-							event: {keydown: $root.clearFocus},
-							hasFocus: editingString" />
-					</td>
+					<td class="cell" data-bind="
+						template: {name: 'text-edit', data: lastName}"></td>
 
 					<!-- Worker Job -->
-					<td class="cell" data-bind="with: job">
-						<div data-bind="visible: !editingString(),
-							text: (string() != '') ? string : '[Enter Value]',
-							click: editString"></div>
-						<input data-bind="
-							visible: editingString, value: string,
-							event: {keydown: $root.clearFocus},
-							hasFocus: editingString" />
-					</td>
+					<td class="cell" data-bind="
+						template: {name: 'text-edit', data: job}"></td>
 
 					<!-- ko { foreach: hours} -->
 					<td class="cell"
@@ -357,12 +330,8 @@
 				<!-- ko { foreach: ranges } -->
 				<tr>
 					<td class="cell range-cell">
-						<div data-bind="visible: !editingName(),
-										text: (name() != '') ? name : '[Name]',
-										click: editName"></div>
-						<input data-bind="visible: editingName, value: name,
-										  event: {keydown: $root.clearFocus},
-										  hasFocus: editingName" />
+						<div data-bind="
+							template: {name: 'text-edit', data: name}"></div>
 					</td>
 					<td class="cell range-cell center-text">
 						<span data-bind="template:
@@ -430,6 +399,17 @@
 			visible: $data.editingAM,
 			options: am, value: $data.ampm,
 			hasFocus: $data.editingAM"></select>
+	</script>
+
+	<!-- Editable Text Template -->
+	<script type="text/html" id="text-edit">
+		<span data-bind="visible: !editingString(),
+			text: (string() != '') ? string : '[Enter Value]',
+			click: editString"></span>
+		<input data-bind="
+			visible: editingString, value: string,
+			event: {keydown: $root.clearFocus},
+			hasFocus: editingString" />
 	</script>
 
 	<script src="js/jquery-3.1.1.min.js"></script>

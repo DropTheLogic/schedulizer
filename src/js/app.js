@@ -49,7 +49,7 @@ var workersData = [
 
 var rangeData = [
 	{
-		name: 'Full Day',
+		name: {string: 'Full Day'},
 		target: {
 			start: {hour: 12, min: 0, ampm: 'am'},
 			end: {hour: 11, min: 59, ampm: 'pm'}
@@ -69,7 +69,7 @@ var queriesData = [
 
 var scheduleData = [
 	{
-		name: 'My Schedule',
+		name: {string: 'My Schedule'},
 		ranges: rangeData,
 		workers: workersData,
 		queries: queriesData
@@ -152,11 +152,7 @@ var Worker = function(periods, data) {
 var Range = function(data) {
 	var self = this;
 
-	self.name = ko.observable(data.name);
-	self.editingName = ko.observable(false);
-	self.editName = function(name) {
-		self.editingName(true);
-	};
+	self.name = new KoEditableText(data.name);
 
 	self.target = {
 		'start' : new KoEditableTime(data.target.start),
@@ -168,11 +164,7 @@ var Schedule = function(periods, data) {
 	var self = this;
 
 	// Schedule name
-	self.name = ko.observable(data.name);
-	self.editingName = ko.observable(false);
-	self.editName = function(name) {
-		self.editingName(true);
-	};
+	self.name = new KoEditableText(data.name);
 
 	// Array of different table views
 	self.views = ['Schedule', 'Ranges'];
@@ -471,7 +463,7 @@ var ViewModel = function() {
 	self.loadSchedule = function(data, index) {
 		if (localStorage.savedScheduleJSON) {
 			let parsedData = JSON.parse(localStorage.savedScheduleJSON);
-			let name = parsedData.name;
+			let name = parsedData.name.string;
 			let verified = confirm(
 				'Overwrite current schedule with saved schedule "' + name + '"?'
 			);
@@ -495,7 +487,7 @@ var ViewModel = function() {
 
 	// Remove current schedule from array and from page
 	self.removeSchedule = function(data, index) {
-		let name = data.name();
+		let name = data.name.string();
 		let verified = confirm('Really remove the schedule "' + name +
 			'" from the page?');
 		if (verified) {
