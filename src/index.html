@@ -269,25 +269,38 @@
 				<tr>
 					<!-- Query time selector -->
 					<td class="cell">
-						<span data-bind="template:
-							{ name: 'time-edit', data: $data.target.start }">
+						<span data-bind="template: {
+							name: 'time-edit',
+							data: function() {
+								let ranges = $parent.ranges();
+								let index = ranges.indexOf(selectedRange());
+								return $parent.ranges()[index].target.start; }
+							}">
 						</span>
 
 						<span class="spacer">to</span>
 
-						<span data-bind="template:
-							{ name: 'time-edit', data: $data.target.end }">
+						<span data-bind="template: {
+							name: 'time-edit',
+							data: function() {
+								let ranges = $parent.ranges();
+								let index = ranges.indexOf(selectedRange());
+								return $parent.ranges()[index].target.end; }
+							}">
 						</span>
 					</td>
 
 					<!-- Range Name -->
 					<td class="cell">
-						[Name goes here]
+						<select data-bind="
+							options: $parent.ranges,
+							optionsText: 'named',
+							value: selectedRange"></select>
 					</td>
 
 					<!-- Job selector, to match query against -->
 					<td class="cell">
-						<!-- ko { foreach: $data.target.jobs } -->
+						<!-- ko { foreach: $data.targetJobs } -->
 							<select data-bind="options: $parents[1].jobs,
 								value: $rawData"></select>
 						<!-- /ko -->

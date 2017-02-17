@@ -60,10 +60,10 @@ var rangeData = [
 var queriesData = [
 	{
 		target: {
-			start: {hour: 8, min: 30, ampm: 'am'},
-			end: {hour: 4, min: 30, ampm: 'pm'},
-			jobs: ['Some job']
-		}
+			start: rangeData[0].target.start,
+			end: rangeData[0].target.end,
+		},
+		targetJobs: ['Some job']
 	}
 ];
 
@@ -153,6 +153,7 @@ var Range = function(data) {
 	var self = this;
 
 	self.name = new KoEditableText(data.name);
+	self.named = ko.observable(self.name.string());
 
 	self.target = {
 		'start' : new KoEditableTime(data.target.start),
@@ -272,12 +273,12 @@ var Schedule = function(periods, data) {
 	// Define array to hold queries and load queries from raw data
 	self.queries = ko.observableArray([]);
 	data.queries.forEach(function(queryData) {
-		self.queries.push( new Query(self.workers, queryData) );
+		self.queries.push( new Query(self.workers, queryData, self.ranges) );
 	});
 
 	// Push new Query to queries array
 	self.addQuery = function() {
-		self.queries.push( new Query(self.workers, data.queries[0]) );
+		self.queries.push( new Query(self.workers, data.queries[0], self.ranges) );
 	};
 
 	self.hasQueries = ko.computed(function() {
@@ -315,32 +316,30 @@ var Schedule = function(periods, data) {
  * @constructor
  * @param {object} workers - observable array of worker objects
  */
-var Query = function(workers, targetData) {
+var Query = function(workers, targetData, ranges) {
 	var self = this;
 
 	// Array of each day's query tallies
 	self.tallies = ko.observableArray([]);
 
-	// Targets for query to match
-	self.target = {
-		start: new KoEditableTime(targetData.target.start),
-		end: new KoEditableTime(targetData.target.end),
-		jobs: ko.observableArray([])
-	};
+	// Targets job for query to match
+	self.targetJobs = ko.observableArray([]);
 
 	// Load target jobs array for query
-	targetData.target.jobs.forEach(function(job) {
-		self.target.jobs.push(ko.observable(job));
+	targetData.targetJobs.forEach(function(job) {
+		self.targetJobs.push(ko.observable(job));
 	});
+
+	// Holds current range data from range array
+	self.selectedRange = ko.observable(ranges()[0]);
 
 	// Add new job to job target array
 	self.addJob = function(value) {
-		self.target.jobs.push(ko.observable('job'));
+		self.targetJobs.push(ko.observable('job'));
 	};
 
 	// Calculate result of query
 	self.result = function(day) {
-		let target = self.target;
 		return ko.computed(function() {
 			// How many workers can be matched on this day
 			let tally = 0;
@@ -349,10 +348,10 @@ var Query = function(workers, targetData) {
 				// Find if worker is off today or is working
 				let workerHours = worker().hours()[day]();
 				let isWorking = !workerHours.off();
-				if (isWorking && isInRange(workerHours, target)) {
+				if (isWorking && isInRange(workerHours, self.selectedRange().target)) {
 					// Find if job matches
-					for (let i = 0; i < target.jobs().length; i++) {
-						if (worker().job.string() === target.jobs()[i]()) {
+					for (let i = 0; i < self.targetJobs().length; i++) {
+						if (worker().job.string() === self.targetJobs()[i]()) {
 							tally++;
 							break;
 						}
