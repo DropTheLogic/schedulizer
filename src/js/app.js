@@ -153,7 +153,9 @@ var Range = function(data) {
 	var self = this;
 
 	self.name = new KoEditableText(data.name);
-	self.named = ko.observable(self.name.string());
+	self.named = ko.computed(function() {
+		return self.name.string();
+	}, this);
 
 	self.target = {
 		'start' : new KoEditableTime(data.target.start),
