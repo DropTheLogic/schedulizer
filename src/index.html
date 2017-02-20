@@ -59,6 +59,7 @@
 				<button class="btn btn-md btn-default btn-green"
 						data-bind="click: function() {
 							$root.saveSchedule($data); }"
+						data-toggle="tooltip"
 						title="Save schedule">
 					<i class="fa fa-floppy-o" aria-hidden="true"></i>
 				</button>
@@ -67,6 +68,7 @@
 				<button class="btn btn-md btn-default btn-yellow"
 						data-bind="click: function() {
 							$root.loadSchedule($data, $index);}"
+						data-toggle="tooltip"
 						title="Load saved schedule">
 					<i class="fa fa-download" aria-hidden="true"></i>
 				</button>
@@ -75,6 +77,7 @@
 				<button class="btn btn-md btn-default btn-red"
 						data-bind="click: function() {
 							$root.removeSchedule($data, $index);}"
+						data-toggle="tooltip"
 						title="Remove schedule">
 					<i class="fa fa-times-circle" aria-hidden="true"></i>
 				</button>
@@ -100,10 +103,12 @@
 						<!-- Sort by First Name Buttons -->
 						<div class="sort-buttons">
 							<button data-bind="click: sortBy('firstName', 1)"
+								data-toggle="tooltip"
 								title="Sort by First Name Ascending">
 								<i class="fa fa-angle-up"></i>
 							</button>
 							<button data-bind="click: sortBy('firstName', -1)"
+								data-toggle="tooltip"
 								title="Sort by First Name Descending">
 								<i class="fa fa-angle-down"></i>
 							</button>
@@ -113,10 +118,12 @@
 						<!-- Sort by Last Name Buttons -->
 						<div class="sort-buttons">
 							<button data-bind="click: sortBy('lastName', 1)"
+								data-toggle="tooltip"
 								title="Sort by Last Name Ascending">
 								<i class="fa fa-angle-up"></i>
 							</button>
 							<button data-bind="click: sortBy('lastName', -1)"
+								data-toggle="tooltip"
 								title="Sort by Last Name Descending">
 								<i class="fa fa-angle-down"></i>
 							</button>
@@ -126,10 +133,12 @@
 						<!-- Sort by Job buttons -->
 						<div class="sort-buttons">
 							<button data-bind="click: sortBy('job', 1)"
+								data-toggle="tooltip"
 								title="Sort by Job Ascending">
 								<i class="fa fa-angle-up"></i>
 							</button>
 							<button data-bind="click: sortBy('job', -1)"
+								data-toggle="tooltip"
 								title="Sort by Job Descending">
 								<i class="fa fa-angle-down"></i>
 							</button>
@@ -144,10 +153,12 @@
 						<!-- Sort by Total Time buttons -->
 						<span class="sort-buttons">
 							<button data-bind="click: sortBy('totalTime', 1)"
+								data-toggle="tooltip"
 								title="Sort by Hours Ascending">
 								<i class="fa fa-angle-up"></i>
 							</button>
 							<button data-bind="click: sortBy('totalTime', -1)"
+								data-toggle="tooltip"
 								title="Sort by Hours Descending">
 								<i class="fa fa-angle-down"></i>
 							</button>
@@ -211,6 +222,7 @@
 
 						<!-- Move worker up -->
 						<button title="Move This Worker Up One"
+							data-toggle="tooltip"
 							class="btn btn-xs btn-info button-worker"
 							data-bind="click: function(){
 								$parent.moveWorker($rawData, $index, -1); }" >
@@ -218,6 +230,7 @@
 
 						<!-- Move worker down -->
 						<button title="Move This Worker Down One"
+							data-toggle="tooltip"
 							class="btn btn-xs btn-info button-worker"
 							data-bind="click: function(){
 								$parent.moveWorker($rawData, $index, 1); }" >
@@ -225,6 +238,7 @@
 
 						<!-- Insert new worker above -->
 						<button title="Add Worker Before"
+							data-toggle="tooltip"
 							class="btn btn-xs btn-primary button-worker"
 							data-bind="click: function() {
 								$parent.addWorker($rawData, $index, 0); }">
@@ -232,6 +246,7 @@
 
 						<!-- Insert new worker below -->
 						<button title="Add Worker After"
+							data-toggle="tooltip"
 							class="btn btn-xs btn-primary button-worker"
 							data-bind="click: function() {
 								$parent.addWorker($rawData, $index, 1); }">
@@ -239,6 +254,7 @@
 
 						<!-- Delete worker -->
 						<button title="Delete Worker"
+							data-toggle="tooltip"
 							class="btn btn-xs btn-danger button-worker"
 							data-bind="click: function() {
 								$parent.deleteWorker($index); }">
@@ -380,6 +396,7 @@
 		<button class="btn btn-lg add-schedule"
 				data-bind="click: function() {
 					$root.newSchedule($data, $index); }"
+				data-toggle="tooltip"
 				title="Add new schedule">
 			<i class="fa fa-plus-circle" aria-hidden="true"></i>
 		</button>
@@ -429,6 +446,12 @@
 	<script src="js/knockout-3.4.1.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/app.js"></script>
+
+	<script>
+		$(document).ready(function(){
+		    $('[data-toggle="tooltip"]').tooltip();
+		});
+	</script>
 </body>
 
 </html>
