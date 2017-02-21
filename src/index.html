@@ -284,25 +284,18 @@
 				<!-- ko { foreach: queries } -->
 				<tr>
 					<!-- Query time selector -->
-					<td class="cell">
+					<td class="cell"
+						data-bind="if: $parent.selected() === 'Schedule'">
 						<span data-bind="template: {
 							name: 'time-edit',
-							data: function() {
-								let ranges = $parent.ranges();
-								let index = ranges.indexOf(selectedRange());
-								return $parent.ranges()[index].target.start; }
-							}">
+							data: selectedRange().target.start }">
 						</span>
 
 						<span class="spacer">to</span>
 
 						<span data-bind="template: {
 							name: 'time-edit',
-							data: function() {
-								let ranges = $parent.ranges();
-								let index = ranges.indexOf(selectedRange());
-								return $parent.ranges()[index].target.end; }
-							}">
+							data: selectedRange().target.end }">
 						</span>
 					</td>
 
@@ -353,7 +346,7 @@
 
 		<!-- Schedule Ranges -->
 		<table class="table table-striped table-bordered table-hover table-condensed"
-			data-bind="visible: selected() === 'Ranges'">
+			data-bind="if: selected() === 'Ranges'">
 
 			<tbody>
 				<!-- ko { foreach: ranges } -->
