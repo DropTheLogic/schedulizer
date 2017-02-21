@@ -440,9 +440,10 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/app.js"></script>
 
+	<!-- Add Bootrap Tooltips -->
 	<script>
-		$(document).ready(function(){
-		    $('[data-toggle="tooltip"]').tooltip();
+		$('body').tooltip({
+		  selector: '[data-toggle="tooltip"]'
 		});
 	</script>
 </body>
