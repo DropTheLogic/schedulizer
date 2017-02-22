@@ -399,29 +399,24 @@
 	<!-- Editable Time Template -->
 	<script type="text/html" id="time-edit">
 		<span data-bind="
-			visible: !$data.editingHour(), text: $data.hour,
-			click: function() { $data.editHour(); }"></span>
+			visible: !editingHour(), text: hour,
+			click: function() { editHour(); }"></span>
 		<select data-bind="
-			visible: $data.editingHour,
-			options: hours, value: $data.hour,
-			hasFocus: $data.editingHour"></select>
+			visible: editingHour, options: hours, value: hour,
+			hasFocus: editingHour"></select>
 		<span>:</span>
 		<span data-bind="
-			visible: !$data.editingMin(),
-			text: ('0' + $data.min()).slice(-2),
-			click: function() { $data.editMin(); }"></span>
+			visible: !editingMin(), text: ('0' + min()).slice(-2),
+			click: function() { editMin(); }"></span>
 		<select data-bind="
-			visible: $data.editingMin,
-			options: minutes, value: $data.min,
-			hasFocus: $data.editingMin"></select>
+			visible: editingMin, options: minutes, value: min,
+			hasFocus: editingMin"></select>
 		<span data-bind="
-			visible: !$data.editingAM(),
-			text: $data.ampm().slice(0, 1),
-			click: function() { $data.editAM(); }"></span>
+			visible: !editingAM(), text: ampm().slice(0, 1),
+			click: function() { editAM(); }"></span>
 		<select data-bind="
-			visible: $data.editingAM,
-			options: am, value: $data.ampm,
-			hasFocus: $data.editingAM"></select>
+			visible: editingAM, options: am, value: ampm,
+			hasFocus: editingAM"></select>
 	</script>
 
 	<!-- Editable Text Template -->
