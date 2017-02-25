@@ -63,7 +63,8 @@ var queriesData = [
 			start: rangeData[0].target.start,
 			end: rangeData[0].target.end,
 		},
-		targetJobs: ['Some job']
+		targetJobs: ['Some job'],
+		selectedIndex: 0
 	}
 ];
 
@@ -333,7 +334,12 @@ var Query = function(workers, targetData, ranges) {
 	});
 
 	// Holds current range data from range array
-	self.selectedRange = ko.observable(ranges()[0]);
+	self.selectedRange = ko.observable(ranges()[targetData.selectedIndex]);
+
+	// Holds index in ranges array of the selected range
+	self.selectedIndex = ko.computed(function() {
+		return ranges.indexOf(self.selectedRange());
+	}, this);
 
 	// Add new job to job target array
 	self.addJob = function(value) {
