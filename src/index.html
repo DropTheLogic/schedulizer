@@ -29,7 +29,7 @@
 
 	<div class="container suite-manage">
 		<!-- Button to add new schedule -->
-		<button data-bind="visible: schedules().length < 1, click: $root.addSchedule"
+		<button data-bind="click: function() { $root.newSchedule($data, -1); }"
 			class="btn btn-sm btn-primary">
 			<i class="fa fa-plus-circle"></i><span>New Schedule</span>
 		</button>

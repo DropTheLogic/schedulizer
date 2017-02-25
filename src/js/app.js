@@ -434,13 +434,6 @@ var ViewModel = function() {
 	// Array of schedules
 	self.schedules = ko.observableArray([]);
 
-	// Pushes new schedule to schedules array
-	self.addSchedule = function() {
-		self.schedules.push(
-			ko.observable(new Schedule(periods, scheduleData[0]))
-		);
-	};
-
 	// Clears focus if enter is pressed
 	self.clearFocus = function(data, event) {
 		if (event && event.keyCode === 13) {
@@ -480,7 +473,8 @@ var ViewModel = function() {
 
 	// Add new Schedule at the current position of the schedules array
 	self.newSchedule = function(data, index) {
-		let i = index();
+		// Flatten index only if it's an observable
+		let i = (typeof index === 'function') ? index() : index;
 		self.schedules.splice(i + 1, 0,
 			ko.observable(new Schedule(periods, scheduleData[0]))
 		);
