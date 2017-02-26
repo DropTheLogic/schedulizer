@@ -226,7 +226,8 @@
 							class="btn btn-xs btn-info button-worker"
 							data-bind="click: function(){
 								$parent.moveWorker($rawData, $index, -1); }" >
-							↑↑</button>
+							<i class="fa fa-level-up"></i>
+						</button>
 
 						<!-- Move worker down -->
 						<button title="Move This Worker Down One"
@@ -234,7 +235,8 @@
 							class="btn btn-xs btn-info button-worker"
 							data-bind="click: function(){
 								$parent.moveWorker($rawData, $index, 1); }" >
-							↓↓</button>
+							<i class="fa fa-level-down"></i>
+						</button>
 
 						<!-- Insert new worker above -->
 						<button title="Add Worker Before"
@@ -242,7 +244,9 @@
 							class="btn btn-xs btn-primary button-worker"
 							data-bind="click: function() {
 								$parent.addWorker($rawData, $index, 0); }">
-							+↑</button>
+							<i style="font-size: 8px" class="fa fa-plus"></i>
+							<i class="fa fa-level-up"></i>
+						</button>
 
 						<!-- Insert new worker below -->
 						<button title="Add Worker After"
@@ -250,7 +254,9 @@
 							class="btn btn-xs btn-primary button-worker"
 							data-bind="click: function() {
 								$parent.addWorker($rawData, $index, 1); }">
-							+↓</button>
+							<i style="font-size: 8px" class="fa fa-plus"></i>
+							<i class="fa fa-level-down"></i>
+						</button>
 
 						<!-- Delete worker -->
 						<button title="Delete Worker"
