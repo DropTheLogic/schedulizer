@@ -146,7 +146,7 @@
 					</td>
 
 					<!-- ko {foreach: $data.periodNames} -->
-					<td data-bind="text: $data"></td>
+					<td data-bind="text: $data" class="center-text"></td>
 					<!-- /ko -->
 
 					<td class="cell-title center-text"><span>Total Hours</span>
@@ -186,28 +186,36 @@
 					<!-- ko { foreach: hours} -->
 					<td class="cell"
 						data-bind="css: { 'center-text' : $data.off() }">
-						<span data-bind="visible: !$data.off()">
+						<div class="time-off">
+							<div data-bind="visible: !$data.off()">
 
-							<!-- Time In -->
-							<span data-bind="template: {
-								name: 'time-edit', data: $data.in }">
-							</span>
+								<!-- Time In -->
+								<span data-bind="template: {
+									name: 'time-edit', data: $data.in }">
+								</span>
 
-							<span class="spacer"> - </span>
+								<span class="spacer"> - </span>
 
-							<!-- Time Out -->
-							<span data-bind="template: {
-								name: 'time-edit', data: $data.out }">
-							</span>
-						</span>
+								<!-- Time Out -->
+								<span data-bind="template: {
+									name: 'time-edit', data: $data.out }">
+								</span>
+							</div>
 
-						<!-- Display 'Off' Text -->
-						<span data-bind="visible: $data.off" class="off">
-						</span>
+							<!-- Display 'Off' Text -->
+							<div data-bind="visible: $data.off" class="off">
+							OFF
+							</div>
+						</div>
 
 						<!-- Set-off Button -->
-						<span data-bind="click: $data.toggleOff"
-							class="set-off">✖</span>
+						<div data-bind="click: $data.toggleOff"
+							class="set-off center-text">
+							<i class="fa fa-toggle-on" aria-hidden="true"
+								data-bind="visible: !$data.off()"></i>
+							<i class="fa fa-toggle-off" aria-hidden="true"
+								data-bind="visible: $data.off"></i>
+						</div>
 
 					</td>
 					<!-- /ko -->
@@ -218,7 +226,7 @@
 					</td>
 
 					<!-- Buttons to manage Worker -->
-					<td class="center-text manage-worker btn-group">
+					<td class="cell center-text manage-worker btn-group">
 
 						<!-- Move worker up -->
 						<button title="Move This Worker Up One"
@@ -327,7 +335,7 @@
 					<!-- /ko -->
 
 					<!-- Button to delete query from queries array -->
-					<td class="cell center-text query-manage">
+					<td class="cell query-manage">
 						<button data-bind="click: $parent.deleteQuery"
 							class="cell btn btn-xs btn-danger right-tab">
 							<i class="fa fa-times-circle" aria-hidden="true"></i>

@@ -20,7 +20,7 @@ header {
 }
 
 .container {
-	min-width: 90%;
+	min-width: 96%;
 }
 
 /****************************************
@@ -94,8 +94,8 @@ header {
 }
 
 .manage-worker {
-	display: inline-flex;
-	min-width: 200px;
+	display: table-cell;
+	min-width: 200px !important;
 	background: #fcfcfc;
 	border-top: hidden !important;
 	border-bottom: hidden !important;
@@ -111,6 +111,7 @@ header {
 	border-top: hidden !important;
 	border-right: hidden !important;
 	border-bottom: hidden !important;
+    padding-left: 0px !important;
 }
 
 .suite-manage {
@@ -156,8 +157,6 @@ header {
 }
 
 .right-tab {
-    position: relative;
-    left: -8px;
     border-radius: 0 4px 4px 0;
 }
 
@@ -204,7 +203,7 @@ header {
 
 .cell {
 	font-size: 10px;
-	min-width: 102px;
+	min-width: 90px;
 	vertical-align: middle !important;
 }
 
@@ -219,24 +218,24 @@ header {
 	background: #fcfcfc;
 }
 
-.set-off {
-	float: right;
-	border: 1px solid #ccc;
-	width: 17px;
+.time-off {
+	min-height: 20px;
 	text-align: center;
-	color: #bbb;
+}
+
+.set-off {
+	font-size: 16px;
+	color: #ddd;
 }
 
 .set-off:hover {
-	background-color: #fff;
-	color: #000;
+	color: #d9534f;
 }
 
-.off:after {
+.off {
 	font-family: 'Lustria', serif;
 	font-weight: 700;
 	font-size: 14px;
-	content: 'OFF';
 	color: #d9534f;
 }
 
