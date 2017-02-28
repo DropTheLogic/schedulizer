@@ -258,19 +258,18 @@ var Schedule = function(periods, data) {
 	};
 
 	// Keep track of distinct jobs entered
-	self.jobs = ko.computed(function() {
-		var jobs = [];
+	self.jobs = ko.observableArray([]);
+	self.scanJobs = ko.computed(function() {
 		self.workers().forEach(function(worker) {
 			var isUnique = true;
-			jobs.forEach(function(exisitingJob) {
+			self.jobs().forEach(function(exisitingJob) {
 				if (worker().job.string() === exisitingJob)
 					isUnique = false;
 			});
 			if (isUnique) {
-				jobs.push(worker().job.string());
+				self.jobs.push(worker().job.string());
 			}
 		});
-		return jobs;
 	}, this);
 
 	// Define array to hold queries and load queries from raw data
