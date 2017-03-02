@@ -257,21 +257,6 @@ var Schedule = function(periods, data) {
 		self.workers.splice(i, 1);
 	};
 
-	// Keep track of distinct jobs entered
-	self.jobs = ko.observableArray([]);
-	self.scanJobs = ko.computed(function() {
-		self.workers().forEach(function(worker) {
-			var isUnique = true;
-			self.jobs().forEach(function(exisitingJob) {
-				if (worker().job.string() === exisitingJob)
-					isUnique = false;
-			});
-			if (isUnique) {
-				self.jobs.push(worker().job.string());
-			}
-		});
-	}, this);
-
 	// Define array to hold queries and load queries from raw data
 	self.queries = ko.observableArray([]);
 	data.queries.forEach(function(queryData) {
@@ -291,7 +276,7 @@ var Schedule = function(periods, data) {
 	// Delete query from queries array
 	self.deleteQuery = function(index) {
 		self.queries.splice(index, 1)
-	}
+	};
 
 	/**
 	 * Sort workers array by given property, in given direction
@@ -310,6 +295,54 @@ var Schedule = function(periods, data) {
 			});
 		};
 	};
+
+	// Keep track of distinct jobs entered
+	self.jobs = ko.observableArray([]);
+
+	// Update jobs array to only keep jobs in use by workers and queries
+	self.scanJobs = ko.computed(function() {
+		// Add new jobs to jobs array as they appear
+		self.workers().forEach(function(worker) {
+			let isUnique = true;
+			for (let i = 0; i < self.jobs().length; i++) {
+				if (worker().job.string() === self.jobs()[i]) {
+					isUnique = false;
+					break;
+				}
+			}
+			if (isUnique) {
+				self.jobs.push(worker().job.string());
+			}
+		});
+		// Remove unused jobs from array
+		for (let i = 0; i < self.jobs().length; i++) {
+			let listedJob = self.jobs()[i];
+			let isNotInUse = true;
+			// First, make sure job is not being used in a query
+			queryLoop: for (let j = 0; j < self.queries().length; j++) {
+				let targetJobs = self.queries()[j].targetJobs();
+				targetJobLoop: for (let k = 0; k < targetJobs.length; k++) {
+					if (listedJob === targetJobs[k]()) {
+						isNotInUse = false;
+						break queryLoop;
+					}
+				}
+			}
+			// Then, make sure job does not belong to any worker
+			if (isNotInUse) {
+				for (let j = 0; j < self.workers().length; j++) {
+					if (listedJob === self.workers()[j]().job.string()) {
+						isNotInUse = false;
+						break;
+					}
+				}
+			}
+			// If listed job was not found, remove from jobs array
+			if (isNotInUse) {
+				self.jobs.splice(i, 1);
+			}
+		}
+	}, this);
 };
 
 /**
