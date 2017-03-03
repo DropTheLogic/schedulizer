@@ -265,7 +265,7 @@ var Schedule = function(periods, data) {
 
 	// Push new Query to queries array
 	self.addQuery = function() {
-		self.queries.push( new Query(self.workers, data.queries[0], self.ranges) );
+		self.queries.push( new Query(self.workers, queriesData[0], self.ranges) );
 	};
 
 	self.hasQueries = ko.computed(function() {
