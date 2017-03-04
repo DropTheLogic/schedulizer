@@ -23,6 +23,10 @@ header {
 	min-width: 96%;
 }
 
+.click-to-edit {
+	display: inline;
+}
+
 /****************************************
  * Schedule section styles
  ****************************************/

@@ -579,3 +579,18 @@ var ViewModel = function() {
 };
 
 ko.applyBindings(new ViewModel());
+
+// Make editable elements visible on click
+$('body').on('click', '.click-to-edit', function() {
+	// Hide the plain text element
+	$(this).find('.editable-display').hide();
+	// Show and focus the editable element
+	$(this).find('.editable-edit').show();
+	$(this).find('.editable-edit').focus();
+});
+
+// Revert editable element's visibility when it loses focus
+$('body').on('blur', '.editable-edit', function() {
+	$(this).hide();
+	$(this.parentElement).find('.editable-display').show();
+});
