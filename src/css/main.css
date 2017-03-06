@@ -227,7 +227,38 @@ header {
 	text-align: center;
 }
 
+.hours-submenu {
+	display: inline;
+	float: right;
+	color: #ddd;
+}
+
+.hours-submenu:hover {
+	color: #d9534f;
+}
+
+.hours-submenu li {
+	padding: 4px 8px;
+	font-size: 12px;
+	color: #333;
+}
+
+.hours-submenu li:hover {
+	color: #d9534f;
+	background-color: #f1f1f1;
+}
+
+.disabled {
+	color: #ccc !important;
+}
+
+.disabled:hover {
+	color: #ccc !important;
+	background-color: #fff !important;
+}
+
 .set-off {
+	float: left;
 	font-size: 16px;
 	color: #ddd;
 }

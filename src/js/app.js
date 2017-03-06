@@ -203,6 +203,23 @@ var Schedule = function(periods, data) {
 		self.workers.push(ko.observable(new Worker(periods, workerData)));
 	});
 
+	// Copy and paste functions for worker hours
+	self.clipboard = ko.observable('');
+	self.copyHours = function(data) {
+		self.clipboard(ko.toJS(data));
+	};
+	self.pasteHours = function(context, index) {
+		let workersIndex = self.workers().indexOf(context.$rawData);
+		self.workers()[workersIndex]().hours()[index()]({
+			'off' : ko.observable(self.clipboard().off),
+			'toggleOff' : function() {
+				(this.off()) ? this.off(false) : this.off(true);
+			},
+			'in' : new KoEditableTime(self.clipboard().in),
+			'out' : new KoEditableTime(self.clipboard().out)
+		});
+	};
+
 	/**
 	 * Pushes new worker to workers array for this schedule
 	 * @param {object} data - observable Worker data (optional)
