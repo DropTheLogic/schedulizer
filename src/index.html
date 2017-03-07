@@ -76,7 +76,8 @@
 				<!-- Remove schedule button -->
 				<button class="btn btn-md btn-default btn-red"
 						data-bind="click: function() {
-							$root.removeSchedule($data, $index);}"
+							$root.removeSchedule($data, $index);
+							$('.tooltip').tooltip('destroy');}"
 						data-toggle="tooltip"
 						title="Remove schedule">
 					<i class="fa fa-times-circle" aria-hidden="true"></i>
@@ -303,7 +304,8 @@
 							data-toggle="tooltip"
 							class="btn btn-xs btn-danger button-worker"
 							data-bind="click: function() {
-								$parent.deleteWorker($index); }">
+								$parent.deleteWorker($index);
+								$('.tooltip').tooltip('destroy');}">
 							<i class="fa fa-times-circle"></i>
 						</button>
 					</td>
@@ -493,7 +495,8 @@
 	<script>
 		$('body').tooltip({
 			selector: '[data-toggle="tooltip"]',
-			container: 'body'
+			container: 'body',
+			trigger: 'hover'
 		});
 	</script>
 </body>
