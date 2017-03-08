@@ -274,7 +274,7 @@ header {
 	color: #d9534f;
 }
 
-.range-cell {
+.range-cell, .now-cell {
 	width: 160px;
 }
 

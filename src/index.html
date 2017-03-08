@@ -394,7 +394,7 @@
 
 		<!-- Schedule Ranges -->
 		<table class="table table-striped table-bordered table-hover table-condensed"
-			data-bind="if: selected() === 'Ranges'">
+			data-bind="visible: selected() === 'Ranges'">
 
 			<thead>
 				<tr class="heading">
@@ -438,6 +438,57 @@
 			</tbody>
 		</table>
 		<!-- End Ranges -->
+
+		<!-- Schedule Right Now Status -->
+		<table class="table table-striped table-bordered table-hover
+			table-condensed" data-bind="visible: selected() === 'Right Now'">
+
+			<thead>
+				<tr class="heading">
+					<td>Name</td>
+					<td>Job</td>
+					<td>Leaving at</td>
+					<td class="empty-cell"></td>
+				</tr>
+			</thead>
+
+			<tbody>
+				<!-- ko { foreach : workers } -->
+				<tr data-bind="if: isInRange(
+					hours()[$root.clock().getDay()](), $root.timeAsTarget()) &&
+					!hours()[$root.clock().getDay()]().off()">
+					<td class="cell now-cell"
+						data-bind="text: firstName.string"></td>
+					<td class="cell now-cell"
+						data-bind="text: job.string"></td>
+					<td class="cell now-cell">
+						<span data-bind="template: { name: 'time-edit',
+							data: hours()[$root.clock().getDay()]().out }">
+						</span>
+					</td>
+					<td class="empty-cell"></td>
+				</tr>
+				<!-- /ko -->
+			</tbody>
+
+			<tfoot>
+				<tr>
+					<td colspan="2" class="cell">
+						<span>Current Time:&ensp;</span>
+						<em><span
+							data-bind="text: $root.clock().toLocaleTimeString()">
+						</span></em>
+						<span>&ensp;</span>
+						<em><span
+							data-bind="text: $root.clock().toDateString()">
+						</span></em>
+					</td>
+				</tr>
+				<tr></tr>
+			</tfoot>
+
+		</table>
+		<!-- End Right Now -->
 
 		<!-- End of this Schedule -->
 		</section>

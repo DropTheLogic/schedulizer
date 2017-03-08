@@ -171,7 +171,7 @@ var Schedule = function(periods, data) {
 	self.name = new KoEditableText(data.name);
 
 	// Array of different table views
-	self.views = ['Schedule', 'Ranges'];
+	self.views = ['Schedule', 'Ranges', 'Right Now'];
 
 	// Keep track of the schedule's different table views
 	self.selected = ko.observable(self.views[0]);
@@ -467,17 +467,36 @@ var calculateShiftHours = function(time1, time2) {
  * @param {object} time - Contains integer hour, integer min, string am/pm
  */
 var convertTimeToDecimal = function(time) {
+	time = ko.toJS(time);
 	// Adjust 12 to zero hour
-	let t = (time.hour() === 12) ? 0 : time.hour();
+	let t = (time.hour === 12) ? 0 : time.hour;
 	// Add 12 hours if PM
-	t += (time.ampm() != 'am') ? 12 : 0;
+	t += (time.ampm != 'am') ? 12 : 0;
 	// Add minutes as a decimal
-	t += time.min() / 60;
+	t += time.min / 60;
 	return t;
 };
 
 var ViewModel = function() {
 	var self = this;
+
+	// Manage current time for 'right now' views
+	self.clock = ko.observable(new Date());
+	// Keep current time up-to-date
+	self.getCurrentTime = function() {
+		self.clock( new Date() );
+	};
+	setInterval(self.getCurrentTime, 1000);
+	// Format time object to fit target comparisons
+	self.timeAsTarget = function() {
+		let hour = this.clock().getHours();
+		let targetTime = {
+			'hour' : (hour === 0) ? 12 : (hour > 12) ? hour - 12 : hour,
+			'min' : this.clock().getMinutes(),
+			'ampm' : (hour > 11) ? 'pm' : 'am'
+		};
+		return { 'start': targetTime, 'end' : targetTime };
+	};
 
 	// Suite Name
 	self.name = ko.observable('Schedulizer');
