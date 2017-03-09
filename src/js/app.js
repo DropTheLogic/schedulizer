@@ -441,10 +441,32 @@ var isInRange = function(workerHours, target) {
 	let workerIn = convertTimeToDecimal(workerHours.in);
 	let workerOut = convertTimeToDecimal(workerHours.out);
 
+	// If worker's workday runs into the next day
+	if (workerIn > workerOut) {
+		// If target also runs into the next day,
+		// then 24:00 is guaranteed to overlap
+		if (targetStart > targetEnd) {
+			return true;
+		}
+		if (workerIn <= targetEnd || workerOut >= targetEnd) {
+			return true;
+		}
+	}
+
+	// If target runs to the next day, but not the worker's schedule
+	else if (targetStart > targetEnd) {
+		if (workerIn <= targetEnd || workerOut >= targetStart) {
+			return true;
+		}
+	}
+
+	// Otherwise check for normal overlap
 	if (workerIn >= targetStart && workerIn <= targetEnd ||
 		workerIn <= targetStart && workerOut > targetStart) {
 		return true;
 	}
+
+	// If no overlap found
 	return false;
 };
 
