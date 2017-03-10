@@ -27,6 +27,28 @@ header {
 	display: inline;
 }
 
+#loader {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: #fff;
+	opacity: 0.95;
+	text-align: center;
+	z-index: 11111;
+}
+
+#loader h2 {
+	position: relative;
+	padding: 16px;
+	border: 1px solid #333;
+	border-radius: 2px;
+	box-shadow: 1px 1px 1px #ccc;
+	width: 50%;
+	top: 25%;
+	left: 25%;
+	transform: translateY(-25%);
+}
+
 /****************************************
  * Schedule section styles
  ****************************************/

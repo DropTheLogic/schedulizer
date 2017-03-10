@@ -502,6 +502,12 @@ var convertTimeToDecimal = function(time) {
 var ViewModel = function() {
 	var self = this;
 
+	// Display loading screen until document is ready
+	self.loading = ko.observable(true);
+	$(document).ready(function() {
+		self.loading(false);
+	});
+
 	// Manage current time for 'right now' views
 	self.clock = ko.observable(new Date());
 	// Keep current time up-to-date

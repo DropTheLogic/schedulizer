@@ -27,6 +27,11 @@
 		<div class="cell">Click things to edit, click away to save</div>
 	</header>
 
+	<section id="loader" data-bind="visible: loading">
+		<h2 style="font-family: 'Palatino', serif;">
+		<i class='fa fa-spinner fa-spin '></i>Loading...</h2>
+	</section>
+
 	<div class="container suite-manage">
 		<!-- Button to add new schedule -->
 		<button data-bind="click: function() { $root.newSchedule($data, -1); }"
