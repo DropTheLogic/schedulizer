@@ -526,6 +526,29 @@ var ViewModel = function() {
 		return { 'start': targetTime, 'end' : targetTime };
 	};
 
+	// Toggle visibility of element's dislplay/edit children on click event
+	self.showEditEl = function(data, e) {
+		let el = e.currentTarget;
+		let editEl = el.getElementsByClassName('editable-edit')[0];
+		let displayEl = el.getElementsByClassName('editable-display')[0];
+		// Check if this edit element is currently hidden
+		if ((' ' + editEl.className + ' ').indexOf(' ' + 'hidden' + ' ') > -1) {
+			// Hide display element
+			displayEl.className += ' hidden';
+			// Show and focus the editable element
+			editEl.classList.remove('hidden');
+			editEl.focus();
+		}
+	};
+	// On event, hide this editable element, and show sibling dislpay element
+	self.showDisplayEl = function(data, e) {
+		let el = e.currentTarget;
+		let parent = el.parentElement;
+		let displayEl = parent.getElementsByClassName('editable-display')[0];
+		el.className += ' hidden';
+		displayEl.classList.remove('hidden');
+	};
+
 	// Suite Name
 	self.name = ko.observable('Schedulizer');
 	self.editingName = ko.observable(false);
@@ -643,18 +666,3 @@ var ViewModel = function() {
 };
 
 ko.applyBindings(new ViewModel());
-
-// Make editable elements visible on click
-$('body').on('click', '.click-to-edit', function() {
-	// Hide the plain text element
-	$(this).find('.editable-display').hide();
-	// Show and focus the editable element
-	$(this).find('.editable-edit').show();
-	$(this).find('.editable-edit').focus();
-});
-
-// Revert editable element's visibility when it loses focus
-$('body').on('blur', '.editable-edit', function() {
-	$(this).hide();
-	$(this.parentElement).find('.editable-display').show();
-});
