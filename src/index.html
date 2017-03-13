@@ -10,6 +10,7 @@
 		rel="stylesheet">
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
 	<link rel="stylesheet" href="css/main.css" type="text/css" />
+	<link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
 </head>
 
 <body>
@@ -60,6 +61,13 @@
 
 			<!-- Buttons for schedule management -->
 			<span class="schedule-manage">
+				<!-- Print schedule button -->
+				<button class="btn btn-md btn-default btn-blue"
+						data-bind="click: $root.printSection"
+						data-toggle="tooltip"
+						title="Print schedule">
+					<i class="fa fa-print" aria-hidden="true"></i>
+				</button>
 				<!-- Save schedule button -->
 				<button class="btn btn-md btn-default btn-green"
 						data-bind="click: function() {

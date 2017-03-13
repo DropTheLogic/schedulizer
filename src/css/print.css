@@ -1,0 +1,66 @@
+/*****************************************
+ * Select only this section for visibility
+ *****************************************/
+body * {
+	visibility: hidden;
+}
+
+.section-to-print, .section-to-print * {
+	visibility: visible;
+}
+
+.section-to-print {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+/*****************************************
+ * Hide all buttons and clickables
+ *****************************************/
+button, .set-off, #table-tabs, .manage-worker, .query-manage {
+	display: none !important;
+}
+
+/*****************************************
+ * Shape items to be space-efficient
+ *****************************************/
+body {
+	margin: 0px 0px 0px 0px;
+}
+
+.schedule {
+	padding: 0;
+	position: absolute;
+	top: 0;
+}
+
+.table {
+	width: 1;
+}
+
+.table-condensed>tbody>tr>td,
+.table-condensed>tbody>tr>th,
+.table-condensed>tfoot>tr>td,
+.table-condensed>tfoot>tr>th,
+.table-condensed>thead>tr>td,
+.table-condensed>thead>tr>th {
+	padding: 2px;
+}
+
+.heading {
+	font-size: 11px;
+}
+
+.cell-title {
+	min-width: 0px;
+}
+
+.cell {
+	font-size: 9px;
+	min-width: 72px;
+}
+
+.time-off {
+	min-height: 0;
+}

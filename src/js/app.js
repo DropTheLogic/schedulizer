@@ -569,6 +569,19 @@ var ViewModel = function() {
 			return true;
 	};
 
+	// Print section
+	self.printSection = function(data, e) {
+		// Apply print class to this section
+		let section = e.currentTarget.parentElement.parentElement.parentElement;
+		section.className += ' section-to-print';
+
+		// Print section
+		window.print();
+
+		// Remove print class from this section
+		section.classList.remove('section-to-print');
+	};
+
 	// Use localStorage to save current schedule
 	self.saveSchedule = function(data) {
 		let verified = confirm('Overwrite previous data file?');
