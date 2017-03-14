@@ -541,13 +541,13 @@
 
 	<!-- Editable Text Template -->
 	<script type="text/html" id="text-edit">
-		<span data-bind="visible: !editingString(),
-			text: (string() != '') ? string : '[Enter Value]',
-			click: editString"></span>
-		<input data-bind="
-			visible: editingString, value: string,
-			event: {keydown: $root.clearFocus},
-			hasFocus: editingString" />
+		<div class="click-to-edit" data-bind="click: $root.showEditEl">
+			<span class="editable-display" data-bind="
+				text: (string() != '') ? string : '[Enter Value]'"></span>
+			<input class="editable-edit hidden" data-bind="
+				value: string,
+				event: { blur: $root.showDisplayEl }" />
+		</div>
 	</script>
 
 	<script src="js/jquery-3.1.1.min.js"></script>
