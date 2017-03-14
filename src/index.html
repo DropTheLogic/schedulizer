@@ -22,7 +22,7 @@
 				click: editName"></span>
 			<span><input data-bind="visible: editingName,
 					value: name,
-					event: {keydown: clearFocus},
+					event: {keydown: manageKeys},
 					hasFocus: editingName" /></span>
 		</h1>
 		<div class="cell">Click things to edit, click away to save</div>
@@ -522,20 +522,23 @@
 		<div class="click-to-edit" data-bind="click: $root.showEditEl">
 			<span class="editable-display" data-bind="text: hour"></span>
 			<select class="editable-edit hidden" data-bind="options: hours,
-				value: hour, event: { blur: $root.showDisplayEl }"></select>
+				value: hour, event: { blur: $root.showDisplayEl,
+				keydown: $root.manageKeys }"></select>
 		</div>
 		<span>:</span>
 		<div class="click-to-edit" data-bind="click: $root.showEditEl">
 			<span class="editable-display"
 				data-bind="text: ('0' + min()).slice(-2)"></span>
 			<select class="editable-edit hidden" data-bind="options: minutes,
-				value: min, event: { blur: $root.showDisplayEl }"></select>
+				value: min, event: { blur: $root.showDisplayEl,
+				keydown: $root.manageKeys }"></select>
 		</div>
 		<div class="click-to-edit" data-bind="click: $root.showEditEl">
 			<span class="editable-display"
 				data-bind="text: ampm().slice(0, 1)"></span>
 			<select class="editable-edit hidden" data-bind="options: am,
-				value: ampm, event: { blur: $root.showDisplayEl }"></select>
+				value: ampm, event: { blur: $root.showDisplayEl,
+				keydown: $root.manageKeys }"></select>
 		</div>
 	</script>
 
@@ -546,7 +549,8 @@
 				text: (string() != '') ? string : '[Enter Value]'"></span>
 			<input class="editable-edit hidden" data-bind="
 				value: string,
-				event: { blur: $root.showDisplayEl }" />
+				event: { blur: $root.showDisplayEl,
+				keydown: $root.manageKeys }" />
 		</div>
 	</script>
 

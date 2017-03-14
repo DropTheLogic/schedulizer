@@ -528,7 +528,11 @@ var ViewModel = function() {
 
 	// Toggle visibility of element's dislplay/edit children on click event
 	self.showEditEl = function(data, e) {
-		let el = e.currentTarget;
+		let el = e;
+		// Grab element from event if being called by click
+		if (e.type && e.type === 'click') {
+			el = e.currentTarget;
+		}
 		let editEl = el.getElementsByClassName('editable-edit')[0];
 		let displayEl = el.getElementsByClassName('editable-display')[0];
 		// Check if this edit element is currently hidden
@@ -567,6 +571,58 @@ var ViewModel = function() {
 		}
 		else
 			return true;
+	};
+
+	// Mange special input key events
+	self.manageKeys = function(data, event) {
+		// If TAB is pressed, blur current element and advance to and
+		// "activate" the next (hidden) input element.
+		if (event && event.keyCode === 9) {
+			event.preventDefault();
+
+			// Find if user is tabbing (forward) or shift-tabbing (backwards)
+			let dir = (event.shiftKey) ? -1 : 1;
+
+			// Find index of next input-type element
+			let nextIndex = $(':input').index(event.currentTarget) + dir;
+			let nextInput = $(':input:eq(' + nextIndex + ')').get();
+			let invalidElement;
+
+			// Check that the next input-type element is valid to activate
+			do {
+				// Assume element is valid
+				invalidElement = false;
+				// Skip any buttons
+				if (nextInput['0'].nodeName === 'BUTTON') {
+					invalidElement = true;
+				}
+				else if (nextInput['0'].nodeName === 'SELECT') {
+					// If this element is under a day in which the worker
+					// is off, skip as is should remain hidden.
+					if (ko.contextFor(nextInput['0']).$parent.off()) {
+						invalidElement = true;
+					}
+				}
+				// If no valid situation was found, advance to next element
+				if (invalidElement) {
+					nextInput = $(':input:eq(' + (nextIndex += dir) + ')').get();
+				}
+			} while (invalidElement);
+
+			// Show editable element
+			self.showEditEl(data, nextInput['0'].parentElement);
+			return true;
+		}
+
+		// If ENTER or ESC are pressed, blur element
+		else if (event && (event.keyCode === 13 || event.keyCode === 27)) {
+			document.activeElement.blur();
+			return true;
+		}
+
+		else {
+			return true;
+		}
 	};
 
 	// Print section
