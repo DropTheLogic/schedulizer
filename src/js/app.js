@@ -554,11 +554,7 @@ var ViewModel = function() {
 	};
 
 	// Suite Name
-	self.name = ko.observable('Schedulizer');
-	self.editingName = ko.observable(false);
-	self.editName = function(name) {
-		self.editingName(true);
-	};
+	self.name = new KoEditableText({'string' : 'Schedulizer'});
 
 	// Array of schedules
 	self.schedules = ko.observableArray([]);
@@ -691,7 +687,7 @@ var ViewModel = function() {
 		if (verified) {
 			let suiteJSON = ko.toJSON(self.schedules);
 			localStorage.savedSuiteJSON = suiteJSON;
-			localStorage.savedName = self.name();
+			localStorage.savedName = ko.toJSON(self.name);
 		}
 	};
 
@@ -707,7 +703,8 @@ var ViewModel = function() {
 
 			if (verified) {
 				// Display suite name
-				self.name(localStorage.savedName);
+				let parsedName = JSON.parse(localStorage.savedName);
+				self.name = new KoEditableText(parsedName);
 
 				// Re-initialize schedules array
 				self.schedules.splice(0, self.schedules().length);

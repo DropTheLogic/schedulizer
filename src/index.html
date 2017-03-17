@@ -16,15 +16,8 @@
 <body>
 
 	<header>
-		<h1><span data-bind="
-				visible: !editingName(),
-				text: (name() === '') ? '[Name]' : name,
-				click: editName"></span>
-			<span><input data-bind="visible: editingName,
-					value: name,
-					event: {keydown: manageKeys},
-					hasFocus: editingName" /></span>
-		</h1>
+		<h1 data-bind="template: {name: 'text-edit', data: name},
+			event: { blur: $root.showDisplayEl }"></h1>
 		<div class="cell">Click things to edit, click away to save</div>
 	</header>
 
