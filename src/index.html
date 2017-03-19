@@ -358,14 +358,16 @@
 						<select data-bind="
 							options: $parent.ranges,
 							optionsText: 'named',
-							value: selectedRange"></select>
+							value: selectedRange,
+							event: { keydown: $root.manageKeys }"></select>
 					</td>
 
 					<!-- Job selector, to match query against -->
 					<td class="cell">
 						<!-- ko { foreach: $data.targetJobs } -->
 							<select data-bind="options: $parents[1].jobs,
-								value: $rawData"></select>
+								value: $rawData,
+								event: { keydown: $root.manageKeys }"></select>
 						<!-- /ko -->
 						<span><button data-bind="click: addJob">+</button></span>
 					</td>

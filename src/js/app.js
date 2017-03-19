@@ -579,34 +579,61 @@ var ViewModel = function() {
 			// Find if user is tabbing (forward) or shift-tabbing (backwards)
 			let dir = (event.shiftKey) ? -1 : 1;
 
-			// Find index of next input-type element
-			let nextIndex = $(':input').index(event.currentTarget) + dir;
-			let nextInput = $(':input:eq(' + nextIndex + ')').get();
-			let invalidElement;
+			// Gather a collection of all input elements to cycle through
+			let inputs = document.body.querySelectorAll('select,input');
+			inputs = Array.prototype.slice.call(inputs);
+
+			// Lookup the active element's index position within the collection
+			let thisIndex = inputs.indexOf(event.currentTarget);
+
+			// Find the next element's index, accounting for wrap-around borders
+			let nextIndex = (thisIndex + dir < 0) ? inputs.length - 1 :
+				(thisIndex + dir === inputs.length) ? 0 : thisIndex + dir;
+			let nextInput = inputs[nextIndex];
 
 			// Check that the next input-type element is valid to activate
+			let invalidElement;
 			do {
 				// Assume element is valid
 				invalidElement = false;
-				// Skip any buttons
-				if (nextInput['0'].nodeName === 'BUTTON') {
+
+				// Identify ancestors that may be hidden
+				let parentTable = nextInput.closest('.table');
+				let ancestor =
+					nextInput.parentElement.parentElement.parentElement;
+
+				// Find if the next element is inside a table that is hidden
+				if (parentTable && parentTable.hasAttribute('style') &&
+					parentTable.getAttribute('style') === 'display: none;') {
 					invalidElement = true;
 				}
-				else if (nextInput['0'].nodeName === 'SELECT') {
-					// If this element is under a day in which the worker
-					// is off, skip as is should remain hidden.
-					if (ko.contextFor(nextInput['0']).$parent.off()) {
-						invalidElement = true;
-					}
+
+				// If the next element is under a day in which the worker
+				// is off, skip as is should remain hidden.
+				else if (ancestor && ancestor.hasAttribute('style') &&
+					ancestor.getAttribute('style') === 'display: none;') {
+					invalidElement = true;
 				}
+
+				// If next element is already visibile, simply pass focus to it
+				else if (nextInput.classList.value.indexOf('hidden') < 0) {
+					nextInput.focus();
+					return true;
+				}
+
 				// If no valid situation was found, advance to next element
 				if (invalidElement) {
-					nextInput = $(':input:eq(' + (nextIndex += dir) + ')').get();
+					// Check boundary of elemets list and wrap-around
+					nextIndex = (nextIndex + dir < 0) ? inputs.length - 1 :
+						(nextIndex + dir === inputs.length) ?
+						0 : nextIndex + dir;
+					nextInput = inputs[nextIndex];
 				}
+
 			} while (invalidElement);
 
 			// Show editable element
-			self.showEditEl(data, nextInput['0'].parentElement);
+			self.showEditEl(data, nextInput.parentElement);
 			return true;
 		}
 
