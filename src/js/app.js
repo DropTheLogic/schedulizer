@@ -86,19 +86,7 @@ var KoEditableTime = function(day) {
 	return {
 		'hour': ko.observable(day.hour),
 		'min': ko.observable(day.min),
-		'ampm': ko.observable(day.ampm),
-		'editingHour' : ko.observable(false),
-		'editingMin' : ko.observable(false),
-		'editingAM' : ko.observable(false),
-		'editHour' : function() {
-			this.editingHour(true);
-		},
-		'editMin' : function() {
-			this.editingMin(true);
-		},
-		'editAM' : function() {
-			this.editingAM(true);
-		}
+		'ampm': ko.observable(day.ampm)
 	}
 };
 
