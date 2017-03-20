@@ -357,7 +357,7 @@
 					<td class="cell">
 						<select data-bind="
 							options: $parent.ranges,
-							optionsText: 'named',
+							optionsText: 'name',
 							value: selectedRange,
 							event: { keydown: $root.manageKeys }"></select>
 					</td>
@@ -466,9 +466,9 @@
 					hours()[$root.clock().getDay()](), $root.timeAsTarget()) &&
 					!hours()[$root.clock().getDay()]().off()">
 					<td class="cell now-cell"
-						data-bind="text: firstName.string"></td>
+						data-bind="text: firstName"></td>
 					<td class="cell now-cell"
-						data-bind="text: job.string"></td>
+						data-bind="text: job"></td>
 					<td class="cell now-cell">
 						<span data-bind="template: { name: 'time-edit',
 							data: hours()[$root.clock().getDay()]().out }">
@@ -541,9 +541,9 @@
 	<script type="text/html" id="text-edit">
 		<div class="click-to-edit" data-bind="click: $root.showEditEl">
 			<span class="editable-display" data-bind="
-				text: (string() != '') ? string : '[Enter Value]'"></span>
+				text: ($rawData() != '') ? $rawData() : '[Enter Value]'"></span>
 			<input class="editable-edit hidden" data-bind="
-				value: string,
+				value: $rawData,
 				event: { blur: $root.showDisplayEl,
 				keydown: $root.manageKeys }" />
 		</div>

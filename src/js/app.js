@@ -11,9 +11,9 @@ var am = ['am', 'pm'];
 
 var workersData = [
 	{
-		firstName: { string: 'John' },
-		lastName: { string: 'Doe'},
-		job: { string: 'Job name'},
+		firstName: 'John',
+		lastName: 'Doe',
+		job: 'Job name',
 		hours: [
 			{
 				'in': {'hour': 8, 'min': 0, 'ampm': 'am'},
@@ -49,7 +49,7 @@ var workersData = [
 
 var rangeData = [
 	{
-		name: {string: 'Full Day'},
+		name: 'Full Day',
 		target: {
 			start: {hour: 12, min: 0, ampm: 'am'},
 			end: {hour: 11, min: 59, ampm: 'pm'}
@@ -70,7 +70,7 @@ var queriesData = [
 
 var scheduleData = [
 	{
-		name: {string: 'My Schedule'},
+		name: 'My Schedule',
 		ranges: rangeData,
 		workers: workersData,
 		queries: queriesData
@@ -90,30 +90,15 @@ var KoEditableTime = function(day) {
 	}
 };
 
-/**
- * Returns editable text object with observable attributes
- * @constructor
- * @param {object} text - Has text String value
- */
-var KoEditableText = function(text) {
-	return {
-		'string': ko.observable(text.string),
-		'editingString': ko.observable(false),
-		'editString': function() {
-			this.editingString(true);
-		}
-	}
-};
-
 var Worker = function(periods, data) {
 	var self = this;
 
 	// Worker Name
-	self.firstName = new KoEditableText(data.firstName);
-	self.lastName = new KoEditableText(data.lastName);
+	self.firstName = ko.observable(data.firstName);
+	self.lastName = ko.observable(data.lastName);
 
 	// Worker Job
-	self.job = new KoEditableText(data.job);
+	self.job = ko.observable(data.job);
 
 	// Worker schedule
 	self.hours = ko.observableArray();
@@ -141,10 +126,7 @@ var Worker = function(periods, data) {
 var Range = function(data) {
 	var self = this;
 
-	self.name = new KoEditableText(data.name);
-	self.named = ko.computed(function() {
-		return self.name.string();
-	}, this);
+	self.name = ko.observable(data.name);
 
 	self.target = {
 		'start' : new KoEditableTime(data.target.start),
@@ -156,7 +138,7 @@ var Schedule = function(periods, data) {
 	var self = this;
 
 	// Schedule name
-	self.name = new KoEditableText(data.name);
+	self.name = ko.observable(data.name);
 
 	// Array of different table views
 	self.views = ['Schedule', 'Ranges', 'Right Now'];
@@ -293,9 +275,8 @@ var Schedule = function(periods, data) {
 		return function() {
 			self.workers.sort(function(a, b) {
 				// Set a and b to appropraite observable value to sort by
-				let ready = typeof a()[prop] == 'function';
-				a = (ready) ? a()[prop]() : a()[prop].string();
-				b = (ready) ? b()[prop]() : b()[prop].string();
+				a = a()[prop]();
+				b = b()[prop]();
 				return a == b ? 0 : (a < b ? -direction : direction);
 			});
 		};
@@ -310,13 +291,13 @@ var Schedule = function(periods, data) {
 		self.workers().forEach(function(worker) {
 			let isUnique = true;
 			for (let i = 0; i < self.jobs().length; i++) {
-				if (worker().job.string() === self.jobs()[i]) {
+				if (worker().job() === self.jobs()[i]) {
 					isUnique = false;
 					break;
 				}
 			}
 			if (isUnique) {
-				self.jobs.push(worker().job.string());
+				self.jobs.push(worker().job());
 			}
 		});
 		// Remove unused jobs from array
@@ -336,7 +317,7 @@ var Schedule = function(periods, data) {
 			// Then, make sure job does not belong to any worker
 			if (isNotInUse) {
 				for (let j = 0; j < self.workers().length; j++) {
-					if (listedJob === self.workers()[j]().job.string()) {
+					if (listedJob === self.workers()[j]().job()) {
 						isNotInUse = false;
 						break;
 					}
@@ -396,7 +377,7 @@ var Query = function(workers, targetData, ranges) {
 				if (isWorking && isInRange(workerHours, self.selectedRange().target)) {
 					// Find if job matches
 					for (let i = 0; i < self.targetJobs().length; i++) {
-						if (worker().job.string() === self.targetJobs()[i]()) {
+						if (worker().job() === self.targetJobs()[i]()) {
 							tally++;
 							break;
 						}
@@ -542,7 +523,7 @@ var ViewModel = function() {
 	};
 
 	// Suite Name
-	self.name = new KoEditableText({'string' : 'Schedulizer'});
+	self.name = ko.observable('Schedulizer');
 
 	// Array of schedules
 	self.schedules = ko.observableArray([]);
@@ -662,7 +643,7 @@ var ViewModel = function() {
 	self.loadSchedule = function(data, index) {
 		if (localStorage.savedScheduleJSON) {
 			let parsedData = JSON.parse(localStorage.savedScheduleJSON);
-			let name = parsedData.name.string;
+			let name = parsedData.name;
 			let verified = confirm(
 				'Overwrite current schedule with saved schedule "' + name + '"?'
 			);
@@ -687,7 +668,7 @@ var ViewModel = function() {
 
 	// Remove current schedule from array and from page
 	self.removeSchedule = function(data, index) {
-		let name = data.name.string();
+		let name = data.name();
 		let verified = confirm('Really remove the schedule "' + name +
 			'" from the page?');
 		if (verified) {
@@ -719,7 +700,7 @@ var ViewModel = function() {
 			if (verified) {
 				// Display suite name
 				let parsedName = JSON.parse(localStorage.savedName);
-				self.name = new KoEditableText(parsedName);
+				self.name = ko.observable(parsedName);
 
 				// Re-initialize schedules array
 				self.schedules.splice(0, self.schedules().length);
