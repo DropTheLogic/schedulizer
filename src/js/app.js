@@ -567,25 +567,15 @@ var ViewModel = function() {
 				invalidElement = false;
 
 				// Identify ancestors that may be hidden
-				let parentTable = nextInput.closest('.table');
-				let ancestor =
-					nextInput.parentElement.parentElement.parentElement;
+				let closestHidden = nextInput.parentNode.closest('.hidden');
 
 				// Find if the next element is inside a table that is hidden
-				if (parentTable && parentTable.hasAttribute('style') &&
-					parentTable.getAttribute('style') === 'display: none;') {
-					invalidElement = true;
-				}
-
-				// If the next element is under a day in which the worker
-				// is off, skip as is should remain hidden.
-				else if (ancestor && ancestor.hasAttribute('style') &&
-					ancestor.getAttribute('style') === 'display: none;') {
+				if (closestHidden) {
 					invalidElement = true;
 				}
 
 				// If next element is already visibile, simply pass focus to it
-				else if (nextInput.classList.value.indexOf('hidden') < 0) {
+				else if (!nextInput.classList.contains('hidden')) {
 					nextInput.focus();
 					return true;
 				}
