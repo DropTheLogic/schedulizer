@@ -715,6 +715,83 @@ var ViewModel = function() {
 			ko.observable(new Schedule(periods, scheduleData[0]))
 		);
 	}
+
+	// Export table to CSV file
+	self.exportToCSV = function(data, event) {
+		// Array of data to export
+		let csv = [];
+		// Element for parent Schedule
+		let el = event.currentTarget.parentElement.parentElement.parentElement;
+
+		// Append title and subheader to csv data
+		let title = el.getElementsByClassName('click-to-edit')[0].innerText;
+		let subheader =
+			el.getElementsByClassName('table-tab-selected')[0].innerText;
+		csv.push(title + ' - ' + subheader + '\n');
+
+		// Grab visible trs to append to csv data array
+		let rows = el.querySelectorAll('table:not(.hidden) tr');
+		for (let i = 0 ; i < rows.length - 1; i++) {
+			let row = [];
+			// Grab tds from each tr, excluding ones not needed for export
+			let cols = rows[i].querySelectorAll(
+				'td:not(.add-worker):not(.add-query):not(.query-manage)');
+			for (let j = 0; j < cols.length; j++) {
+				// Grab all of the cell's content, and format, when applicaple
+				let cellContent = cols[j].innerText.trim();
+
+				// Remove whitespace from spans (or their children) that
+				// contain times
+				let displaysTime = (cols[j].classList.contains('time')) ?
+					true : (cols[j].querySelectorAll('.time').length > 0) ?
+					true : false;
+				if (displaysTime) {
+					cellContent = cols[j].innerText.replace(/\s/g, '');
+				}
+
+				// Get select value (or values) for visible selects in a cell
+				let selectElements =
+					cols[j].querySelectorAll('select:not(.hidden)');
+				if (selectElements.length > 0) {
+					cellContent = '';
+					for (let k = 0; k < selectElements.length; k++) {
+						// Grab value of select element
+						let selectData = ko.dataFor(selectElements[k]);
+						// If computed from a range object, get the name
+						if (typeof selectData === 'object') {
+							selectData = selectData.selectedRange().name();
+						}
+						// Append to cellContent
+						cellContent += selectData + ' ';
+					}
+				}
+
+				// Add cell contents into row array
+				row.push(cellContent.trim());
+			}
+
+			// Add each row to the csv data array
+			csv.push('\n' + row.join(','));
+		}
+
+		// Export csv data to csv file by creating a blob and downloading it
+		let blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+		// Create filename from suite name and schedule title
+		let filename = self.name() + ' - ' + title.trim() + '.csv';
+		if (navigator.msSaveBlob) { // IE 10+
+			navigator.msSaveBlob(blob, filename);
+		}
+		else {
+			let link = document.createElement("a");
+			let url = URL.createObjectURL(blob);
+			link.setAttribute("href", url);
+			link.setAttribute("download", filename);
+			link.style.visibility = 'hidden';
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		}
+	};
 };
 
 ko.applyBindings(new ViewModel());

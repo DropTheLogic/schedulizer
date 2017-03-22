@@ -61,6 +61,7 @@
 						title="Print schedule">
 					<i class="fa fa-print" aria-hidden="true"></i>
 				</button>
+
 				<!-- Save schedule button -->
 				<button class="btn btn-md btn-default btn-green"
 						data-bind="click: function() {
@@ -76,6 +77,14 @@
 							$root.loadSchedule($data, $index);}"
 						data-toggle="tooltip"
 						title="Load saved schedule">
+					<i class="fa fa-folder-open" aria-hidden="true"></i>
+				</button>
+
+				<!-- Export schedule button -->
+				<button class="btn btn-md btn-default btn-blue"
+						data-bind="click: $root.exportToCSV"
+						data-toggle="tooltip"
+						title="Export schedule to CSV file">
 					<i class="fa fa-download" aria-hidden="true"></i>
 				</button>
 
@@ -192,7 +201,7 @@
 
 					<!-- ko { foreach: hours} -->
 					<td class="cell">
-						<div class="time-off">
+						<div class="time-off time">
 							<div data-bind="css: {'hidden' : $data.off}">
 
 								<!-- Time In -->
@@ -338,14 +347,14 @@
 				<!-- ko { foreach: queries } -->
 				<tr>
 					<!-- Query time selector -->
-					<td class="cell"
+					<td class="cell time"
 						data-bind="if: $parent.selected() === 'Schedule'">
 						<span data-bind="template: {
 							name: 'time-edit',
 							data: selectedRange().target.start }">
 						</span>
 
-						<span class="spacer">to</span>
+						<span class="spacer">-</span>
 
 						<span data-bind="template: {
 							name: 'time-edit',
