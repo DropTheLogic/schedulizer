@@ -227,10 +227,6 @@ header {
 	font-size: 14px;
 }
 
-.cell-title {
-	min-width: 120px;
-}
-
 .cell {
 	font-size: 10px;
 	min-width: 90px;
