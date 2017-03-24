@@ -753,7 +753,9 @@ var ViewModel = function() {
 				let selectElements =
 					cols[j].querySelectorAll('select:not(.hidden)');
 				if (selectElements.length > 0) {
-					cellContent = '';
+					if (cellContent === cols[j].innerText.trim()) {
+						cellContent = '';
+					}
 					for (let k = 0; k < selectElements.length; k++) {
 						// Grab value of select element
 						let selectData = ko.dataFor(selectElements[k]);
@@ -762,12 +764,20 @@ var ViewModel = function() {
 							selectData = selectData.selectedRange().name();
 						}
 						// Append to cellContent
-						cellContent += selectData + ' ';
+						cellContent += ' ' + selectData + ' ';
 					}
 				}
 
 				// Add cell contents into row array
 				row.push(cellContent.trim());
+
+				// If cell has colspan beyond 1, add empty cells to match
+				if (cols[j].getAttribute('colspan') > 1) {
+					let extraCells = cols[j].getAttribute('colspan');
+					while (--extraCells > 0) {
+						row.push('');
+					}
+				}
 			}
 
 			// Add each row to the csv data array

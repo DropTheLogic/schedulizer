@@ -310,3 +310,10 @@ header {
 	padding-left: 3px;
 	padding-right: 3px;
 }
+
+.total-header {
+	background-color: #f1f1f1;
+	text-transform: uppercase;
+	letter-spacing: 4px;
+	padding: 0 !important;
+}

@@ -339,36 +339,48 @@
 
 			<!-- Footer for totals -->
 			<tfoot>
+				<!-- Totals header banner -->
+				<tr data-bind="visible: hasQueries">
+					<td class="heading center-text total-header"
+						data-bind="attr : { 'colspan' : periods.length + 3}">
+						<span>Totals</span>
+					</td>
+				</tr>
 				<tr class="heading" data-bind="visible: hasQueries">
-					<td class="cell-title">Range Time:</td>
-					<td class="cell-title">Range Name:</td>
-					<td class="cell-title">Of Job Type:</td>
+					<td class="cell-title" colspan="2">Time Range</td>
+					<td class="cell-title">Job Type</td>
+					<td class="center-text"
+						data-bind="attr: {'colspan' : periods.length}">
+						Total Workers Present
+					</td>
 				</tr>
 				<!-- ko { foreach: queries } -->
 				<tr>
 					<!-- Query time selector -->
-					<td class="cell time"
+					<td class="cell" colspan="2"
 						data-bind="if: $parent.selected() === 'Schedule'">
-						<span data-bind="template: {
-							name: 'time-edit',
-							data: selectedRange().target.start }">
-						</span>
-
-						<span class="spacer">-</span>
-
-						<span data-bind="template: {
-							name: 'time-edit',
-							data: selectedRange().target.end }">
-						</span>
-					</td>
-
-					<!-- Range Name -->
-					<td class="cell">
 						<select data-bind="
 							options: $parent.ranges,
 							optionsText: 'name',
 							value: selectedRange,
-							event: { keydown: $root.manageKeys }"></select>
+							event: { keydown: $root.manageKeys }">
+						</select>
+
+						<span class="spacer"></span>
+
+						<span class="time">
+							<span data-bind="template: {
+								name: 'time-edit',
+								data: selectedRange().target.start }">
+							</span>
+
+							<span class="spacer">-</span>
+
+							<span data-bind="template: {
+								name: 'time-edit',
+								data: selectedRange().target.end }">
+							</span>
+						</span>
 					</td>
 
 					<!-- Job selector, to match query against -->
