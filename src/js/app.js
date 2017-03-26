@@ -47,6 +47,10 @@ var workersData = [
 	}
 ];
 
+var options = {
+	'useSingleName' : {'value' : false}
+};
+
 var rangeData = [
 	{
 		name: 'Full Day',
@@ -71,6 +75,7 @@ var queriesData = [
 var scheduleData = [
 	{
 		name: 'My Schedule',
+		scheduleOptions: options,
 		ranges: rangeData,
 		workers: workersData,
 		queries: queriesData
@@ -141,7 +146,19 @@ var Schedule = function(periods, data) {
 	self.name = ko.observable(data.name);
 
 	// Array of different table views
-	self.views = ['Schedule', 'Ranges', 'Right Now'];
+	self.views = ['Schedule', 'Ranges', 'Right Now', 'Options'];
+
+	// Options
+	self.scheduleOptions = {
+		'useSingleName' : {
+			'text' : 'Use single name field only',
+			'value' : ko.observable(data.scheduleOptions.useSingleName.value)
+		},
+		'largerFont' : {
+			'text' : 'Use larger text size',
+			'value' : ko.observable(false)
+		}
+	};
 
 	// Keep track of the schedule's different table views
 	self.selected = ko.observable(self.views[0]);

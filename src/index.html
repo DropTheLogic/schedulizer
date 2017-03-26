@@ -115,7 +115,11 @@
 
 			<thead>
 				<tr class="heading">
-					<td><span>First Name</span>
+					<td data-bind="attr: { 'colspan' :
+						(scheduleOptions.useSingleName.value()) ? 2 : 1}">
+						<span data-bind="html:
+							(scheduleOptions.useSingleName.value()) ?
+							'Name' : 'First Name'"></span>
 						<!-- Sort by First Name Buttons -->
 						<div class="sort-buttons">
 							<button data-bind="click: sortBy('firstName', 1)"
@@ -130,6 +134,7 @@
 							</button>
 						</div>
 					</td>
+					<!-- ko { if: !scheduleOptions.useSingleName.value() } -->
 					<td><span>Last Name</span>
 						<!-- Sort by Last Name Buttons -->
 						<div class="sort-buttons">
@@ -145,6 +150,7 @@
 							</button>
 						</div>
 					</td>
+					<!-- /ko -->
 					<td>Job
 						<!-- Sort by Job buttons -->
 						<div class="sort-buttons">
@@ -189,11 +195,15 @@
 				<tr>
 					<!-- Worker First Name -->
 					<td class="cell" data-bind="
-						template: {name: 'text-edit', data: firstName}"></td>
-
+						template: {name: 'text-edit', data: firstName},
+						attr: {'colspan' :
+							($parent.scheduleOptions.useSingleName.value()) ?
+							2 : 1}"></td>
 					<!-- Worker Last Name -->
+					<!-- ko {if: !$parent.scheduleOptions.useSingleName.value()} -->
 					<td class="cell" data-bind="
 						template: {name: 'text-edit', data: lastName}"></td>
+					<!-- /ko -->
 
 					<!-- Worker Job -->
 					<td class="cell" data-bind="
@@ -518,6 +528,35 @@
 
 		</table>
 		<!-- End Right Now -->
+
+		<!-- Options -->
+		<table class="table table-striped table-bordered table-condensed"
+			data-bind="css: {'hidden' : selected() != 'Options' }">
+			<tbody>
+				<tr class="heading">
+					<td colspan="2">Schedule Options</td>
+				</tr>
+				<!-- ko { foreach : {data: Object.keys(scheduleOptions)} } -->
+				<tr data-bind="with: $parent.scheduleOptions[$data]">
+					<td class="cell col-md-4" data-bind="text: $data.text"></td>
+					<td class="cell col-md-1 center-text">
+						<span class="options-toggle" data-bind="css: {
+							'options-on' : $data.value}, click: function() {
+							($data.value()) ? $data.value(false) :
+							$data.value(true); }">
+							<i class="fa fa-toggle-on" aria-hidden="true"
+								data-bind="visible: $data.value"></i>
+							<i class="fa fa-toggle-off" aria-hidden="true"
+								data-bind="visible: !$data.value()"></i>
+						</span>
+					</td>
+					<td class="empty-cell"></td>
+				</tr>
+				<!-- /ko -->
+				<tr></tr>
+			</tbody>
+		</table>
+		<!-- End Options -->
 
 		<!-- End of this Schedule -->
 		</section>
