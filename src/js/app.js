@@ -528,6 +528,10 @@ var ViewModel = function() {
 			// Show and focus the editable element
 			editEl.classList.remove('hidden');
 			editEl.focus();
+			// Select element
+			if (editEl.nodeName != 'SELECT') {
+				editEl.select();
+			}
 		}
 	};
 	// On event, hide this editable element, and show sibling dislpay element
