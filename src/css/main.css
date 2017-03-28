@@ -129,8 +129,8 @@ header {
 }
 
 .schedule-manage {
-	margin-bottom: 20px;
-	vertical-align: text-top;
+	margin-top: 10px;
+	vertical-align: bottom;
 }
 
 .query-manage {
