@@ -48,7 +48,8 @@ var workersData = [
 ];
 
 var options = {
-	'useSingleName' : {'value' : false}
+	'useSingleName' : {'value' : false},
+	'largerFont' : {'value' : false}
 };
 
 var rangeData = [
@@ -152,13 +153,62 @@ var Schedule = function(periods, data) {
 	self.scheduleOptions = {
 		'useSingleName' : {
 			'text' : 'Use single name field only',
-			'value' : ko.observable(data.scheduleOptions.useSingleName.value)
+			'value' : ko.observable(data.scheduleOptions.useSingleName.value),
+			'function' : function() {
+				// Toggle value
+				(this.value()) ? this.value(false) : this.value(true);
+			}
 		},
 		'largerFont' : {
 			'text' : 'Use larger text size',
-			'value' : ko.observable(false)
+			'value' : ko.observable(data.scheduleOptions.largerFont.value),
+			// Adds or removes .larger to all elements with .cell
+			// Takes either click event or DOM element as second value
+			'function' : function(data, e) {
+				// Assume e is this Schedule's DOM element (handed via onload)
+				let schedule = e;
+
+				// If e is a click event, get this Schedule's element
+				let isAnEvent = e.hasOwnProperty('currentTarget');
+				if (isAnEvent) {
+					schedule = e.currentTarget.closest('.schedule');
+					// Toggle value
+					(this.value()) ? this.value(false) : this.value(true);
+				}
+
+				// Add or remove .larger to all elements with cell class
+				let cells = schedule.getElementsByClassName('cell');
+				if (this.value() === true) {
+					for (let i = 0; i < cells.length; i++) {
+						cells[i].classList += ' larger';
+					}
+				}
+				else if (isAnEvent) {
+					for (let i = 0; i < cells.length; i++) {
+						cells[i].classList.remove('larger');
+					}
+				}
+			},
+			'init' : function(context) {
+				// Find which DOM element this Schedule is bound to
+				let scheduleEls = document.getElementsByClassName('schedule');
+				let scheduleEl = scheduleEls[context.$index()];
+
+				// Send schedule DOM element to be parsed for font sizing
+				this.function({}, scheduleEl);
+			}
 		}
 	};
+
+	// Run any setting functions onload, if property warrants
+	self.loadOptions = function(context) {
+		for (prop in self.scheduleOptions) {
+			let option = self.scheduleOptions[prop];
+			if (option.hasOwnProperty('init')) {
+				option.init(context);
+			}
+		}
+	}
 
 	// Keep track of the schedule's different table views
 	self.selected = ko.observable(self.views[0]);

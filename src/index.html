@@ -6,7 +6,7 @@
 	<title>Staff Schedule and Task Organizer</title>
 
 	<script src="https://use.fontawesome.com/ef8641f9f6.js"></script>
-	<link href="https://fonts.googleapis.com/css?family=Lustria|Open+Sans"
+	<link href="https://fonts.googleapis.com/css?family=Lustria|Open+Sans:300, 400"
 		rel="stylesheet">
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
 	<link rel="stylesheet" href="css/main.css" type="text/css" />
@@ -396,7 +396,8 @@
 					<!-- Job selector, to match query against -->
 					<td class="cell">
 						<!-- ko { foreach: $data.targetJobs } -->
-							<select data-bind="options: $parents[1].jobs,
+							<select class="select-job"
+								data-bind="options: $parents[1].jobs,
 								value: $rawData,
 								event: { keydown: $root.manageKeys }"></select>
 						<!-- /ko -->
@@ -404,7 +405,9 @@
 					</td>
 
 					<!-- ko { foreach: $data.tallies } -->
-					<td class="cell center-text" data-bind="text: $data"></td>
+					<td class="cell heading center-text">
+						<strong data-bind="text: $data"></strong>
+					</td>
 					<!-- /ko -->
 
 					<!-- Button to delete query from queries array -->
@@ -532,18 +535,18 @@
 		<!-- Options -->
 		<table class="table table-striped table-bordered table-condensed"
 			data-bind="css: {'hidden' : selected() != 'Options' }">
-			<tbody>
+			<tbody data-bind="event: { onload : loadOptions($context) }">
 				<tr class="heading">
 					<td colspan="2">Schedule Options</td>
 				</tr>
 				<!-- ko { foreach : {data: Object.keys(scheduleOptions)} } -->
 				<tr data-bind="with: $parent.scheduleOptions[$data]">
-					<td class="cell col-md-4" data-bind="text: $data.text"></td>
-					<td class="cell col-md-1 center-text">
-						<span class="options-toggle" data-bind="css: {
-							'options-on' : $data.value}, click: function() {
-							($data.value()) ? $data.value(false) :
-							$data.value(true); }">
+					<td class="cell options" data-bind="text: $data.text"></td>
+					<td class="cell option-cell center-text">
+						<span class="options-toggle" data-bind="
+							css: { 'options-on' : $data.value },
+							click: function($data, event) {
+								$data.function($data, event); }">
 							<i class="fa fa-toggle-on" aria-hidden="true"
 								data-bind="visible: $data.value"></i>
 							<i class="fa fa-toggle-off" aria-hidden="true"

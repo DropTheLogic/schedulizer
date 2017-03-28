@@ -198,6 +198,10 @@ header {
 	color: #337ab7;
 }
 
+.select-job {
+	display: block;
+}
+
 .btn-green:hover {
 	background-color: #5cb85c;
 }
@@ -238,6 +242,11 @@ header {
 	margin-right: -1px;
 }
 
+.larger {
+	font-weight: 300;
+	font-size: 13px;
+}
+
 .empty-cell {
 	border-top: hidden !important;
 	border-bottom: hidden !important;
@@ -245,7 +254,7 @@ header {
 }
 
 .time-off {
-	min-height: 20px;
+	min-height: 28px;
 	text-align: center;
 }
 
@@ -298,11 +307,11 @@ header {
 	color: #d9534f;
 }
 
-/*.time {
+.time {
 	display: block;
 	padding: 4px;
 	white-space: nowrap;
-}*/
+}
 
 .options-toggle {
 	color: #999;
@@ -315,6 +324,14 @@ header {
 
 .range-cell, .now-cell {
 	width: 160px;
+}
+
+.options {
+	width: 300px;
+}
+
+.option-cell {
+	width: 60px;
 }
 
 .spacer {
