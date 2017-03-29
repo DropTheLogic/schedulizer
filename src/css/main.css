@@ -101,6 +101,10 @@ header {
 	padding: 10px;
 }
 
+.table-container {
+	overflow-y: hidden;
+}
+
 .button-worker {
 	min-width: 30px;
 	min-height: 30px;
