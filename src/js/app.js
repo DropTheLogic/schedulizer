@@ -202,13 +202,13 @@ var Schedule = function(periods, data) {
 
 	// Run any setting functions onload, if property warrants
 	self.loadOptions = function(context) {
-		for (prop in self.scheduleOptions) {
+		for (let prop in self.scheduleOptions) {
 			let option = self.scheduleOptions[prop];
 			if (option.hasOwnProperty('init')) {
 				option.init(context);
 			}
 		}
-	}
+	};
 
 	// Keep track of the schedule's different table views
 	self.selected = ko.observable(self.views[0]);
