@@ -144,6 +144,17 @@ header {
     padding-left: 0px !important;
 }
 
+.add-job {
+	font-size: 14px;
+	background: transparent;
+	color: #333;
+	border: 0;
+}
+
+.add-job:hover {
+	color: #337ab7;
+}
+
 .suite-manage {
 	text-align: center;
 	padding: 4px;

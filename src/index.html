@@ -125,12 +125,14 @@
 						<div class="sort-buttons">
 							<button data-bind="click: sortBy('firstName', 1)"
 								data-toggle="tooltip"
-								title="Sort by First Name Ascending">
+								title="Sort by First Name Ascending"
+								class="btn btn-xs btn-default">
 								<i class="fa fa-angle-up"></i>
 							</button>
 							<button data-bind="click: sortBy('firstName', -1)"
 								data-toggle="tooltip"
-								title="Sort by First Name Descending">
+								title="Sort by First Name Descending"
+								class="btn btn-xs btn-default">
 								<i class="fa fa-angle-down"></i>
 							</button>
 						</div>
@@ -141,12 +143,14 @@
 						<div class="sort-buttons">
 							<button data-bind="click: sortBy('lastName', 1)"
 								data-toggle="tooltip"
-								title="Sort by Last Name Ascending">
+								title="Sort by Last Name Ascending"
+								class="btn btn-xs btn-default">
 								<i class="fa fa-angle-up"></i>
 							</button>
 							<button data-bind="click: sortBy('lastName', -1)"
 								data-toggle="tooltip"
-								title="Sort by Last Name Descending">
+								title="Sort by Last Name Descending"
+								class="btn btn-xs btn-default">
 								<i class="fa fa-angle-down"></i>
 							</button>
 						</div>
@@ -157,12 +161,14 @@
 						<div class="sort-buttons">
 							<button data-bind="click: sortBy('job', 1)"
 								data-toggle="tooltip"
-								title="Sort by Job Ascending">
+								title="Sort by Job Ascending"
+								class="btn btn-xs btn-default">
 								<i class="fa fa-angle-up"></i>
 							</button>
 							<button data-bind="click: sortBy('job', -1)"
 								data-toggle="tooltip"
-								title="Sort by Job Descending">
+								title="Sort by Job Descending"
+								class="btn btn-xs btn-default">
 								<i class="fa fa-angle-down"></i>
 							</button>
 						</div>
@@ -177,12 +183,14 @@
 						<span class="sort-buttons">
 							<button data-bind="click: sortBy('totalTime', 1)"
 								data-toggle="tooltip"
-								title="Sort by Hours Ascending">
+								title="Sort by Hours Ascending"
+								class="btn btn-xs btn-default">
 								<i class="fa fa-angle-up"></i>
 							</button>
 							<button data-bind="click: sortBy('totalTime', -1)"
 								data-toggle="tooltip"
-								title="Sort by Hours Descending">
+								title="Sort by Hours Descending"
+								class="btn btn-xs btn-default">
 								<i class="fa fa-angle-down"></i>
 							</button>
 						</span>
@@ -402,7 +410,11 @@
 								value: $rawData,
 								event: { keydown: $root.manageKeys }"></select>
 						<!-- /ko -->
-						<span><button data-bind="click: addJob">+</button></span>
+						<span>
+							<button data-bind="click: addJob" class="add-job">
+								<i class="fa fa-plus-circle" aria-hidden="true"></i>
+							</button>
+						</span>
 					</td>
 
 					<!-- ko { foreach: $data.tallies } -->
