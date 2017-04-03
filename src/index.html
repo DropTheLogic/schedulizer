@@ -219,7 +219,11 @@
 						template: {name: 'text-edit', data: job}"></td>
 
 					<!-- ko { foreach: hours} -->
-					<td class="cell">
+					<td class="cell" data-bind="css: {
+						success : color() === 'green',
+						info : color() === 'blue',
+						warning : color() === 'yellow',
+						danger : color() === 'red' }">
 						<div class="time-off time">
 							<div data-bind="css: {'hidden' : $data.off}">
 
@@ -280,6 +284,44 @@
 									<i class="fa fa-clipboard"
 										aria-hidden="true"></i>
 									<span>Paste Hours</span>
+								</li>
+
+								<!-- Color Cell -->
+								<li role="separator" class="divider"></li>
+								<li class="dropdown-header">
+									<strong>Cell Color:</strong>
+								</li>
+								<li data-bind="click: function() {
+									setColor('green'); }">
+									<div class="color-picker bg-success"></div>
+									Green
+									<!-- ko { if : color() === 'green' } -->
+									<i class="fa fa-check" aria-hidden="true"></i>
+									<!-- /ko -->
+								</li>
+								<li data-bind="click: function() {
+									setColor('blue'); }">
+									<div class="color-picker bg-info"></div>
+									Blue
+									<!-- ko { if : color() === 'blue' } -->
+									<i class="fa fa-check" aria-hidden="true"></i>
+									<!-- /ko -->
+								</li>
+								<li data-bind="click: function() {
+									setColor('yellow'); }">
+									<div class="color-picker bg-warning"></div>
+									Yellow
+									<!-- ko { if : color() === 'yellow' } -->
+									<i class="fa fa-check" aria-hidden="true"></i>
+									<!-- /ko -->
+								</li>
+								<li data-bind="click: function() {
+									setColor('red'); }">
+									<div class="color-picker bg-danger"></div>
+									Red
+									<!-- ko { if : color() === 'red' } -->
+									<i class="fa fa-check" aria-hidden="true"></i>
+									<!-- /ko -->
 								</li>
 							</ul>
 						</div>

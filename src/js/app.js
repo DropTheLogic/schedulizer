@@ -114,6 +114,14 @@ var Worker = function(periods, data) {
 			'toggleOff' : function() {
 				(this.off()) ? this.off(false) : this.off(true);
 			},
+			'color' : ko.observable(data.hours[i].color || 'none'),
+			'setColor' : function(color) {
+				if (this.color() === color) {
+					this.color('none');
+				} else {
+					this.color(color);
+				}
+			},
 			'in' : new KoEditableTime(data.hours[i].in),
 			'out' : new KoEditableTime(data.hours[i].out)
 		});
