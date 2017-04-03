@@ -306,6 +306,7 @@ header {
 	display: inline-block;
 	width: 10px;
 	height: 10px;
+	margin-right: 4px;
 	border: 1px solid #999;
 }
 

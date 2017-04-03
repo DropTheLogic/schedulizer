@@ -83,6 +83,14 @@ var scheduleData = [
 	}
 ];
 
+// Schedule cell colors and corresponding classes
+var cellColors = {
+	'Green' : { 'eClass' : 'success', 'bgClass' : 'bg-success' },
+	'Blue' : { 'eClass' : 'info', 'bgClass' : 'bg-info' },
+	'Yellow' : { 'eClass' : 'warning', 'bgClass' : 'bg-warning' },
+	'Red' : { 'eClass' : 'danger', 'bgClass' : 'bg-danger' }
+};
+
 /**
  * Returns time object with observable attributes
  * @constructor

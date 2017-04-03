@@ -219,11 +219,8 @@
 						template: {name: 'text-edit', data: job}"></td>
 
 					<!-- ko { foreach: hours} -->
-					<td class="cell" data-bind="css: {
-						success : color() === 'green',
-						info : color() === 'blue',
-						warning : color() === 'yellow',
-						danger : color() === 'red' }">
+					<td class="cell" data-bind="css: (cellColors[color()]) ?
+						cellColors[color()].eClass : ''">
 						<div class="time-off time">
 							<div data-bind="css: {'hidden' : $data.off}">
 
@@ -291,38 +288,11 @@
 								<li class="dropdown-header">
 									<strong>Cell Color:</strong>
 								</li>
-								<li data-bind="click: function() {
-									setColor('green'); }">
-									<div class="color-picker bg-success"></div>
-									Green
-									<!-- ko { if : color() === 'green' } -->
-									<i class="fa fa-check" aria-hidden="true"></i>
-									<!-- /ko -->
-								</li>
-								<li data-bind="click: function() {
-									setColor('blue'); }">
-									<div class="color-picker bg-info"></div>
-									Blue
-									<!-- ko { if : color() === 'blue' } -->
-									<i class="fa fa-check" aria-hidden="true"></i>
-									<!-- /ko -->
-								</li>
-								<li data-bind="click: function() {
-									setColor('yellow'); }">
-									<div class="color-picker bg-warning"></div>
-									Yellow
-									<!-- ko { if : color() === 'yellow' } -->
-									<i class="fa fa-check" aria-hidden="true"></i>
-									<!-- /ko -->
-								</li>
-								<li data-bind="click: function() {
-									setColor('red'); }">
-									<div class="color-picker bg-danger"></div>
-									Red
-									<!-- ko { if : color() === 'red' } -->
-									<i class="fa fa-check" aria-hidden="true"></i>
-									<!-- /ko -->
-								</li>
+								<!-- ko { foreach :
+									{ data : Object.keys(cellColors) } } -->
+								<div data-bind="template :
+									{ name: 'color-li', data: $data }"></div>
+								<!-- /ko -->
 							</ul>
 						</div>
 
@@ -667,6 +637,19 @@
 				keydown: $root.manageKeys }" />
 		</div>
 	</script>
+
+	<!-- Cell color li -->
+	<script type="text/html" id="color-li">
+		<li data-bind="with: cellColors[$data],
+			click: function() { $parents[1].setColor($data); }">
+			<div class="color-picker" data-bind="css: bgClass"></div>
+			<span data-bind="text: $parent"></span>
+			<!-- ko { if : $parents[2].color() === $parent } -->
+			<i class="fa fa-check" aria-hidden="true"></i>
+			<!-- /ko -->
+		</li>
+	</script>
+	<!-- /ko -->
 
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<script src="js/knockout-3.4.1.js"></script>
