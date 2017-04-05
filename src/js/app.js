@@ -268,6 +268,14 @@ var Schedule = function(periods, data) {
 			'toggleOff' : function() {
 				(this.off()) ? this.off(false) : this.off(true);
 			},
+			'color' : ko.observable(self.clipboard().color || 'none'),
+			'setColor' : function(color) {
+				if (this.color() === color) {
+					this.color('none');
+				} else {
+					this.color(color);
+				}
+			},
 			'in' : new KoEditableTime(self.clipboard().in),
 			'out' : new KoEditableTime(self.clipboard().out)
 		});
