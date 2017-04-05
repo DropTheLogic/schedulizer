@@ -104,6 +104,30 @@ var KoEditableTime = function(day) {
 	}
 };
 
+/**
+ * Returns worker Hours object with observable attributes
+ * @constructor
+ * @param {object} data - Holds parameters for off, color, setColor, in, out
+ */
+var Hours = function(data) {
+	return {
+		'off' : ko.observable(data.off),
+		'toggleOff' : function() {
+			(this.off()) ? this.off(false) : this.off(true);
+		},
+		'color' : ko.observable(data.color || 'none'),
+		'setColor' : function(color) {
+			if (this.color() === color) {
+				this.color('none');
+			} else {
+				this.color(color);
+			}
+		},
+		'in' : new KoEditableTime(data.in),
+		'out' : new KoEditableTime(data.out)
+	}
+};
+
 var Worker = function(periods, data) {
 	var self = this;
 
@@ -117,22 +141,7 @@ var Worker = function(periods, data) {
 	// Worker schedule
 	self.hours = ko.observableArray();
 	for (let i = 0; i < periods.length; i++) {
-		self.hours()[i] = ko.observable({
-			'off' : ko.observable(data.hours[i].off),
-			'toggleOff' : function() {
-				(this.off()) ? this.off(false) : this.off(true);
-			},
-			'color' : ko.observable(data.hours[i].color || 'none'),
-			'setColor' : function(color) {
-				if (this.color() === color) {
-					this.color('none');
-				} else {
-					this.color(color);
-				}
-			},
-			'in' : new KoEditableTime(data.hours[i].in),
-			'out' : new KoEditableTime(data.hours[i].out)
-		});
+		self.hours()[i] = ko.observable(new Hours(data.hours[i]));
 	}
 	self.totalTime = ko.computed(function() {
 		let tt = 0;
@@ -263,22 +272,9 @@ var Schedule = function(periods, data) {
 	};
 	self.pasteHours = function(context, index) {
 		let workersIndex = self.workers().indexOf(context.$rawData);
-		self.workers()[workersIndex]().hours()[index()]({
-			'off' : ko.observable(self.clipboard().off),
-			'toggleOff' : function() {
-				(this.off()) ? this.off(false) : this.off(true);
-			},
-			'color' : ko.observable(self.clipboard().color || 'none'),
-			'setColor' : function(color) {
-				if (this.color() === color) {
-					this.color('none');
-				} else {
-					this.color(color);
-				}
-			},
-			'in' : new KoEditableTime(self.clipboard().in),
-			'out' : new KoEditableTime(self.clipboard().out)
-		});
+		self.workers()[workersIndex]().hours()[index()](
+			new Hours(self.clipboard())
+		);
 	};
 
 	/**
