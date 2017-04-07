@@ -62,6 +62,14 @@ var rangeData = [
 	}
 ];
 
+var taskData = [
+	{
+		name: 'Task',
+		range: rangeData[0],
+		assignedWorkers: []
+	}
+];
+
 var queriesData = [
 	{
 		target: {
@@ -78,6 +86,7 @@ var scheduleData = [
 		name: 'My Schedule',
 		scheduleOptions: options,
 		ranges: rangeData,
+		tasks: taskData,
 		workers: workersData,
 		queries: queriesData
 	}
@@ -165,6 +174,55 @@ var Range = function(data) {
 	};
 };
 
+var Task = function(data, workers) {
+	var self = this;
+
+	self.name = ko.observable(data.name);
+
+	// Time range when task is needed
+	self.range = ko.observable(new Range (data.range));
+
+	// Workers task is assigned to throughout the week
+	self.assignedWorkers = [];
+	for (let i = 0; i < periods.length; i++) {
+		let assignedWorker =
+			(data.assignedWorkers[i]) ? data.assignedWorkers[i] : undefined;
+		self.assignedWorkers.push(ko.observable(assignedWorker));
+	}
+
+	// Available workers to potentially assign task
+	self.availableWorkers = ko.observableArray([]);
+
+	// Calculate available workers on day
+	self.findWorkers = function(day) {
+		return ko.computed(function() {
+			// Hold worketrs matched on this day
+			let available = ['None'];
+			// Cycle through each worker to tally up
+			workers().forEach(function(worker) {
+				// Find if worker is off today or is working
+				let workerHours = worker().hours()[day]();
+				let isWorking = !workerHours.off();
+				if (isWorking && isInRange(workerHours, self.range().target)) {
+					available.push(worker().firstName());
+				}
+			});
+			return available;
+		}, this);
+	};
+
+	// Add a single day's available workers to array
+	self.tallyDay = function(day) {
+		self.availableWorkers.push(self.findWorkers(day));
+	};
+
+	// Add availble workers for each day
+	for (let i = 0; i < periods.length; i++) {
+		self.tallyDay(i);
+	}
+
+};
+
 var Schedule = function(periods, data) {
 	var self = this;
 
@@ -172,7 +230,7 @@ var Schedule = function(periods, data) {
 	self.name = ko.observable(data.name);
 
 	// Array of different table views
-	self.views = ['Schedule', 'Ranges', 'Right Now', 'Options'];
+	self.views = ['Schedule', 'Tasks', 'Ranges', 'Right Now', 'Options'];
 
 	// Options
 	self.scheduleOptions = {
@@ -329,6 +387,17 @@ var Schedule = function(periods, data) {
 	self.deleteWorker = function(index) {
 		let i = index();
 		self.workers.splice(i, 1);
+	};
+
+	// Define and load tasks
+	self.tasks = ko.observableArray([]);
+	data.tasks.forEach(function(task) {
+		self.tasks.push(ko.observable(new Task(task, self.workers)));
+	});
+
+	// Push new task to tasks array
+	self.addTask = function() {
+		self.tasks.push(new Task(taskData[0], self.workers) );
 	};
 
 	// Define array to hold queries and load queries from raw data

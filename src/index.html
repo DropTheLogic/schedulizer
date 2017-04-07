@@ -459,6 +459,71 @@
 		</table>
 		<!-- End of Schedule Table -->
 
+		<!-- Schedule Tasks -->
+		<table class="table table-striped table-bordered table-hover
+			table-responsive table-condensed"
+			data-bind="css: {'hidden' : selected() != 'Tasks'}">
+			<thead>
+				<tr class="heading">
+
+					<td class="cell-title"><span>Task Name</span></td>
+
+					<td class="cell-title">Task Range</td>
+
+					<!-- ko { foreach: $data.periodNames } -->
+					<td data-bind="text: $data"></td>
+					<!-- /ko -->
+					<td class="empty-cell"></td>
+				</tr>
+			</thead>
+
+			<tbody>
+				<!-- ko {foreach: tasks} -->
+				<tr>
+					<td class="cell"
+						data-bind="template: {name: 'text-edit', data: name}">
+					</td>
+
+					<td class="cell">
+						<select data-bind="value: range,
+							options: $parent.ranges, optionsText: 'name',
+							event: { keydown : $root.manageKeys }"></select>
+					</td>
+
+					<!-- ko { foreach: availableWorkers } -->
+					<td class="cell">
+						<div class="click-to-edit"
+							data-bind="click: $root.showEditEl">
+							<span class="editable-display" data-bind="text:
+								($parent.assignedWorkers[$index()]() ===
+								undefined) ? 'Pick Worker...' :
+								$parent.assignedWorkers[$index()]()"></span>
+							<select class="editable-edit hidden"
+								data-bind="options: $data,
+								optionsCaption: 'Pick Worker…',
+								value: $parent.assignedWorkers[$index()],
+								event: { blur: $root.showDisplayEl,
+								keydown: $root.manageKeys }"></select>
+						</div>
+					</td>
+					<!-- /ko -->
+
+					<td class="empty-cell"></td>
+				</tr>
+				<!-- /ko -->
+
+				<!-- Button to add new task -->
+				<tr><td class="center-text add-query">
+					<button data-bind="click: addTask,
+						css: { 'hanging-tab' : tasks().length > 0 }"
+						class="cell btn btn-xs">
+						+ Add Task
+					</button>
+				</td></tr>
+			</tbody>
+		</table>
+		<!-- End Tasks -->
+
 		<!-- Schedule Ranges -->
 		<table class="table table-striped table-bordered table-hover table-condensed"
 			data-bind="css: {'hidden' : selected() != 'Ranges'}">
