@@ -26,6 +26,14 @@ will tally and display each worker's total hours in the final column. In the
 table's footer, Schedulizer will also tally (optionally) any total queries
 based on those employee hours.
 
+#### Tasks
+The tasks table allows you to create and assign tasks to the workers of your
+schedule. Like the schedule table, the tasks table is made of of columns
+for the days of the week, with rows for the tasks to be completed. Each day
+will have a dropdown of the workers who are available in the time range
+selected. There is also a default choice of 'None' in case there is no need
+for the task on that day or in the given time range.
+
 #### Ranges
 The ranges table allows you to create predefined time Ranges to use for total
 queries. You may edit each Range name and click each time element to select
