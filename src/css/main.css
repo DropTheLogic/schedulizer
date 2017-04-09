@@ -102,8 +102,7 @@ header {
 }
 
 .table-container {
-	overflow-y: hidden;
-	min-height: 400px;
+	overflow-y: auto;
 }
 
 .button-worker {

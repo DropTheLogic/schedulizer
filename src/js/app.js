@@ -627,10 +627,36 @@ var convertTimeToDecimal = function(time) {
 var ViewModel = function() {
 	var self = this;
 
-	// Display loading screen until document is ready
+	// Track if document is loaded
 	self.loading = ko.observable(true);
+
+	// Event handling on load
 	$(document).ready(function() {
+		// Display loading screen until document is ready
 		self.loading(false);
+
+		// Watch for table resizing. Since only one table is displayed at a
+		// time, this ensures that the container stays the same size as the
+		// largest table (thereby preventing the container from resizing
+		// itself whenever tabs/tables change).
+		function setHeight() {
+			// Gather table container elements to check
+			let tableEls = document.getElementsByClassName('table-container');
+
+			// Check each table and resize min-height if needed
+			for (let i = 0; i < tableEls.length; i++) {
+				let el = tableEls[i];
+				let currentHeight = window.getComputedStyle(el).height;
+				let minHeight = $(el).css('min-height');
+				if (parseInt(currentHeight) > parseInt(minHeight)) {
+					$(el).css('min-height', currentHeight);
+				}
+			}
+			// Continue watching for height changes
+			window.requestAnimationFrame(setHeight);
+		}
+		// Kick-off table height watching
+		window.requestAnimationFrame(setHeight);
 	});
 
 	// Manage current time for 'right now' views
