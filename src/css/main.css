@@ -273,6 +273,17 @@ header {
 	text-align: center;
 }
 
+.hours-btn {
+	font-size: 14px;
+	color: #ddd;
+	background-color: transparent;
+}
+
+.hours-btn:hover {
+	background-color: #fff;
+	color: #d9534f;
+}
+
 .hours-submenu {
 	display: inline;
 	float: right;
