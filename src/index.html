@@ -175,10 +175,10 @@
 					</td>
 
 					<!-- ko {foreach: $data.periodNames} -->
-					<td data-bind="text: $data" class="center-text"></td>
+					<td data-bind="text: $data" class="text-center"></td>
 					<!-- /ko -->
 
-					<td class="center-text"><span>Total Hours</span>
+					<td class="text-center"><span>Total Hours</span>
 						<!-- Sort by Total Time buttons -->
 						<span class="sort-buttons">
 							<button data-bind="click: sortBy('totalTime', 1)"
@@ -301,12 +301,12 @@
 					<!-- /ko -->
 
 					<!-- Total Hours on Schedule for Worker -->
-					<td class="cell center-text"
+					<td class="cell text-center"
 						data-bind="text: totalTime().toFixed(2);">
 					</td>
 
 					<!-- Buttons to manage Worker -->
-					<td class="cell center-text manage-worker btn-group">
+					<td class="cell text-center manage-worker btn-group">
 
 						<!-- Move worker up -->
 						<button title="Move This Worker Up One"
@@ -360,7 +360,7 @@
 				<!-- /ko -->
 
 				<!-- Button to add new worker to schedule -->
-				<tr><td class="center-text add-worker">
+				<tr><td class="text-center add-worker">
 					<button data-bind="click: addWorker"
 						class="cell btn btn-xs hanging-tab">
 						+ Add Worker
@@ -373,7 +373,7 @@
 			<tfoot>
 				<!-- Totals header banner -->
 				<tr data-bind="visible: hasQueries">
-					<td class="heading center-text total-header"
+					<td class="heading text-center total-header"
 						data-bind="attr : { 'colspan' : periods.length + 3}">
 						<span>Totals</span>
 					</td>
@@ -381,7 +381,7 @@
 				<tr class="heading" data-bind="visible: hasQueries">
 					<td colspan="2">Time Range</td>
 					<td>Job Type</td>
-					<td class="center-text"
+					<td class="text-center"
 						data-bind="attr: {'colspan' : periods.length}">
 						Total Workers Present
 					</td>
@@ -431,7 +431,7 @@
 					</td>
 
 					<!-- ko { foreach: $data.tallies } -->
-					<td class="cell heading center-text">
+					<td class="cell heading text-center">
 						<strong data-bind="text: $data"></strong>
 					</td>
 					<!-- /ko -->
@@ -448,7 +448,7 @@
 				<!-- /ko -->
 
 				<!-- Button to add new total query -->
-				<tr><td class="center-text add-query" data-bind="style: {
+				<tr><td class="text-center add-query" data-bind="style: {
 					borderTop: !hasQueries() ? 'hidden' : '' }">
 					<button data-bind="click: addQuery,
 						css: { 'hanging-tab' : hasQueries }"
@@ -514,7 +514,7 @@
 				<!-- /ko -->
 
 				<!-- Button to add new task -->
-				<tr><td class="center-text add-query">
+				<tr><td class="text-center add-query">
 					<button data-bind="click: addTask,
 						css: { 'hanging-tab' : tasks().length > 0 }"
 						class="cell btn btn-xs">
@@ -533,7 +533,7 @@
 				<tr class="heading">
 
 					<td>Range Name</td>
-					<td class="center-text">Range Times</td>
+					<td class="text-center">Range Times</td>
 					<td class="empty-cell"></td>
 				</tr>
 			</thead>
@@ -545,7 +545,7 @@
 						<div data-bind="
 							template: {name: 'text-edit', data: name}"></div>
 					</td>
-					<td class="cell range-cell center-text">
+					<td class="cell range-cell text-center">
 						<span data-bind="template:
 							{ name: 'time-edit', data: $data.target.start }">
 						</span>
@@ -561,7 +561,7 @@
 				<!-- /ko -->
 
 				<!-- Button to add new range -->
-				<tr><td class="center-text add-query">
+				<tr><td class="text-center add-query">
 					<button data-bind="click: addRange,
 						css: { 'hanging-tab' : hasQueries }"
 						class="cell btn btn-xs">
@@ -633,7 +633,7 @@
 				<!-- ko { foreach : {data: Object.keys(scheduleOptions)} } -->
 				<tr data-bind="with: $parent.scheduleOptions[$data]">
 					<td class="cell options" data-bind="text: $data.text"></td>
-					<td class="cell option-cell center-text">
+					<td class="cell option-cell text-center">
 						<span class="options-toggle" data-bind="
 							css: { 'options-on' : $data.value },
 							click: function($data, event) {
