@@ -253,6 +253,10 @@ header {
 	margin-right: -1px;
 }
 
+.highlight {
+	background-color: #f5f5f5 !important;
+}
+
 .larger {
 	font-weight: 300;
 	font-size: 13px;
