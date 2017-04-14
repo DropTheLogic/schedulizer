@@ -110,7 +110,7 @@
 
 		<!-- Schedule Table -->
 		<div class="table-container">
-		<table class="table table-striped table-bordered table-hover
+		<table class="table table-striped table-bordered
 			table-responsive table-condensed table-schedule"
 			data-bind="css: {'hidden' : selected() != 'Schedule'}">
 
@@ -461,7 +461,7 @@
 		<!-- End of Schedule Table -->
 
 		<!-- Schedule Tasks -->
-		<table class="table table-striped table-bordered table-hover
+		<table class="table table-striped table-bordered
 			table-responsive table-condensed table-tasks"
 			data-bind="css: {'hidden' : selected() != 'Tasks'}">
 			<thead>
@@ -736,7 +736,8 @@
 
 	<!-- Highlight rows and columns on hover -->
 	<script>
-		let cells = '.table-schedule tbody .cell:not(button)';
+		let cells = '.table-schedule tbody .cell:not(button)' +
+					', .table-tasks tbody .cell:not(button)';
 		$('body').on('mouseenter mouseleave', cells, function() {
 			// Find row and column
 			let row = $(this).closest('tr').not('.manage-worker');
