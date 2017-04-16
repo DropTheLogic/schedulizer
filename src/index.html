@@ -634,7 +634,8 @@
 					<td colspan="2">Schedule Options</td>
 				</tr>
 				<!-- ko { foreach : {data: Object.keys(scheduleOptions)} } -->
-				<tr data-bind="with: $parent.scheduleOptions[$data]">
+				<!-- ko { with: $parent.scheduleOptions[$data]} -->
+				<tr data-bind="if : $data.hasOwnProperty('value') ">
 					<td class="cell options" data-bind="text: $data.text"></td>
 					<td class="cell option-cell text-center">
 						<span class="options-toggle" data-bind="
@@ -650,6 +651,18 @@
 					<td class="empty-cell"></td>
 				</tr>
 				<!-- /ko -->
+				<!-- /ko -->
+				<tr>
+					<td class="cell options">Highlighting color (in HEX):</td>
+					<td class="cell option-cell">
+						<input class="jscolor" data-bind="
+							value: scheduleOptions.highlight.color,
+							event: { change: function() {
+								scheduleOptions.highlight.setColor(); }
+							}">
+					</td>
+					<td class="empty-cell"></td>
+				</tr>
 				<tr></tr>
 			</tbody>
 		</table>
@@ -723,6 +736,7 @@
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<script src="js/knockout-3.4.1.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jscolor.min.js"></script>
 	<script src="js/app.js"></script>
 
 	<!-- Add Bootrap Tooltips -->

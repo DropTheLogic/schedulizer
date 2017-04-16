@@ -49,7 +49,8 @@ var workersData = [
 
 var options = {
 	'useSingleName' : {'value' : false},
-	'largerFont' : {'value' : false}
+	'largerFont' : {'value' : false},
+	'highlight' : {'color' : 'f5f5f5'}
 };
 
 var rangeData = [
@@ -279,6 +280,19 @@ var Schedule = function(periods, data) {
 
 				// Send schedule DOM element to be parsed for font sizing
 				this.function({}, scheduleEl);
+			}
+		},
+		'highlight' : {
+			'color' : ko.observable(data.scheduleOptions.highlight.color),
+			'setColor' : function() {
+				let style = document.createElement('style');
+				style.type = 'text/css';
+				style.innerHTML = '.highlight { background-color: #' +
+					this.color() + ' !important; }';
+				document.getElementsByTagName('head')[0].appendChild(style);
+			},
+			'init' : function(context) {
+				this.setColor();
 			}
 		}
 	};
