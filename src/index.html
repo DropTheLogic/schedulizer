@@ -752,7 +752,7 @@
 	<script>
 		let cells = '.table-schedule tbody .cell:not(button)' +
 					', .table-tasks tbody .cell:not(button)';
-		$('body').on('mouseenter mouseleave', cells, function() {
+		$('body').on('mouseenter mouseleave', cells, function(e) {
 			// Find row and column
 			let row = $(this).closest('tr').not('.manage-worker');
 			let col = $(this).closest('tbody')
@@ -760,8 +760,9 @@
 				.not('.manage-worker');
 
 			// Toggle highlighting class for row and col
-			row.toggleClass('highlight', !row.hasClass('highlight'));
-			col.toggleClass('highlight', !col.hasClass('highlight'));
+			let hovering = (e.type === 'mouseenter');
+			row.toggleClass('highlight', hovering);
+			col.toggleClass('highlight', hovering);
 		});
 	</script>
 </body>
