@@ -349,6 +349,23 @@ var Schedule = function(periods, data) {
 		);
 	};
 
+	// Set worker hours to be a given range
+	self.pasteRange = function(range, hours) {
+		// Flatten range data to update observables with
+		let rangeJS = {
+			in: ko.toJS(range.target.start),
+			out: ko.toJS(range.target.end)
+		};
+		// Cycle through range times and time components and then update hours
+		Object.keys(rangeJS).forEach(function(time) {
+			Object.keys(rangeJS[time]).forEach(function(key) {
+				hours[time][key](rangeJS[time][key]);
+			});
+		});
+		// Remove off
+		hours.off(false);
+	};
+
 	/**
 	 * Pushes new worker to workers array for this schedule
 	 * @param {object} data - observable Worker data (optional)

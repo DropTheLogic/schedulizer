@@ -284,6 +284,18 @@
 									<span>Paste Hours</span>
 								</li>
 
+								<!-- Paste hours from Range -->
+								<li role="separator" class="divider"></li>
+								<li class="dropdown-header">
+									<strong>Set hours from range:</strong>
+								</li>
+								<!-- ko { foreach: $parents[1].ranges } -->
+								<li data-bind="click: function() {
+									$parents[2].pasteRange($data, $parent);},
+									text: $data.name" class="set-ranges">
+								</li>
+								<!-- /ko -->
+
 								<!-- Color Cell -->
 								<li role="separator" class="divider"></li>
 								<li class="dropdown-header">
