@@ -313,6 +313,19 @@ header {
 	background-color: #fff !important;
 }
 
+.dropdown-header {
+	background-color: #fff !important;
+}
+
+.hours-submenu .divider {
+	padding: 0;
+}
+
+.set-ranges {
+	display: list-item;
+	list-style: inside;
+}
+
 .color-picker {
 	display: inline-block;
 	width: 10px;
