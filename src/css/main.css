@@ -161,6 +161,40 @@ header {
 	margin: 0px 4px;
 }
 
+.worker-profile h4 {
+	font-family: 'Lustria', sans-serif;
+	padding-left: 4px;
+	margin-bottom: 2px;
+}
+
+.worker-select {
+	font-size: 10px;
+}
+
+.day-of-week {
+	display: inline-block;
+	width: 90px;
+}
+
+.hours-on-day {
+	display: inline-block;
+	width: 100px;
+}
+
+.profile-hours {
+	display: inline-block;
+	padding: 8px;
+	border: 1px solid #ddd;
+	border-radius: 2px;
+}
+
+.profile-day {
+	line-height: 16px;
+	padding: 2px;
+	margin: 4px;
+	border-bottom: 1px solid #ddd;
+}
+
 /****************************************
  * Schedule buttons
  ****************************************/
@@ -335,7 +369,8 @@ header {
 }
 
 .set-off {
-	float: left;
+	display: inline-block;
+	vertical-align: text-bottom;
 	font-size: 16px;
 	color: #ddd;
 }

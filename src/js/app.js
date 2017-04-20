@@ -231,7 +231,8 @@ var Schedule = function(periods, data) {
 	self.name = ko.observable(data.name);
 
 	// Array of different table views
-	self.views = ['Schedule', 'Tasks', 'Ranges', 'Right Now', 'Options'];
+	self.views = ['Schedule', 'Tasks', 'Workers', 'Ranges', 'Right Now',
+		'Options'];
 
 	// Options
 	self.scheduleOptions = {
@@ -336,6 +337,9 @@ var Schedule = function(periods, data) {
 	data.workers.forEach(function(workerData) {
 		self.workers.push(ko.observable(new Worker(periods, workerData)));
 	});
+
+	// Select worker for worker profile
+	self.selectedWorker = ko.observable(self.workers()[0]);
 
 	// Copy and paste functions for worker hours
 	self.clipboard = ko.observable('');

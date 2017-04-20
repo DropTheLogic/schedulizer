@@ -537,6 +537,93 @@
 		</table>
 		<!-- End Tasks -->
 
+		<!-- Workers -->
+		<table class="table table-bordered table-condensed table-workers"
+			data-bind="css: {'hidden' : selected() != 'Workers'}">
+			<tbody>
+				<tr>
+					<td class="worker-select">
+						Select Worker:
+						<select data-bind="
+							options: workers,
+							optionsText: function(data) {
+								let name = data().firstName();
+								if (!scheduleOptions.useSingleName.value())
+									{ name += (' ' + data().lastName()); }
+								return name;},
+							value: selectedWorker">
+						</select>
+					</td>
+					<td class="empty-cell"></td>
+				</tr>
+
+				<tr>
+					<td class="worker-profile">
+						<h3>
+							<span data-bind="
+								template: {name: 'text-edit',
+								data: selectedWorker().firstName}"></span>
+							<span data-bind="
+								visible: !scheduleOptions.useSingleName.value(),
+								template: {name: 'text-edit',
+								data: selectedWorker().lastName}"></span>
+							 /
+							<span class="text-right" data-bind="
+								template: {name: 'text-edit',
+								data: selectedWorker().job}"></span>
+						</h3>
+
+						<h4>Hours</h4>
+						<div class="profile-hours">
+							<!-- ko { foreach : selectedWorker().hours } -->
+							<div class="cell profile-day">
+								<span class="day-of-week"
+										data-bind="text: periods[$index()]">
+									</span>
+								<div class="hours-on-day"
+									data-bind="css: {'hidden' : $data.off}">
+
+									<!-- Time In -->
+									<span data-bind="template: {
+										name: 'time-edit', data: $data.in }">
+									</span>
+
+									<span class="spacer"> - </span>
+
+									<!-- Time Out -->
+									<span data-bind="template: {
+										name: 'time-edit', data: $data.out }">
+									</span>
+								</div>
+
+								<!-- Display 'Off' Text -->
+								<div data-bind="css: {'hidden' : !$data.off()}"
+									class="hours-on-day off">
+								OFF
+								</div>
+
+								<!-- Set-off Button -->
+								<div data-bind="click: $data.toggleOff"
+									class="set-off">
+									<i class="fa fa-toggle-on"
+										aria-hidden="true"
+										data-bind="visible: !$data.off()"></i>
+									<i class="fa fa-toggle-off"
+										aria-hidden="true"
+										data-bind="visible: $data.off"></i>
+								</div>
+							</div>
+						<!-- /ko -->
+						</div>
+						<!-- End Profile Hours -->
+					</td>
+					<td class="empty-cell"></td>
+				</tr>
+				<tr></tr>
+			</tbody>
+		</table>
+		<!-- End Workers -->
+
 		<!-- Schedule Ranges -->
 		<table class="table table-striped table-bordered table-hover
 			table-condensed table-ranges"
