@@ -285,6 +285,11 @@ var Schedule = function(periods, data) {
 		},
 		'highlight' : {
 			'color' : ko.observable(data.scheduleOptions.highlight.color),
+			'presets' : ['fff7c4', 'e9ffa6', 'a3ffed', 'ffdbfe'],
+			'setPreset' : function(col, e) {
+				this.color(col);
+				this.setColor();
+			},
 			'setColor' : function() {
 				let style = document.createElement('style');
 				style.type = 'text/css';
