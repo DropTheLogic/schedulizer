@@ -754,6 +754,31 @@
 				<tr>
 					<td class="cell options">Highlighting color (in HEX):</td>
 					<td class="cell option-cell">
+						<span>Presets:</span>
+						<button class="btn btn-xs highlight-btn"
+							data-bind="click: function() {
+								scheduleOptions.highlight.color('fff7c4');
+								scheduleOptions.highlight.setColor(); },
+								style: { 'background-color' : '#fff7c4'}">
+						</button>
+						<button class="btn btn-xs highlight-btn"
+							data-bind="click: function() {
+								scheduleOptions.highlight.color('e9ffa6');
+								scheduleOptions.highlight.setColor(); },
+								style: { 'background-color' : '#e9ffa6'}">
+						</button>
+						<button class="btn btn-xs highlight-btn"
+							data-bind="click: function() {
+								scheduleOptions.highlight.color('a3ffed');
+								scheduleOptions.highlight.setColor(); },
+								style: { 'background-color' : '#a3ffed'}">
+						</button>
+						<button class="btn btn-xs highlight-btn"
+							data-bind="click: function() {
+								scheduleOptions.highlight.color('ffdbfe');
+								scheduleOptions.highlight.setColor(); },
+								style: { 'background-color' : '#ffdbfe'}">
+						</button>
 						<input class="jscolor" data-bind="
 							value: scheduleOptions.highlight.color,
 							event: { change: function() {

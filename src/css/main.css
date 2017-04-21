@@ -413,6 +413,13 @@ header {
 	width: 60px;
 }
 
+.highlight-btn {
+	width: 16px;
+	height: 16px;
+	margin: 2px 0px;
+	border: 1px solid #666;
+}
+
 .spacer {
 	padding-left: 3px;
 	padding-right: 3px;
