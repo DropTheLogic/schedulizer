@@ -873,6 +873,16 @@
 			col.toggleClass('highlight', hovering);
 		});
 	</script>
+
+	<!-- Alert if navigating away from page -->
+	<script>
+		window.onbeforeunload = function(e) {
+			let dialogText = 'Are you sure you want to leave?' +
+				' You have unsaved changes.';
+			e.returnValue = dialogText;
+			return dialogText;
+		};
+	</script>
 </body>
 
 </html>
