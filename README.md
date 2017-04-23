@@ -34,6 +34,11 @@ will have a dropdown of the workers who are available in the time range
 selected. There is also a default choice of 'None' in case there is no need
 for the task on that day or in the given time range.
 
+#### Workers
+The workers pane gives a quick overview of a single worker's profile. You
+can select which worker to preview from the select box at the top, then edit
+the worker's name, job name and hours.
+
 #### Ranges
 The ranges table allows you to create predefined time Ranges to use for total
 queries. You may edit each Range name and click each time element to select
