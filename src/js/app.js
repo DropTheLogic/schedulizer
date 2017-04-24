@@ -697,6 +697,14 @@ var ViewModel = function() {
 		}
 		// Kick-off table height watching
 		window.requestAnimationFrame(setHeight);
+
+		// Alert if navigating away from page
+		window.onbeforeunload = function(e) {
+			let dialogText = 'Are you sure you want to leave?' +
+				' You might have unsaved changes.';
+			e.returnValue = dialogText;
+			return dialogText;
+		};
 	});
 
 	// Manage current time for 'right now' views
