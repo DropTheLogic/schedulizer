@@ -297,6 +297,16 @@ var Schedule = function(periods, data) {
 					this.color() + ' !important; }';
 				document.getElementsByTagName('head')[0].appendChild(style);
 			},
+			'instantiate' : function(el) {
+				let input = document.createElement('INPUT');
+				let picker = new jscolor(input);
+				picker.fromString(this.color());
+				input.setAttribute("data-bind",
+					"value: scheduleOptions.highlight.color, " +
+					"event: { change: function() {" +
+						"scheduleOptions.highlight.setColor(); }}");
+				el.appendChild(input);
+			},
 			'init' : function(context) {
 				this.setColor();
 			}

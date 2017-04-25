@@ -763,11 +763,9 @@
 								style: { 'background-color' : '#' + $data}">
 						</button>
 						<!-- /ko -->
-						<input class="jscolor" data-bind="
-							value: scheduleOptions.highlight.color,
-							event: { change: function() {
-								scheduleOptions.highlight.setColor(); }
-							}">
+						<span data-bind="event: { onload:
+							scheduleOptions.highlight.instantiate($element)}">
+						</span>
 					</td>
 					<td class="empty-cell"></td>
 				</tr>
