@@ -286,29 +286,19 @@ var Schedule = function(periods, data) {
 		'highlight' : {
 			'color' : ko.observable(data.scheduleOptions.highlight.color),
 			'presets' : ['fff7c4', 'e9ffa6', 'a3ffed', 'ffdbfe'],
-			'setPreset' : function(col, e) {
-				this.color(col);
-				this.setColor();
-			},
-			'setColor' : function() {
-				let style = document.createElement('style');
-				style.type = 'text/css';
-				style.innerHTML = '.highlight { background-color: #' +
-					this.color() + ' !important; }';
-				document.getElementsByTagName('head')[0].appendChild(style);
+			'setPreset' : function(data, evt) {
+				this.color(data);
+				let parent = evt.currentTarget.parentElement;
+				let picker = parent.querySelector('input');
+				picker.setAttribute('style', 'background-color: #' + data);
 			},
 			'instantiate' : function(el) {
 				let input = document.createElement('INPUT');
 				let picker = new jscolor(input);
 				picker.fromString(this.color());
 				input.setAttribute("data-bind",
-					"value: scheduleOptions.highlight.color, " +
-					"event: { change: function() {" +
-						"scheduleOptions.highlight.setColor(); }}");
+					"value: scheduleOptions.highlight.color");
 				el.appendChild(input);
-			},
-			'init' : function(context) {
-				this.setColor();
 			}
 		}
 	};

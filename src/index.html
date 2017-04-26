@@ -867,8 +867,11 @@
 
 			// Toggle highlighting class for row and col
 			let hovering = (e.type === 'mouseenter');
-			row.toggleClass('highlight', hovering);
-			col.toggleClass('highlight', hovering);
+			let table = $(e.currentTarget).closest('table')[0];
+			let color = ko.dataFor(table).scheduleOptions.highlight.color();
+			let style = 'background-color: #' + color;
+			(hovering) ? row.attr('style', style) : row.removeAttr('style');
+			(hovering) ? col.attr('style', style) : col.removeAttr('style');
 		});
 	</script>
 </body>
