@@ -1018,10 +1018,21 @@ var ViewModel = function() {
 			csv.push('\n' + row.join(','));
 		}
 
-		// Export csv data to csv file by creating a blob and downloading it
-		let blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+		// Export csv data to file
+		self.exportFile(csv, title.trim(), 'text/csv', 'csv');
+	};
+
+	/**
+	 * Save data into file by creating blob and downloading it
+	 * @param {object/string} data - Data to encode into file
+	 * @param {string} subTitle - Schedule title
+	 * @param {string} fileType - Type of file to export
+	 * @param {string} ext - Extension for file (no punctuation)
+	 */
+	self.exportFile = function(data, subTitle, fileType, ext) {
+		let blob = new Blob([data], { type: fileType + ';charset=utf-8;' });
 		// Create filename from suite name and schedule title
-		let filename = self.name() + ' - ' + title.trim() + '.csv';
+		let filename = self.name() + ' - ' + subTitle + '.' + ext;
 		if (navigator.msSaveBlob) { // IE 10+
 			navigator.msSaveBlob(blob, filename);
 		}
