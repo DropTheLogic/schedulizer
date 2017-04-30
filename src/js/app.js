@@ -854,31 +854,51 @@ var ViewModel = function() {
 		section.classList.remove('section-to-print');
 	};
 
-	// Use localStorage to save current schedule
+	/**
+	 * Save current schedule to external local file (in flat, JSON format)
+	 * @param {function} data - Schedule knockout object
+	 */
 	self.saveSchedule = function(data) {
-		let verified = confirm('Overwrite previous data file?');
+		let scheduleJSON = ko.toJSON(data);
+		let title = JSON.parse(scheduleJSON).name;
+		self.exportFile(scheduleJSON, title, 'text/JSON', 'sched');
+	};
+
+	/**
+	 * Load in schedule from JSON data
+	 * @param {object} data - Schedule data object in JSON format.
+	 * @param {function} index - Observable index to load this schedule to.
+	 */
+	self.loadSchedule = function(data, index) {
+		let parsedData = JSON.parse(data);
+		let name = parsedData.name;
+		let verified = confirm(
+			'Overwrite current schedule with saved schedule "' + name + '"?'
+		);
 		if (verified) {
-			let scheduleJSON = ko.toJSON(data);
-			localStorage.savedScheduleJSON = scheduleJSON;
+			let i = index();
+			self.schedules()[i](new Schedule(periods, parsedData));
 		}
 	};
 
-	// Use localStorage to load saved schedule
-	self.loadSchedule = function(data, index) {
-		if (localStorage.savedScheduleJSON) {
-			let parsedData = JSON.parse(localStorage.savedScheduleJSON);
-			let name = parsedData.name;
-			let verified = confirm(
-				'Overwrite current schedule with saved schedule "' + name + '"?'
-			);
-			if (verified) {
-				let i = index();
-				self.schedules()[i](new Schedule(periods, parsedData));
-			}
-		}
-		else {
-			alert('Warning: no save data found!');
-		}
+	/**
+	 * Import .sched file schedule JSON data, load data into schedule array.
+	 * @param {object} element - DOM Element holding file data.
+	 * @param {function} index - Knockout observable for the position of
+	 * 							 the schedules array to load this schedule to.
+	 */
+	self.importFile = function(element, index) {
+		// Get file data from element
+		let file = element.files[0];
+
+		// Instantiate Reader to handle file
+		let reader = new FileReader();
+		reader.onload = function(event) {
+			let fileData = event.target.result;
+			// Send file data to be loaded into schedule array
+			self.loadSchedule(fileData, index);
+		};
+		reader.readAsText(file);
 	};
 
 	// Add new Schedule at the current position of the schedules array

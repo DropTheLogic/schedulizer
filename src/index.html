@@ -71,14 +71,16 @@
 					<i class="fa fa-floppy-o" aria-hidden="true"></i>
 				</button>
 
-				<!-- Load schedule button -->
-				<button class="btn btn-md btn-default btn-yellow"
-						data-bind="click: function() {
-							$root.loadSchedule($data, $index);}"
+				<!-- Load schedule from file -->
+				<label class="btn btn-md btn-default btn-yellow"
 						data-toggle="tooltip"
-						title="Load saved schedule">
+						title="Load schedule from .sched file">
 					<i class="fa fa-folder-open" aria-hidden="true"></i>
-				</button>
+					<input type="file" accept=".sched"
+						class="file-input hidden"
+						data-bind="event: { change: function() {
+							$root.importFile($element, $index); } }">
+				</label>
 
 				<!-- Export schedule button -->
 				<button class="btn btn-md btn-default btn-blue"
