@@ -882,12 +882,12 @@ var ViewModel = function() {
 	};
 
 	/**
-	 * Import .sched file schedule JSON data, load data into schedule array.
+	 * Import data from file, pass data to be loaded where needed.
 	 * @param {object} element - DOM Element holding file data.
-	 * @param {function} index - Knockout observable for the position of
-	 * 							 the schedules array to load this schedule to.
+	 * @param {function} index - Observable index to pass to cb, if any
+	 * @param {function} callback - Function to call after loading (load data)
 	 */
-	self.importFile = function(element, index) {
+	self.importFile = function(element, index, callback) {
 		// Get file data from element
 		let file = element.files[0];
 
@@ -895,8 +895,8 @@ var ViewModel = function() {
 		let reader = new FileReader();
 		reader.onload = function(event) {
 			let fileData = event.target.result;
-			// Send file data to be loaded into schedule array
-			self.loadSchedule(fileData, index);
+			// Send file data to be loaded by callback function
+			callback(fileData, index);
 		};
 		reader.readAsText(file);
 	};

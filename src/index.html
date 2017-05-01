@@ -79,7 +79,8 @@
 					<input type="file" accept=".sched"
 						class="file-input hidden"
 						data-bind="event: { change: function() {
-							$root.importFile($element, $index); } }">
+							$root.importFile(
+								$element, $index, $root.loadSchedule); } }">
 				</label>
 
 				<!-- Export schedule button -->
