@@ -40,10 +40,14 @@
 		</button>
 
 		<!-- Button to load suite of schedules -->
-		<button data-bind="click: $root.loadSuite"
-			class="btn btn-sm btn-warning">
-			<i class="fa fa-download"></i><span>Load Suite</span>
-		</button>
+		<label class="btn btn-sm btn-warning">
+			<i class="fa fa-folder-open" aria-hidden="true"></i>
+			<span>Load Suite</span>
+			<input type="file" accept=".suite" class="file-input hidden"
+				data-bind="event: { change: function() {
+					$root.importFile($element, null, $root.loadSuite);
+				} }">
+		</label>
 	</div>
 
 	<section id="schedules" class="container" data-bind="foreach: schedules">

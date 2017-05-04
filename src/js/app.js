@@ -921,46 +921,51 @@ var ViewModel = function() {
 		}
 	}
 
-	// Save suite of schedules to local storage
+	// Save suite of schedules to file and localStorage (for autoloading)
 	self.saveSuite = function() {
-		let verified = confirm('Overwrite previous save data file?');
-		if (verified) {
-			let suiteJSON = ko.toJSON(self.schedules);
-			localStorage.savedSuiteJSON = suiteJSON;
-			localStorage.savedName = ko.toJSON(self.name);
-		}
+		// Define current suite
+		let suite = {
+			'name' : self.name,
+			'schedules' : self.schedules
+		};
+		// Convert suite to JSON
+		suite = ko.toJSON(suite);
+
+		// Save to localStorage for quick-loading
+		localStorage.savedSuite = suite;
+		// Save suite to local JSON file for user storage, archiving
+		self.exportFile(suite, 'Suite', 'text/JSON', 'suite');
 	};
 
-	// Load suite of schedules from local storage
+	// Load suite of schedules from saved file or localStorage
 	self.loadSuite = function(data) {
-		if (localStorage.savedSuiteJSON) {
-			let parsedData = JSON.parse(localStorage.savedSuiteJSON);
+		// Get save data from localStorage (if autoloading) or from data
+		let savedData = JSON.parse(
+			(data === undefined) ? localStorage.savedSuite : data);
 
-			// If this function fires as a result of user button click,
-			// verify with user that they want to overwrite unsaved changes
-			let verified = (typeof data === 'object') ?
-				confirm('Erase schedules and load from data?') : true;
+		// If this function fires as a result of user button click,
+		// verify with user that they want to overwrite unsaved changes
+		let verified = (typeof data === 'string') ?
+			confirm('Erase schedules and load from data?') : true;
 
-			if (verified) {
-				// Display suite name
-				let parsedName = JSON.parse(localStorage.savedName);
-				self.name = ko.observable(parsedName);
+		if (verified) {
+			// Display suite name
+			self.name(savedData.name);
 
-				// Re-initialize schedules array
-				self.schedules.splice(0, self.schedules().length);
+			// Re-initialize schedules array
+			self.schedules.splice(0, self.schedules().length);
 
-				// Load in schedules from parsed save data
-				parsedData.forEach(function(schedule) {
-					self.schedules.push(
-						ko.observable(new Schedule(periods, schedule))
-					);
-				});
-			}
+			// Load in schedules from parsed save data
+			savedData.schedules.forEach(function(schedule) {
+				self.schedules.push(
+					ko.observable(new Schedule(periods, schedule))
+				);
+			});
 		}
 	}
 
 	// Auto-load suite, if found
-	if (localStorage.savedSuiteJSON) {
+	if (localStorage.savedSuite) {
 		self.loadSuite();
 	}
 	else {
