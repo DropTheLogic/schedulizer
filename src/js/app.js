@@ -783,7 +783,8 @@ var ViewModel = function() {
 			let dir = (event.shiftKey) ? -1 : 1;
 
 			// Gather a collection of all input elements to cycle through
-			let inputs = document.body.querySelectorAll('select,input');
+			let inputs = document.body.querySelectorAll(
+				'select,input:not(.file-input)');
 			inputs = Array.prototype.slice.call(inputs);
 
 			// Lookup the active element's index position within the collection
