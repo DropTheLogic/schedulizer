@@ -517,7 +517,10 @@
 							<span class="editable-display" data-bind="text:
 								($parent.assignedWorkers[$index()]() ===
 								undefined) ? 'Pick Worker...' :
-								$parent.assignedWorkers[$index()]()"></span>
+								$parent.assignedWorkers[$index()](),
+								style: {'color' :
+								($parent.assignedWorkers[$index()]()
+								=== undefined) ? '#bbb' : 'inherit'}"></span>
 							<select class="editable-edit hidden"
 								data-bind="options: $data,
 								optionsCaption: 'Pick Worker…',

@@ -175,8 +175,9 @@ var Range = function(data) {
 	};
 };
 
-var Task = function(data, workers) {
+var Task = function(data, schedule) {
 	var self = this;
+	let workers = schedule.workers;
 
 	self.name = ko.observable(data.name);
 
@@ -432,12 +433,12 @@ var Schedule = function(periods, data) {
 	// Define and load tasks
 	self.tasks = ko.observableArray([]);
 	data.tasks.forEach(function(task) {
-		self.tasks.push(ko.observable(new Task(task, self.workers)));
+		self.tasks.push(ko.observable(new Task(task, self)));
 	});
 
 	// Push new task to tasks array
 	self.addTask = function() {
-		self.tasks.push(new Task(taskData[0], self.workers) );
+		self.tasks.push(new Task(taskData[0], self) );
 	};
 
 	// Define array to hold queries and load queries from raw data
