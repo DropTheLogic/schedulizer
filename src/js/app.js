@@ -206,7 +206,10 @@ var Task = function(data, schedule) {
 				let workerHours = worker().hours()[day]();
 				let isWorking = !workerHours.off();
 				if (isWorking && isInRange(workerHours, self.range().target)) {
-					available.push(worker().firstName());
+					let name = worker().firstName() +
+						((schedule.scheduleOptions.useSingleName.value()) ?
+						'' : ' ' + worker().lastName());
+					available.push(name);
 				}
 			});
 			return available;
