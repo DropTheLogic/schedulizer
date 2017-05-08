@@ -325,59 +325,9 @@
 					</td>
 
 					<!-- Buttons to manage Worker -->
-					<td class="cell text-center manage-worker btn-group">
-
-						<!-- Move worker up -->
-						<button title="Move This Worker Up One"
-							data-toggle="tooltip"
-							class="btn btn-xs btn-info button-worker"
-							data-bind="click: function(){
-								$parent.moveItem(
-									'workers', $rawData, $index, -1 ); }" >
-							<i class="fa fa-level-up"></i>
-						</button>
-
-						<!-- Move worker down -->
-						<button title="Move This Worker Down One"
-							data-toggle="tooltip"
-							class="btn btn-xs btn-info button-worker"
-							data-bind="click: function(){
-								$parent.moveItem(
-									'workers', $rawData, $index, 1 ); }" >
-							<i class="fa fa-level-down"></i>
-						</button>
-
-						<!-- Insert new worker above -->
-						<button title="Add Worker Before"
-							data-toggle="tooltip"
-							class="btn btn-xs btn-primary button-worker"
-							data-bind="click: function() {
-								$parent.addItem(
-									'workers', $rawData, $index, 0); }">
-							<i style="font-size: 8px" class="fa fa-plus"></i>
-							<i class="fa fa-level-up"></i>
-						</button>
-
-						<!-- Insert new worker below -->
-						<button title="Add Worker After"
-							data-toggle="tooltip"
-							class="btn btn-xs btn-primary button-worker"
-							data-bind="click: function() {
-								$parent.addItem(
-									'workers', $rawData, $index, 1); }">
-							<i style="font-size: 8px" class="fa fa-plus"></i>
-							<i class="fa fa-level-down"></i>
-						</button>
-
-						<!-- Delete worker -->
-						<button title="Delete Worker"
-							data-toggle="tooltip"
-							class="btn btn-xs btn-danger button-worker"
-							data-bind="click: function() {
-								$parent.deleteItem('workers', $index);
-								$('.tooltip').tooltip('destroy');}">
-							<i class="fa fa-times-circle"></i>
-						</button>
+					<td class="cell manage-worker btn-group"
+						data-bind="template: {
+							name: 'management-buttons', data: $context }">
 					</td>
 				</tr>
 				<!-- /ko -->
@@ -802,6 +752,52 @@
 		</button>
 
 	</section>
+
+	<!-- Management buttons -->
+	<script type="text/html" id="management-buttons">
+		<!-- Move worker up -->
+		<button title="Move This Worker Up One" data-toggle="tooltip"
+			class="btn btn-xs btn-info button-worker"
+			data-bind="click: function(){
+				$parent.moveItem('workers', $rawData, $index, -1 ); }" >
+			<i class="fa fa-level-up"></i>
+		</button>
+
+		<!-- Move worker down -->
+		<button title="Move This Worker Down One" data-toggle="tooltip"
+			class="btn btn-xs btn-info button-worker"
+			data-bind="click: function(){
+				$parent.moveItem('workers', $rawData, $index, 1 ); }" >
+			<i class="fa fa-level-down"></i>
+		</button>
+
+		<!-- Insert new worker above -->
+		<button title="Add Worker Before" data-toggle="tooltip"
+			class="btn btn-xs btn-primary button-worker"
+			data-bind="click: function() {
+				$parent.addItem('workers', $rawData, $index, 0); }">
+			<i style="font-size: 8px" class="fa fa-plus"></i>
+			<i class="fa fa-level-up"></i>
+		</button>
+
+		<!-- Insert new worker below -->
+		<button title="Add Worker After" data-toggle="tooltip"
+			class="btn btn-xs btn-primary button-worker"
+			data-bind="click: function() {
+				$parent.addItem('workers', $rawData, $index, 1); }">
+			<i style="font-size: 8px" class="fa fa-plus"></i>
+			<i class="fa fa-level-down"></i>
+		</button>
+
+		<!-- Delete worker -->
+		<button title="Delete Worker" data-toggle="tooltip"
+			class="btn btn-xs btn-danger button-worker"
+			data-bind="click: function() {
+				$parent.deleteItem('workers', $index);
+				$('.tooltip').tooltip('destroy');}">
+			<i class="fa fa-times-circle"></i>
+		</button>
+	</script>
 
 	<!-- Editable Time Template -->
 	<script type="text/html" id="time-edit">
