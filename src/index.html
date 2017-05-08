@@ -332,7 +332,8 @@
 							data-toggle="tooltip"
 							class="btn btn-xs btn-info button-worker"
 							data-bind="click: function(){
-								$parent.moveWorker($rawData, $index, -1); }" >
+								$parent.moveItem(
+									'workers', $rawData, $index, -1 ); }" >
 							<i class="fa fa-level-up"></i>
 						</button>
 
@@ -341,7 +342,8 @@
 							data-toggle="tooltip"
 							class="btn btn-xs btn-info button-worker"
 							data-bind="click: function(){
-								$parent.moveWorker($rawData, $index, 1); }" >
+								$parent.moveItem(
+									'workers', $rawData, $index, 1 ); }" >
 							<i class="fa fa-level-down"></i>
 						</button>
 
@@ -350,7 +352,8 @@
 							data-toggle="tooltip"
 							class="btn btn-xs btn-primary button-worker"
 							data-bind="click: function() {
-								$parent.addWorker($rawData, $index, 0); }">
+								$parent.addItem(
+									'workers', $rawData, $index, 0); }">
 							<i style="font-size: 8px" class="fa fa-plus"></i>
 							<i class="fa fa-level-up"></i>
 						</button>
@@ -360,7 +363,8 @@
 							data-toggle="tooltip"
 							class="btn btn-xs btn-primary button-worker"
 							data-bind="click: function() {
-								$parent.addWorker($rawData, $index, 1); }">
+								$parent.addItem(
+									'workers', $rawData, $index, 1); }">
 							<i style="font-size: 8px" class="fa fa-plus"></i>
 							<i class="fa fa-level-down"></i>
 						</button>
@@ -370,7 +374,7 @@
 							data-toggle="tooltip"
 							class="btn btn-xs btn-danger button-worker"
 							data-bind="click: function() {
-								$parent.deleteWorker($index);
+								$parent.deleteItem('workers', $index);
 								$('.tooltip').tooltip('destroy');}">
 							<i class="fa fa-times-circle"></i>
 						</button>
@@ -380,7 +384,7 @@
 
 				<!-- Button to add new worker to schedule -->
 				<tr><td class="text-center add-worker">
-					<button data-bind="click: addWorker"
+					<button data-bind="click: addItem('workers')"
 						class="cell btn btn-xs hanging-tab">
 						+ Add Worker
 					</button>

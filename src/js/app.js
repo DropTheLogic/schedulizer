@@ -380,57 +380,65 @@ var Schedule = function(periods, data) {
 	};
 
 	/**
-	 * Pushes new worker to workers array for this schedule
-	 * @param {object} data - observable Worker data (optional)
+	 * Pushes new object to given array for this schedule
+	 * @param {string} listName - name of array to insert item into
+	 * @param {object} data - observable object data (optional)
 	 * @param {object} index - observable index of current data (optional)
 	 * @param {integer} newIndex - index of desired insertion,
 	 *								  relative to index parameter (optional)
 	 */
-	self.addWorker = function(data, index, newIndex) {
-		// If insertion location provided, insert new worker there
+	self.addItem = function(listName, data, index, newIndex) {
+		let newObj;
+		// If insertion location provided, insert new object there
 		if (typeof newIndex === 'number') {
 			let i = index();
-			// Flatten worker data to be parsed by Worker function
-			let workerData = ko.toJS(data);
-			self.workers.splice(i + newIndex, 0,
-				ko.observable(new Worker(periods, workerData))
-			);
+			// Flatten data to be parsed
+			let flatData = ko.toJS(data);
+			// Create new object based on listName
+			if (listName === 'workers') {
+				newObj = ko.observable(new Worker(periods, flatData));
+			}
+			// Insert new object
+			self[listName].splice(i + newIndex, 0, newObj);
 		}
 		// If no insertion parameter passed, add a new worker at the end
 		else {
-			self.workers.push(
-				ko.observable(new Worker(periods, workersData[0]))
-			);
+			if (listName === 'workers') {
+				newObj = ko.observable(new Worker(periods, workersData[0]));
+			}
+			// Insert new object
+			self[listName].push(newObj);
 		}
 	};
 
 	/**
-	 * Moves current worker to given relative index position
-	 * @param {object} data - current observable Worker object
+	 * Moves given object to given relative index position
+	 * @param {string} listName - name of array to insert item into
+	 * @param {object} data - current observable object
 	 * @param {object} index - observable index of current data
 	 * @param {integer} newIndex - desired index, relative to current index
 	 */
-	self.moveWorker = function(data, index, newIndex) {
+	self.moveItem = function(listName, data, index, newIndex) {
 		let i = index();
 		let j = i + newIndex;
 
 		// Make sure requested move is within bounds
-		if (j >= 0 && j < self.workers().length) {
+		if (j >= 0 && j < self[listName]().length) {
 			// Store target index data in temp variable
-			let temp = self.workers()[j]();
+			let temp = self[listName]()[j]();
 
 			// Assign current data to target index
-			self.workers()[j](data());
+			self[listName]()[j](data());
 
 			// Assign temp data to old index position
-			self.workers()[i](temp);
+			self[listName]()[i](temp);
 		}
 	};
 
-	// Deletes worker from workers array
-	self.deleteWorker = function(index) {
+	// Deletes observable object from given array
+	self.deleteItem = function(listName, index) {
 		let i = index();
-		self.workers.splice(i, 1);
+		self[listName].splice(i, 1);
 	};
 
 	// Define and load tasks
