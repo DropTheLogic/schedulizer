@@ -334,7 +334,8 @@
 
 				<!-- Button to add new worker to schedule -->
 				<tr><td class="text-center add-worker">
-					<button data-bind="click: addItem('workers')"
+					<button data-bind="click: function() {
+						addItem('workers'); }"
 						class="cell btn btn-xs hanging-tab">
 						+ Add Worker
 					</button>
