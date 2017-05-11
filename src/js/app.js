@@ -432,6 +432,9 @@ var Schedule = function(periods, data) {
 
 			// Assign temp data to old index position
 			self[listName]()[i](temp);
+
+			// Remove Tooltip
+			$('.tooltip').remove();
 		}
 	};
 
