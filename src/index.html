@@ -325,7 +325,7 @@
 					</td>
 
 					<!-- Buttons to manage Worker -->
-					<td class="cell manage-worker btn-group"
+					<td class="cell management-buttons"
 						data-bind="template: {
 							name: 'management-buttons', data: $context }">
 					</td>
@@ -756,48 +756,50 @@
 
 	<!-- Management buttons -->
 	<script type="text/html" id="management-buttons">
-		<!-- Move worker up -->
-		<button title="Move This Worker Up One" data-toggle="tooltip"
+	<div class="management-replace btn-group">
+		<!-- Move %object up -->
+		<button title="Move This %object Up One" data-toggle="tooltip"
 			class="btn btn-xs btn-info button-worker"
 			data-bind="click: function(){
-				$parent.moveItem('workers', $rawData, $index, -1 ); }" >
+				$parent.moveItem('%list', $rawData, $index, -1 ); }" >
 			<i class="fa fa-level-up"></i>
 		</button>
 
-		<!-- Move worker down -->
-		<button title="Move This Worker Down One" data-toggle="tooltip"
+		<!-- Move %object down -->
+		<button title="Move This %object Down One" data-toggle="tooltip"
 			class="btn btn-xs btn-info button-worker"
 			data-bind="click: function(){
-				$parent.moveItem('workers', $rawData, $index, 1 ); }" >
+				$parent.moveItem('%list', $rawData, $index, 1 ); }" >
 			<i class="fa fa-level-down"></i>
 		</button>
 
-		<!-- Insert new worker above -->
-		<button title="Add Worker Before" data-toggle="tooltip"
+		<!-- Insert new %object above -->
+		<button title="Add %object Before" data-toggle="tooltip"
 			class="btn btn-xs btn-primary button-worker"
 			data-bind="click: function() {
-				$parent.addItem('workers', $rawData, $index, 0); }">
+				$parent.addItem('%list', $rawData, $index, 0); }">
 			<i style="font-size: 8px" class="fa fa-plus"></i>
 			<i class="fa fa-level-up"></i>
 		</button>
 
-		<!-- Insert new worker below -->
-		<button title="Add Worker After" data-toggle="tooltip"
+		<!-- Insert new %object below -->
+		<button title="Add %object After" data-toggle="tooltip"
 			class="btn btn-xs btn-primary button-worker"
 			data-bind="click: function() {
-				$parent.addItem('workers', $rawData, $index, 1); }">
+				$parent.addItem('%list', $rawData, $index, 1); }">
 			<i style="font-size: 8px" class="fa fa-plus"></i>
 			<i class="fa fa-level-down"></i>
 		</button>
 
-		<!-- Delete worker -->
-		<button title="Delete Worker" data-toggle="tooltip"
+		<!-- Delete %object -->
+		<button title="Delete %object" data-toggle="tooltip"
 			class="btn btn-xs btn-danger button-worker"
 			data-bind="click: function() {
-				$parent.deleteItem('workers', $index);
+				$parent.deleteItem('%list', $index);
 				$('.tooltip').tooltip('destroy');}">
 			<i class="fa fa-times-circle"></i>
 		</button>
+	</div>
 	</script>
 
 	<!-- Editable Time Template -->

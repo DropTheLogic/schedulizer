@@ -119,10 +119,10 @@ header {
 	background: #fcfcfc;
 }
 
-.manage-worker {
+.management-buttons {
 	display: table-cell;
 	min-width: 200px !important;
-	background: #fcfcfc;
+	background: #fcfcfc !important;
 	border-top: hidden !important;
 	border-bottom: hidden !important;
 	border-right: hidden !important;

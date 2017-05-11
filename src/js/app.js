@@ -1087,4 +1087,33 @@ var ViewModel = function() {
 	};
 };
 
+// Process nodes before setting bindings
+ko.bindingProvider.instance.preprocessNode = function(node) {
+
+	/**
+	 * Handle replacement of placeholder text in templates, in order to
+	 * bind data after replacement occurs. Specifically, make button
+	 * management code reusable, since defined Workers, Tasks, etc
+	 * need to be manipulated by the user in similar fashion.
+	 */
+	// Check that node is meant to have it's text replaced
+	if (node.classList && node.classList.contains('management-replace')) {
+		// Find given Object name and extrapolate name of corresponding array
+		let context = ko.contextFor(node);
+		let name = Object.getPrototypeOf(context.$data).constructor.name;
+		// i.e. 'Worker' objects are held by the Schedule in a 'workers' array
+		let list = name.toLowerCase() + 's';
+
+		// Create new element to replace placeholder node
+		let el = document.createElement('div');
+		el.classList = node.classList;
+		// Replace all occurances of placeholder text
+		el.innerHTML = node.innerHTML.replace(/%object/g, name).replace(/%list/g, list);
+
+		// Replace node with new element
+		node.parentElement.replaceChild(el, node);
+		return [el];
+	}
+};
+
 ko.applyBindings(new ViewModel());
