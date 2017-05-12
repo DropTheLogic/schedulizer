@@ -1103,15 +1103,27 @@ ko.bindingProvider.instance.preprocessNode = function(node) {
 	if (node.classList && node.classList.contains('management-replace')) {
 		// Find given Object name and extrapolate name of corresponding array
 		let context = ko.contextFor(node);
-		let name = Object.getPrototypeOf(context.$data).constructor.name;
+		let type = Object.getPrototypeOf(context.$data).constructor.name;
 		// i.e. 'Worker' objects are held by the Schedule in a 'workers' array
-		let list = name.toLowerCase() + 's';
+		let list = type.toLowerCase() + 's';
+
+		// Find given descriptive name of Object
+		let name;
+		if (type === 'Worker') {
+			let options = context.$parent.scheduleOptions;
+			name = context.$data.firstName() +
+				((options.useSingleName.value()) ?
+				'' : ' ' + context.$data.lastName());
+		}
 
 		// Create new element to replace placeholder node
 		let el = document.createElement('div');
 		el.classList = node.classList;
-		// Replace all occurances of placeholder text
-		el.innerHTML = node.innerHTML.replace(/%object/g, name).replace(/%list/g, list);
+		// Replace all occurrences of placeholder text
+		el.innerHTML = node.innerHTML
+			.replace(/%object/g, type)
+			.replace(/%name/g, name)
+			.replace(/%list/g, list);
 
 		// Replace node with new element
 		node.parentElement.replaceChild(el, node);

@@ -758,7 +758,7 @@
 	<script type="text/html" id="management-buttons">
 	<div class="management-replace btn-group">
 		<!-- Move %object up -->
-		<button title="Move This %object Up One" data-toggle="tooltip"
+		<button title="Move %name Up One" data-toggle="tooltip"
 			class="btn btn-xs btn-info button-worker"
 			data-bind="click: function(){
 				$parent.moveItem('%list', $rawData, $index, -1 ); }" >
@@ -766,7 +766,7 @@
 		</button>
 
 		<!-- Move %object down -->
-		<button title="Move This %object Down One" data-toggle="tooltip"
+		<button title="Move %name Down One" data-toggle="tooltip"
 			class="btn btn-xs btn-info button-worker"
 			data-bind="click: function(){
 				$parent.moveItem('%list', $rawData, $index, 1 ); }" >
@@ -774,7 +774,7 @@
 		</button>
 
 		<!-- Insert new %object above -->
-		<button title="Add %object Before" data-toggle="tooltip"
+		<button title="Add %object Before %name" data-toggle="tooltip"
 			class="btn btn-xs btn-primary button-worker"
 			data-bind="click: function() {
 				$parent.addItem('%list', $rawData, $index, 0); }">
@@ -783,7 +783,7 @@
 		</button>
 
 		<!-- Insert new %object below -->
-		<button title="Add %object After" data-toggle="tooltip"
+		<button title="Add %object After %name" data-toggle="tooltip"
 			class="btn btn-xs btn-primary button-worker"
 			data-bind="click: function() {
 				$parent.addItem('%list', $rawData, $index, 1); }">
@@ -792,7 +792,7 @@
 		</button>
 
 		<!-- Delete %object -->
-		<button title="Delete %object" data-toggle="tooltip"
+		<button title="Delete %name" data-toggle="tooltip"
 			class="btn btn-xs btn-danger button-worker"
 			data-bind="click: function() {
 				$parent.deleteItem('%list', $index);
