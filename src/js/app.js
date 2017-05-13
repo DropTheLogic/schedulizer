@@ -398,6 +398,9 @@ var Schedule = function(periods, data) {
 			if (listName === 'workers') {
 				newObj = ko.observable(new Worker(periods, flatData));
 			}
+			else if (listName === 'tasks') {
+				newObj = ko.observable(new Task(taskData[0], self));
+			}
 			// Insert new object
 			self[listName].splice(i + newIndex, 0, newObj);
 		}
@@ -405,6 +408,9 @@ var Schedule = function(periods, data) {
 		else {
 			if (listName === 'workers') {
 				newObj = ko.observable(new Worker(periods, workersData[0]));
+			}
+			else if (listName === 'tasks') {
+				newObj = ko.observable(new Task(taskData[0], self));
 			}
 			// Insert new object
 			self[listName].push(newObj);
@@ -1114,6 +1120,9 @@ ko.bindingProvider.instance.preprocessNode = function(node) {
 			name = context.$data.firstName() +
 				((options.useSingleName.value()) ?
 				'' : ' ' + context.$data.lastName());
+		}
+		else {
+			name = context.$data.name();
 		}
 
 		// Create new element to replace placeholder node

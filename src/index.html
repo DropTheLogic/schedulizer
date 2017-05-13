@@ -486,13 +486,20 @@
 					</td>
 					<!-- /ko -->
 
+					<!-- Buttons to manage Task -->
+					<td class="cell management-buttons"
+						data-bind="template: {
+							name: 'management-buttons', data: $context}">
+					</td>
+
 					<td class="empty-cell"></td>
 				</tr>
 				<!-- /ko -->
 
 				<!-- Button to add new task -->
 				<tr><td class="text-center add-query">
-					<button data-bind="click: addTask,
+					<button data-bind="click: function() {
+						addItem('tasks'); },
 						css: { 'hanging-tab' : tasks().length > 0 }"
 						class="cell btn btn-xs">
 						+ Add Task
