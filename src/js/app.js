@@ -399,7 +399,10 @@ var Schedule = function(periods, data) {
 				newObj = ko.observable(new Worker(periods, flatData));
 			}
 			else if (listName === 'tasks') {
-				newObj = ko.observable(new Task(taskData[0], self));
+				newObj = ko.observable(new Task(flatData, self));
+			}
+			else if (listName === 'ranges') {
+				newObj = ko.observable(new Range(flatData));
 			}
 			// Insert new object
 			self[listName].splice(i + newIndex, 0, newObj);
@@ -411,6 +414,9 @@ var Schedule = function(periods, data) {
 			}
 			else if (listName === 'tasks') {
 				newObj = ko.observable(new Task(taskData[0], self));
+			}
+			else if (listName === 'ranges') {
+				newObj = ko.observable(new Range(rangeData[0]));
 			}
 			// Insert new object
 			self[listName].push(newObj);

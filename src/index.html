@@ -629,13 +629,21 @@
 							{ name: 'time-edit', data: $data.target.end }">
 						</span>
 					</td>
+
+					<!-- Buttons to manage Range -->
+					<td class="cell management-buttons"
+						data-bind="template: {
+							name: 'management-buttons', data: $context}">
+					</td>
+
 					<td class="empty-cell"></td>
 				</tr>
 				<!-- /ko -->
 
 				<!-- Button to add new range -->
 				<tr><td class="text-center add-query">
-					<button data-bind="click: addRange,
+					<button data-bind="click: function() {
+						addItem('ranges'); },
 						css: { 'hanging-tab' : hasQueries }"
 						class="cell btn btn-xs">
 						+ Add Range
