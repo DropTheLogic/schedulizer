@@ -367,7 +367,7 @@
 						data-bind="if: $parent.selected() === 'Schedule'">
 						<select data-bind="
 							options: $parent.ranges,
-							optionsText: 'name',
+							optionsText: function(data) {return data().name;},
 							value: selectedRange,
 							event: { keydown: $root.manageKeys }">
 						</select>
@@ -461,7 +461,8 @@
 
 					<td class="cell">
 						<select data-bind="value: range,
-							options: $parent.ranges, optionsText: 'name',
+							options: $parent.ranges,
+							optionsText: function(data) {return data().name;},
 							event: { keydown : $root.manageKeys }"></select>
 					</td>
 

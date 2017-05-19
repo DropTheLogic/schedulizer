@@ -327,12 +327,12 @@ var Schedule = function(periods, data) {
 	self.ranges = ko.observableArray([]);
 	// Load in ranges from data
 	data.ranges.forEach(function(range) {
-		self.ranges.push( new Range(range) );
+		self.ranges.push( ko.observable(new Range(range)) );
 	});
 
 	// Push new range to ranges array
 	self.addRange = function() {
-		self.ranges.push(new Range(rangeData[0]) );
+		self.ranges.push(ko.observable(new Range(rangeData[0])) );
 	};
 
 	// Default schedule period length and heading titles
@@ -569,11 +569,16 @@ var Query = function(workers, targetData, ranges) {
 	});
 
 	// Holds current range data from range array
-	self.selectedRange = ko.observable(ranges()[targetData.selectedIndex]);
+	self.selectedRange = ko.observable(ranges()[targetData.selectedIndex]());
 
 	// Holds index in ranges array of the selected range
 	self.selectedIndex = ko.computed(function() {
-		return ranges.indexOf(self.selectedRange());
+		for (let i = 0; i < ranges().length; i++) {
+			if (ranges()[i]() === self.selectedRange()) {
+				return i;
+			}
+		}
+		return -1;
 	}, this);
 
 	// Add new job to job target array
