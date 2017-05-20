@@ -388,39 +388,33 @@ var Schedule = function(periods, data) {
 	 *								  relative to index parameter (optional)
 	 */
 	self.addItem = function(listName, data, index, newIndex) {
+		// Does object need to be inserted at the end?
+		let isInside = typeof newIndex === 'number';
+
+		// Default parameter to pass to constructor uses passed data
+		let param = ko.toJS(data);
+		// If object is to added to the end, use the default data
+		// for the appropriate constructor type
+		if (!isInside) {
+			switch (listName) {
+				case 'workers' : param = workersData[0]; break;
+				case 'tasks' : param = taskData[0]; break;
+				case 'ranges' : param = rangeData[0]; break;
+				default : break;
+			}
+		}
+
+		// Create new object to inject into target list
 		let newObj;
-		// If insertion location provided, insert new object there
-		if (typeof newIndex === 'number') {
-			let i = index();
-			// Flatten data to be parsed
-			let flatData = ko.toJS(data);
-			// Create new object based on listName
-			if (listName === 'workers') {
-				newObj = ko.observable(new Worker(periods, flatData));
-			}
-			else if (listName === 'tasks') {
-				newObj = ko.observable(new Task(flatData, self));
-			}
-			else if (listName === 'ranges') {
-				newObj = ko.observable(new Range(flatData));
-			}
-			// Insert new object
-			self[listName].splice(i + newIndex, 0, newObj);
+		switch (listName) {
+			case 'workers' : newObj = new Worker(periods, param); break;
+			case 'tasks' : newObj = new Task(param, self); break;
+			case 'ranges' : newObj = new Range(param); break;
 		}
-		// If no insertion parameter passed, add a new worker at the end
-		else {
-			if (listName === 'workers') {
-				newObj = ko.observable(new Worker(periods, workersData[0]));
-			}
-			else if (listName === 'tasks') {
-				newObj = ko.observable(new Task(taskData[0], self));
-			}
-			else if (listName === 'ranges') {
-				newObj = ko.observable(new Range(rangeData[0]));
-			}
-			// Insert new object
-			self[listName].push(newObj);
-		}
+
+		// Insert object
+		let i = (isInside) ? index() + newIndex : self[listName]().length;
+		self[listName].splice(i, 0, ko.observable(newObj));
 	};
 
 	/**
