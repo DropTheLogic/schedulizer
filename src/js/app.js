@@ -251,40 +251,9 @@ var Schedule = function(periods, data) {
 		'largerFont' : {
 			'text' : 'Use larger text size',
 			'value' : ko.observable(data.scheduleOptions.largerFont.value),
-			// Adds or removes .larger to all elements with .cell
-			// Takes either click event or DOM element as second value
 			'function' : function(data, e) {
-				// Assume e is this Schedule's DOM element (handed via onload)
-				let schedule = e;
-
-				// If e is a click event, get this Schedule's element
-				let isAnEvent = e.hasOwnProperty('currentTarget');
-				if (isAnEvent) {
-					schedule = e.currentTarget.closest('.schedule');
-					// Toggle value
-					(this.value()) ? this.value(false) : this.value(true);
-				}
-
-				// Add or remove .larger to all elements with cell class
-				let cells = schedule.getElementsByClassName('cell');
-				if (this.value() === true) {
-					for (let i = 0; i < cells.length; i++) {
-						cells[i].classList += ' larger';
-					}
-				}
-				else if (isAnEvent) {
-					for (let i = 0; i < cells.length; i++) {
-						cells[i].classList.remove('larger');
-					}
-				}
-			},
-			'init' : function(context) {
-				// Find which DOM element this Schedule is bound to
-				let scheduleEls = document.getElementsByClassName('schedule');
-				let scheduleEl = scheduleEls[context.$index()];
-
-				// Send schedule DOM element to be parsed for font sizing
-				this.function({}, scheduleEl);
+				// Toggle value
+				(this.value()) ? this.value(false) : this.value(true);
 			}
 		},
 		'highlight' : {

@@ -291,7 +291,7 @@ header {
 	background-color: #f5f5f5 !important;
 }
 
-.larger {
+.larger .cell {
 	font-weight: 300;
 	font-size: 13px;
 }

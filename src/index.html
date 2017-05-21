@@ -51,7 +51,7 @@
 	</div>
 
 	<section id="schedules" class="container" data-bind="foreach: schedules">
-		<section class="schedule">
+		<section class="schedule"  data-bind="css: {'larger' : scheduleOptions.largerFont.value()}">
 		<!-- Schedule Name -->
 		<h3>
 			<span data-bind="template: {name: 'text-edit', data: name}"></span>
