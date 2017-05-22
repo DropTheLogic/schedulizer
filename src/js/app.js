@@ -259,6 +259,17 @@ var Schedule = function(periods, data) {
 		'highlight' : {
 			'color' : ko.observable(data.scheduleOptions.highlight.color),
 			'presets' : ['fff7c4', 'e9ffa6', 'a3ffed', 'ffdbfe'],
+			'fontColor' : function() {
+				// Check luminance of background color and set text
+				// color to contrast accordingly. Relevant code from:
+				// https://stackoverflow.com/a/35970186/6867508
+				let hex = this.color(),
+					r = parseInt(hex.slice(0, 2), 16),
+					g = parseInt(hex.slice(2, 4), 16),
+					b = parseInt(hex.slice(4, 6), 16),
+					luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b);
+				return (luminance > 186) ? '#000' : '#fff';
+			},
 			'setPreset' : function(data, evt) {
 				this.color(data);
 				let parent = evt.currentTarget.parentElement;

@@ -898,7 +898,8 @@
 			let hovering = (e.type === 'mouseenter');
 			let table = $(e.currentTarget).closest('table')[0];
 			let color = ko.dataFor(table).scheduleOptions.highlight.color();
-			let style = 'background-color: #' + color;
+			let text = ko.dataFor(table).scheduleOptions.highlight.fontColor();
+			let style = 'background-color: #' + color + '; color: ' + text;
 			(hovering) ? row.attr('style', style) : row.removeAttr('style');
 			(hovering) ? col.attr('style', style) : col.removeAttr('style');
 		});
