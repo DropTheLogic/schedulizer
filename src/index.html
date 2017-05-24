@@ -51,7 +51,9 @@
 	</div>
 
 	<section id="schedules" class="container" data-bind="foreach: schedules">
-		<section class="schedule"  data-bind="css: {'larger' : scheduleOptions.largerFont.value()}">
+		<section class="schedule"
+			data-bind="css: {'larger' : scheduleOptions.largerFont.value()},
+				event: { mouseover: addHighlighting }">
 		<!-- Schedule Name -->
 		<h3>
 			<span data-bind="template: {name: 'text-edit', data: name}"></span>
@@ -880,28 +882,6 @@
 			selector: '[data-toggle="tooltip"]',
 			container: 'body',
 			trigger: 'hover'
-		});
-	</script>
-
-	<!-- Highlight rows and columns on hover -->
-	<script>
-		let cells = '.table-schedule tbody .cell:not(button)' +
-					', .table-tasks tbody .cell:not(button)';
-		$('body').on('mouseenter mouseleave', cells, function(e) {
-			// Find row and column
-			let row = $(this).closest('tr').not('.manage-worker');
-			let col = $(this).closest('tbody')
-				.find('tr:not(:last) > td:nth-child(' + (this.cellIndex + 1) + ')')
-				.not('.manage-worker');
-
-			// Toggle highlighting class for row and col
-			let hovering = (e.type === 'mouseenter');
-			let table = $(e.currentTarget).closest('table')[0];
-			let color = ko.dataFor(table).scheduleOptions.highlight.color();
-			let text = ko.dataFor(table).scheduleOptions.highlight.fontColor();
-			let style = 'background-color: #' + color + '; color: ' + text;
-			(hovering) ? row.attr('style', style) : row.removeAttr('style');
-			(hovering) ? col.attr('style', style) : col.removeAttr('style');
 		});
 	</script>
 </body>

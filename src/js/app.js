@@ -297,6 +297,39 @@ var Schedule = function(periods, data) {
 		}
 	};
 
+	// Adds highlighting to appropriate .cell elements
+	self.addHighlighting = function(data, item) {
+		let target = item.target;
+		let cellGroup = '.table-schedule tbody .cell:not(button),' +
+				'.table-tasks tbody .cell:not(button)';
+		let closestCell = item.target.closest(cellGroup);
+
+		if (closestCell !== null) {
+			// Remove old styling
+			let otherCells = $(closestCell).closest('tbody').find('.cell');
+			otherCells.removeAttr('style');
+
+			// Find row and column to highlight
+			let row =
+				$(closestCell).closest('tr').not('.manage-worker').find('td');
+			let col = $(closestCell).closest('tbody')
+				.find('tr:not(:last) > td:nth-child(' +
+					(closestCell.cellIndex + 1) + ')')
+				.not('.manage-worker');
+
+			// Apply styling
+			let color = self.scheduleOptions.highlight.color();
+			let text = self.scheduleOptions.highlight.fontColor();
+			let style = 'background-color: #' + color + '; color: ' + text;
+			$(row).attr('style', style);
+			$(col).attr('style', style);
+		}
+		else {
+			// Remove old styling if mouse has left
+			$('.cell').removeAttr('style');
+		}
+	};
+
 	// Keep track of the schedule's different table views
 	self.selected = ko.observable(self.views[0]);
 	self.select = function(data) {
