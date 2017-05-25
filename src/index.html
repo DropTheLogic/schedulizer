@@ -262,61 +262,9 @@
 						</span>
 
 						<!-- Hours submenu -->
-						<div class="hours-submenu dropdown">
-							<button class="dropdown-toggle btn btn-xs hours-btn"
-								type="button"
-								id="hours-dropdown" data-toggle="dropdown"
-								aria-haspopup="true" aria-expanded="true">
-								<i class="fa fa-bars" aria-hidden="true"></i>
-							</button>
-							<ul class="dropdown-menu"
-								aria-labelledby="hours-dropdown">
-
-								<!-- Copy Hours -->
-								<li data-bind="click: $parents[1].copyHours">
-									<i class="fa fa-files-o"
-										aria-hidden="true"></i>
-									<span>Copy Hours</span>
-								</li>
-
-								<!-- Paste Hours -->
-								<li data-bind="click: function() {
-									if ($parents[1].clipboard() != '') {
-										$parents[1].pasteHours(
-											$parentContext, $index);
-										}
-									},
-									css: {'disabled':
-										$parents[1].clipboard() === ''}">
-									<i class="fa fa-clipboard"
-										aria-hidden="true"></i>
-									<span>Paste Hours</span>
-								</li>
-
-								<!-- Paste hours from Range -->
-								<li role="separator" class="divider"></li>
-								<li class="dropdown-header">
-									<strong>Set hours from range:</strong>
-								</li>
-								<!-- ko { foreach: $parents[1].ranges } -->
-								<li data-bind="click: function() {
-									$parents[2].pasteRange($data, $parent);},
-									text: $data.name" class="set-ranges">
-								</li>
-								<!-- /ko -->
-
-								<!-- Color Cell -->
-								<li role="separator" class="divider"></li>
-								<li class="dropdown-header">
-									<strong>Cell Color:</strong>
-								</li>
-								<!-- ko { foreach :
-									{ data : Object.keys(cellColors) } } -->
-								<div data-bind="template :
-									{ name: 'color-li', data: $data }"></div>
-								<!-- /ko -->
-							</ul>
-						</div>
+						<span data-bind="template:
+							{name: 'hours-submenu-template', data: $context}">
+						</span>
 
 					</td>
 					<!-- /ko -->
@@ -820,6 +768,66 @@
 	</div>
 	</script>
 
+	<!-- Hours Submenu -->
+	<script type="text/html" id="hours-submenu-template">
+		<div class="hours-submenu dropdown">
+			<button class="dropdown-toggle btn btn-xs hours-btn"
+				type="button"
+				id="hours-dropdown" data-toggle="dropdown"
+				aria-haspopup="true" aria-expanded="true">
+				<i class="fa fa-bars" aria-hidden="true"></i>
+			</button>
+			<ul class="dropdown-menu"
+				aria-labelledby="hours-dropdown">
+
+				<!-- Copy Hours -->
+				<li data-bind="click: function() {
+					$parents[1].copyHours($data); }">
+					<i class="fa fa-files-o"
+						aria-hidden="true"></i>
+					<span>Copy Hours</span>
+				</li>
+
+				<!-- Paste Hours -->
+				<li data-bind="click: function() {
+					if ($parents[1].clipboard() != '') {
+						$parents[1].pasteHours(
+							$parentContext, $index);
+						}
+					},
+					css: {'disabled':
+						$parents[1].clipboard() === ''}">
+					<i class="fa fa-clipboard"
+						aria-hidden="true"></i>
+					<span>Paste Hours</span>
+				</li>
+
+				<!-- Paste hours from Range -->
+				<li role="separator" class="divider"></li>
+				<li class="dropdown-header">
+					<strong>Set hours from range:</strong>
+				</li>
+				<!-- ko { foreach: $parents[1].ranges } -->
+				<li data-bind="click: function() {
+					$parents[3].pasteRange($data, $parent.$data);},
+					text: $data.name" class="set-ranges">
+				</li>
+				<!-- /ko -->
+
+				<!-- Color Cell -->
+				<li role="separator" class="divider"></li>
+				<li class="dropdown-header">
+					<strong>Cell Color:</strong>
+				</li>
+				<!-- ko { foreach :
+					{ data : Object.keys(cellColors) } } -->
+				<div data-bind="template :
+					{ name: 'color-li', data: $data }"></div>
+				<!-- /ko -->
+			</ul>
+		</div>
+	</script>
+
 	<!-- Editable Time Template -->
 	<script type="text/html" id="time-edit">
 		<div class="click-to-edit" data-bind="click: $root.showEditEl">
@@ -860,10 +868,10 @@
 	<!-- Cell color li -->
 	<script type="text/html" id="color-li">
 		<li data-bind="with: cellColors[$data],
-			click: function() { $parents[1].setColor($data); }">
+			click: function() { $parents[2].setColor($data); }">
 			<div class="color-picker" data-bind="css: bgClass"></div>
-			<span data-bind="text: $parent"></span>
-			<!-- ko { if : $parents[2].color() === $parent } -->
+			<span data-bind="text: $parents[1]"></span>
+			<!-- ko { if : $parents[2].$data.color() === $parent } -->
 			<i class="fa fa-check" aria-hidden="true"></i>
 			<!-- /ko -->
 		</li>
