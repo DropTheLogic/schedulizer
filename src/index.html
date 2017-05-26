@@ -535,6 +535,12 @@
 										aria-hidden="true"
 										data-bind="visible: $data.off"></i>
 								</div>
+
+								<!-- Hours Submenu -->
+								<span data-bind="template: {
+									name: 'hours-submenu-template',
+									data: $data }">
+								</span>
 							</div>
 						<!-- /ko -->
 						</div>
@@ -809,7 +815,9 @@
 				</li>
 				<!-- ko { foreach: $parents[1].ranges } -->
 				<li data-bind="click: function() {
-					$parents[3].pasteRange($data, $parent.$data);},
+					(typeof $parents[3].pasteRange === 'undefined') ?
+						$parents[2].pasteRange($data, $parent) :
+						$parents[3].pasteRange($data, $parent.$data); },
 					text: $data.name" class="set-ranges">
 				</li>
 				<!-- /ko -->
@@ -871,9 +879,13 @@
 			click: function() { $parents[2].setColor($data); }">
 			<div class="color-picker" data-bind="css: bgClass"></div>
 			<span data-bind="text: $parents[1]"></span>
-			<!-- ko { if : $parents[2].$data.color() === $parent } -->
-			<i class="fa fa-check" aria-hidden="true"></i>
-			<!-- /ko -->
+			<i class="fa fa-check" aria-hidden="true"
+				data-bind="visible: function() {
+				return ($parents.length < 7) ?
+					(($parents[2].color() === $parent) ? true : false) :
+					(($parents[2].$data.color() === $parent) ? true : false);
+				}()">
+			</i>
 		</li>
 	</script>
 	<!-- /ko -->
