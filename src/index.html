@@ -499,7 +499,9 @@
 						<h4>Hours</h4>
 						<div class="profile-hours">
 							<!-- ko { foreach : selectedWorker().hours } -->
-							<div class="cell profile-day">
+							<div class="cell profile-day" data-bind="
+								css: (cellColors[$data.color()]) ?
+									cellColors[$data.color()].bgClass : ''">
 								<span class="day-of-week"
 										data-bind="text: periods[$index()]">
 									</span>

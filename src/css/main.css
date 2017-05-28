@@ -190,8 +190,7 @@ header {
 
 .profile-day {
 	line-height: 16px;
-	padding: 2px;
-	margin: 4px;
+	padding: 6px 4px;
 	border-bottom: 1px solid #ddd;
 }
 
@@ -320,6 +319,7 @@ header {
 
 .hours-submenu {
 	display: inline;
+	margin-left: 5px;
 	float: right;
 	color: #ddd;
 }
