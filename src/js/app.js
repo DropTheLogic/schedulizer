@@ -370,6 +370,13 @@ var Schedule = function(periods, data) {
 	};
 	self.pasteHours = function(context, index) {
 		let workersIndex = self.workers().indexOf(context.$rawData);
+		// If workersIndex is not found, then paste hours for selectedWorker
+		if (workersIndex === -1) {
+			self.selectedWorker().hours()[index()](
+				new Hours(self.clipboard())
+				);
+			return;
+		}
 		self.workers()[workersIndex]().hours()[index()](
 			new Hours(self.clipboard())
 		);
