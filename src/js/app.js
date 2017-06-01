@@ -326,9 +326,10 @@ var Schedule = function(periods, data) {
 	// Add shadow class based on table scroll position
 	self.addShadowStyle = function() {
 		let left = self.scrollPos.left(),
-				right = self.scrollPos.right(),
-				edgeL = self.scrollEdge.left(),
-				edgeR = self.scrollEdge.right();
+			// Account for positions with decimal(?)
+			right = self.scrollPos.right() - 1,
+			edgeL = self.scrollEdge.left(),
+			edgeR = self.scrollEdge.right();
 
 		if (self.needsScrolling()) {
 			if (left === edgeL) return 'right-shadow';
