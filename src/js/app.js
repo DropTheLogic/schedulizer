@@ -297,6 +297,46 @@ var Schedule = function(periods, data) {
 		}
 	};
 
+	// Hold scroll position of table elements
+	self.scrollEdge = { left: ko.observable(0), right : ko.observable(0) };
+	self.scrollPos = { left : ko.observable(0), right : ko.observable(0) };
+	self.needsScrolling = ko.observable(false);
+
+	// Update table position variables when scrolling
+	self.updateScrollPos = function(data, el) {
+		// Find element with scroll-control class
+		let scrollEl =
+			el.closest('.schedule').getElementsByClassName('scroll-control')[0];
+		// Find which table is active
+		let i = self.views.indexOf(self.selected());
+		let table = scrollEl.getElementsByClassName('table')[i];
+		// Get positions of table and table's container
+		let outerRect = scrollEl.getBoundingClientRect();
+		let tableRect = table.getBoundingClientRect();
+
+		// Set scroll positions
+		self.scrollEdge.left(outerRect.left);
+		self.scrollEdge.right(outerRect.right);
+		self.scrollPos.left(tableRect.left);
+		self.scrollPos.right(tableRect.right);
+		(tableRect.width > outerRect.width) ?
+			self.needsScrolling(true) : self.needsScrolling(false);
+	};
+
+	// Add shadow class based on table scroll position
+	self.addShadowStyle = function() {
+		let left = self.scrollPos.left(),
+				right = self.scrollPos.right(),
+				edgeL = self.scrollEdge.left(),
+				edgeR = self.scrollEdge.right();
+
+		if (self.needsScrolling()) {
+			if (left === edgeL) return 'right-shadow';
+			if (right <= edgeR) return 'left-shadow';
+			if (left < edgeL && right > edgeR) return 'both-shadows';
+		}
+	};
+
 	// Adds highlighting to appropriate .cell elements
 	self.addHighlighting = function(data, item) {
 		let target = item.target;
@@ -1119,6 +1159,20 @@ var ViewModel = function() {
 			document.body.removeChild(link);
 		}
 	};
+};
+
+// Runs passed function and parameters once element has loaded
+ko.bindingHandlers.elementReady = {
+    init: function(element, valueAccessor, bindingContext) {
+		// Once this element has loaded
+		$(element).ready(function() {
+			let func = ko.unwrap(valueAccessor()).func;
+			// Get parameter(s) passed in as an array
+			let params = ko.unwrap(valueAccessor()).params;
+			// Runs function with passed parameter(s)
+			func(...params);
+		});
+    }
 };
 
 // Process nodes before setting bindings
