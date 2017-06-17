@@ -1173,7 +1173,17 @@ ko.bindingHandlers.elementReady = {
 			// Runs function with passed parameter(s)
 			func(...params);
 		});
-    }
+    },
+	update: function(element, valueAccessor, bindingContext) {
+		// re-run function on window resize
+		$(window).resize(function() {
+			let func = ko.unwrap(valueAccessor()).func;
+			// Get parameter(s) passed in as an array
+			let params = ko.unwrap(valueAccessor()).params;
+			// Runs function with passed parameter(s)
+			func(...params);
+		});
+	}
 };
 
 // Process nodes before setting bindings
