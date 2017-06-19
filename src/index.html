@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -320,7 +320,7 @@
 					<!-- Query time selector -->
 					<td class="cell" colspan="2"
 						data-bind="if: $parent.selected() === 'Schedule'">
-						<select data-bind="
+						<select aria-label="Select time range" data-bind="
 							options: $parent.ranges,
 							optionsText: function(data) {return data().name;},
 							value: selectedRange,
@@ -347,13 +347,14 @@
 					<!-- Job selector, to match query against -->
 					<td class="cell">
 						<!-- ko { foreach: $data.targetJobs } -->
-							<select class="select-job"
+							<select class="select-job" aria-label="Select job"
 								data-bind="options: $parents[1].jobs,
 								value: $rawData,
 								event: { keydown: $root.manageKeys }"></select>
 						<!-- /ko -->
 						<span>
-							<button data-bind="click: addJob" class="add-job">
+							<button data-bind="click: addJob" class="add-job"
+								aria-label="Add job to query">
 								<i class="fa fa-plus-circle" aria-hidden="true"></i>
 							</button>
 						</span>
@@ -778,7 +779,7 @@
 	<script type="text/html" id="hours-submenu-template">
 		<div class="hours-submenu dropdown">
 			<button class="dropdown-toggle btn btn-xs hours-btn"
-				type="button"
+				type="button" aria-label="Open Hours Dropdown Menu"
 				id="hours-dropdown" data-toggle="dropdown"
 				aria-haspopup="true" aria-expanded="true">
 				<i class="fa fa-bars" aria-hidden="true"></i>
